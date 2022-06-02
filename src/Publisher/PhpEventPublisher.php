@@ -52,11 +52,8 @@ abstract class PhpEventPublisher extends AbstractEventPublisher
 
     private function inChannelIndex(string $channel, EventSubscriber $aSubscriber): bool
     {
-        if (isset($this->subscribersByChannel[$channel]) === false) {
-            return false;
-        }
-
-        return isset($this->subscribersByChannel[$channel][$aSubscriber::class]);
+        return isset($this->subscribersByChannel[$channel]) === true
+            && isset($this->subscribersByChannel[$channel][$aSubscriber::class]) === true;
     }
 
     /** @return array<string,\Freep\PubSub\Subscriber\EventSubscriber> */

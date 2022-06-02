@@ -6,7 +6,7 @@ namespace Plexi\Foundation\Tests\PubSub;
 
 use Closure;
 use Freep\PubSub\EventLoop;
-use Freep\PubSub\Example\Subscribers\SubscriberOne;
+use Tests\Example\Subscribers\SubscriberOne;
 use Freep\PubSub\Publisher\SimpleEventPublisher;
 use PHPUnit\Framework\TestCase;
 
@@ -41,7 +41,7 @@ class EventLoopTest extends TestCase
         $loop->addSubscriber('channel-one', SubscriberOne::class);
 
         $output = $this->gotcha(fn() => $loop->run());
-        
+
         $this->assertStringContainsString("The publish/subscriber server has been started", $output);
         $this->assertStringContainsString(
             "Message of type 'EventSignal' received on channel 'channel-one'",

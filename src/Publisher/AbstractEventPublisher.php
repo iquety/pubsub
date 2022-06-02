@@ -12,7 +12,7 @@ abstract class AbstractEventPublisher implements EventPublisher
 {
     private ?EventSerializer $serializer = null;
 
-    private int $errorNumber = 0;
+    private int $errorCode = 0;
 
     private string $errorMessage = '';
 
@@ -45,9 +45,9 @@ abstract class AbstractEventPublisher implements EventPublisher
         return $this->errorMessage;
     }
 
-    protected function getErrorNumber(): int
+    protected function getErrorCode(): int
     {
-        return $this->errorNumber;
+        return $this->errorCode;
     }
 
     protected function hasError(): bool
@@ -59,15 +59,15 @@ abstract class AbstractEventPublisher implements EventPublisher
     {
         restore_error_handler();
 
-        set_error_handler(function ($errorNumber, $errorMessage) {
-            $this->errorNumber = (int)$errorNumber;
+        set_error_handler(function ($errorCode, $errorMessage) {
+            $this->errorCode = (int)$errorCode;
             $this->errorMessage = $errorMessage;
             return true;
         });
     }
 
     // mensagens de terminal
-    
+
     protected function messageFactory(string $message): Message
     {
         return new Message($message);

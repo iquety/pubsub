@@ -10,6 +10,9 @@ use Freep\PubSub\Event\Signals;
 use Freep\PubSub\Publisher\EventPublisher;
 use RuntimeException;
 
+/**
+ * @method SimpleEventPublisher subscribe(string $channel, string $subscriberSignatute)
+ */
 class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
 {
     /** @var array<string,mixed> */
@@ -19,6 +22,7 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
 
     private string $separator = PHP_EOL . PHP_EOL;
 
+    /** @var resource|false|null */
     private $customSocket = null;
 
     private bool $testMode = false;
@@ -31,6 +35,7 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
         parent::setupErrorHandler();
     }
 
+    /** @param resource|false|null $socket */
     public function runInTestMode($socket): void
     {
         $this->customSocket = $socket;
@@ -47,12 +52,12 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
         $errorNumber  = '';
         $errorMessage = '';
 
-        $socketClient = $this->customSocket !== null 
+        $socketClient = $this->customSocket !== null
             ? $this->customSocket
             : stream_socket_client($address, $errorNumber, $errorMessage, 30);
 
         if ($socketClient === false || $this->hasError() === true) {
-            throw new RuntimeException($this->getErrorMessage(), $this->getErrorNumber());
+            throw new RuntimeException($this->getErrorMessage(), $this->getErrorCode());
         }
 
         return $socketClient;
@@ -67,6 +72,7 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
         return $this;
     }
 
+    /** @param resource $socketClient */
     protected function setActivityFor($socketClient, string $channel, Event $event): void
     {
         $eventContents = ($event instanceof EventSignal)
@@ -91,12 +97,15 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
         $address = 'tcp://' . $this->config['host'] . ':' . $this->config['port'];
         $socketServer = stream_socket_server($address);
 
-        $socketServer = $this->customSocket !== null 
+        $errorCode = '';
+        $errorMessage = '';
+
+        $socketServer = $this->customSocket !== null
             ? $this->customSocket
-            : stream_socket_client($address, $errorNumber, $errorMessage, 30); // @codeCoverageIgnore
+            : stream_socket_client($address, $errorCode, $errorMessage, 30); // @codeCoverageIgnore
 
         if ($socketServer === false || $this->hasError() === true) {
-            throw new RuntimeException($this->getErrorMessage(), $this->getErrorNumber());
+            throw new RuntimeException($this->getErrorMessage(), $this->getErrorCode());
         }
 
         stream_set_blocking($socketServer, false);
@@ -127,6 +136,7 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
         )->successLn();
     }
 
+    /** @param resource $socketServer */
     protected function getActivityFrom($socketServer): void
     {
         $readStream = [ $socketServer ];
@@ -175,6 +185,7 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
         $this->messageFactory('')->outputLn();
     }
 
+    /** @param resource $socketServer */
     private function getActivityContents($socketServer): string
     {
         if ($this->testMode === true) {

@@ -6,26 +6,16 @@ namespace Tests\Publisher;
 
 use Freep\PubSub\Event\Serializer\JsonEventSerializer;
 use Freep\PubSub\Event\Serializer\PhpEventSerializer;
-use Freep\PubSub\Example\Subscribers\SubscriberOne;
-use Freep\PubSub\Example\Subscribers\SubscriberTwo;
-use Freep\PubSub\Publisher\SimpleEventPublisher;
-use PHPUnit\Framework\TestCase;
+use Tests\Example\Subscribers\SubscriberOne;
+use Tests\Example\Subscribers\SubscriberTwo;
 
-class SimpleEventPublisherTest extends TestCase
+class SimpleEventPublisherTest extends SimpleEventTestCase
 {
-    private function eventPublisherFactory(): SimpleEventPublisher
-    {
-        return (new SimpleEventPublisher())
-            ->subscribe('channel-one', SubscriberOne::class)
-            ->subscribe('channel-one', SubscriberTwo::class)
-            ->subscribe('channel-two', SubscriberTwo::class);
-    }
-
     /** @test */
     public function hasSubscribers(): void
     {
         $instance = $this->eventPublisherFactory();
-        
+
         $this->assertTrue($instance->hasSubscribers());
     }
 
@@ -33,7 +23,7 @@ class SimpleEventPublisherTest extends TestCase
     public function reset(): void
     {
         $instance = $this->eventPublisherFactory();
-    
+
         $this->assertTrue($instance->hasSubscribers());
 
         $instance->reset();
@@ -45,7 +35,7 @@ class SimpleEventPublisherTest extends TestCase
     public function subscribers(): void
     {
         $instance = $this->eventPublisherFactory();
-        
+
         // os inscritos sao indexados pelo tipo
         $this->assertEquals([
             SubscriberOne::class => new SubscriberOne(),
@@ -58,10 +48,24 @@ class SimpleEventPublisherTest extends TestCase
     }
 
     /** @test */
+    public function subscribersEmpty(): void
+    {
+        $instance = $this->emptyEventPublisherFactory();
+        $this->assertEquals([], $instance->subscribers());
+    }
+
+    /** @test */
+    public function subscribersByChannelEmpty(): void
+    {
+        $instance = $this->emptyEventPublisherFactory();
+        $this->assertEquals([], $instance->subscribers('monomon'));
+    }
+
+    /** @test */
     public function unsubscribe(): void
     {
         $instance = $this->eventPublisherFactory();
-        
+
         $this->assertCount(2, $instance->subscribers('channel-one'));
         $this->assertCount(1, $instance->subscribers('channel-two'));
 
@@ -69,6 +73,28 @@ class SimpleEventPublisherTest extends TestCase
 
         $this->assertCount(1, $instance->subscribers('channel-one'));
         $this->assertCount(1, $instance->subscribers('channel-two'));
+    }
+
+    /** @test */
+    public function unsubscribeFromSingleChannel(): void
+    {
+        $instance = $this->emptyEventPublisherFactory();
+        $instance->subscribe('channel-one', SubscriberOne::class);
+
+        $instance->unsubscribe('channel-one', SubscriberOne::class);
+
+        $this->assertCount(0, $instance->subscribers('channel-one'));
+        $this->assertCount(0, $instance->subscribers());
+    }
+
+    /** @test */
+    public function unsubscribeFromEmpty(): void
+    {
+        $instance = $this->emptyEventPublisherFactory();
+
+        $instance->unsubscribe('monomon', SubscriberOne::class);
+
+        $this->assertCount(0, $instance->subscribers());
     }
 
     /** @test */

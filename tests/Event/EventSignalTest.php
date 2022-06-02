@@ -7,7 +7,7 @@ namespace Tests\Event;
 use DateTimeImmutable;
 use Freep\PubSub\Event\EventSignal;
 use Freep\PubSub\Event\Signals;
-use Freep\PubSub\Example\Events\EventOne;
+use Tests\Example\Events\EventOne;
 use PHPUnit\Framework\TestCase;
 
 class EventSignalTest extends TestCase

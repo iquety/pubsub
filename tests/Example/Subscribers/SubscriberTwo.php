@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub\Example\Subscribers;
+namespace Tests\Example\Subscribers;
 
 use Freep\PubSub\Event\Event;
 use Freep\PubSub\Subscriber\EventSubscriber;

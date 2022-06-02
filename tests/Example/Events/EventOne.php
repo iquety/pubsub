@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub\Example\Events;
+namespace Tests\Example\Events;
 
 use DateTimeImmutable;
 use Freep\PubSub\Event\Event;
 
-class EventTwo implements Event
+class EventOne implements Event
 {
     private string $cpf;
 
@@ -37,10 +37,10 @@ class EventTwo implements Event
         return $this->ocurredOn;
     }
 
-    /** @param EventTwo $other */
+    /** @param EventOne $other */
     public function sameEventAs(Event $other): bool
     {
-        return $other instanceof EventTwo
+        return $other instanceof EventOne
             && $this->name() === $other->name()
             && $this->cpf === $other->cpf()
             && $this->ocurredOn() === $other->ocurredOn();

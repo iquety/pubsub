@@ -10,8 +10,8 @@ error_reporting(E_ALL);
 
 use Freep\PubSub\Event\EventSignal;
 use Freep\PubSub\Event\Signals;
-use Freep\PubSub\Example\Events\EventOne;
-use Freep\PubSub\Example\Events\EventTwo;
+use Tests\Example\Events\EventOne;
+use Tests\Example\Events\EventTwo;
 
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/factory.php';

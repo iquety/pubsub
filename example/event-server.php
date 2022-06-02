@@ -9,8 +9,8 @@ ini_set('display_errors', '1');
 error_reporting(E_ALL);
 
 use Freep\PubSub\EventLoop;
-use Freep\PubSub\Example\Subscribers\SubscriberOne;
-use Freep\PubSub\Example\Subscribers\SubscriberTwo;
+use Tests\Example\Subscribers\SubscriberOne;
+use Tests\Example\Subscribers\SubscriberTwo;
 
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/factory.php';
