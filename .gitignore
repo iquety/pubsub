@@ -1,0 +1,11 @@
+git
+.phpunit.result.cache
+.vscode
+clover.xml
+coverage/
+vendor/
+super-linter.log
+worker.php.log
+worker.out.log
+src_old/
+tests_old/

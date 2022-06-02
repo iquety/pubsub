@@ -1,0 +1,5 @@
+channel-one
+
+Freep\PubSub\Events\EventSignal
+
+stop
