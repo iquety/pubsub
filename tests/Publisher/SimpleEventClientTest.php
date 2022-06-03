@@ -37,7 +37,7 @@ class SimpleEventClientTest extends SimpleEventTestCase
         $this->expectExceptionMessageMatches('/Unable to connect to tcp/');
 
         $publisher = $this->eventPublisherFactory();
-        
+
         $publisher->publish(
             'channel-one',
             $this->eventFactory('ricardo', '123')
