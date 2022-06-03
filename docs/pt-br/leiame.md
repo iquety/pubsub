@@ -70,6 +70,17 @@ Message dispatched to SubscriberTwo
 - Implementado com testes de unidade usando PHPUnit;
 - Feito com :heart: &amp; :coffee:.
 
+## Sumário
+
+- [Como usar](01-como-usar.md)
+- [Usando um script de terminal](02-usando-script-de-terminal.md)
+- [Usando comandos do Freep Console](03-usando-comandos-freep-console.md)
+- [Implementando um Subscriber](04-implementando-um-subscriber.md)
+- [Implementando um Evento](05-implementando-um-evento.md)
+- [Publicando um evento](06-publicando-um-evento.md)
+- [Publicando um sinal de parada](07-publicando-um-sinal-de-parada.md)
+- [Evoluindo a biblioteca](08-evoluindo-a-biblioteca.md)
+
 ## Creditos
 
 [Ricardo Pereira Dias](https://www.ricardopedias.com.br)
