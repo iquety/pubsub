@@ -23,10 +23,10 @@ class EventLoopTest extends TestCase
     }
 
     /** @test */
-    public function runLoop(): void
+    public function loopReceiveSignal(): void
     {
         $publisher = new SimpleEventPublisher();
-
+        $publisher->enableVerboseMode();
         $publisher->useTestSocket(fopen(__DIR__ . '/files/stream-signal.txt', 'r'));
 
         $loop = new EventLoop($publisher);
@@ -40,5 +40,19 @@ class EventLoopTest extends TestCase
             "Message to stop the server received",
             "The publish/subscriber server has been stopped",
         ], $output);
+    }
+
+    /** @test */
+    public function loopReceiveSignalQuiet(): void
+    {
+        $publisher = new SimpleEventPublisher();
+        $publisher->useTestSocket(fopen(__DIR__ . '/files/stream-signal.txt', 'r'));
+
+        $loop = new EventLoop($publisher);
+        $loop->addSubscriber('channel-one', SubscriberOne::class);
+
+        $output = $this->gotcha(fn() => $loop->run());
+
+        $this->assertEquals("", $output);
     }
 }

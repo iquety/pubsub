@@ -1,3 +1,5 @@
+# License
+
 Copyright (c) 2022 Ricardo Pereira Dias <https://www.ricardopedias.com.br>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

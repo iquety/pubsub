@@ -22,7 +22,7 @@ It can be used as follows:
 ./example pubsub -d localhost -p 8080 -t -v
 ```
 
-```
+```text
 # Server terminal running
 
 ✔ The publish/subscriber server has been started in tcp://localhost:8080
@@ -41,7 +41,7 @@ Watch the messages appear on both terminals.
 ./example pubsub:client-test -d localhost -p 8080 -v
 ```
 
-```
+```text
 # Sending terminal
 
 ✔ Publish event of type 'EventOne' to channel 'channel-vormir' in tcp://localhost:8080
@@ -52,7 +52,7 @@ Watch the messages appear on both terminals.
 ➜ Used memory: 1921928
 ```
 
-```
+```text
 # Server terminal running
 
 ➜ [2022-06-03 17:06:09]: Message of type 'EventOne' received on channel 'channel-vormir'

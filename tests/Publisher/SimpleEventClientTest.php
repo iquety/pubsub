@@ -37,7 +37,7 @@ class SimpleEventClientTest extends SimpleEventTestCase
         $this->expectExceptionMessageMatches('/Unable to connect to tcp/');
 
         $publisher = $this->eventPublisherFactory();
-
+        
         $publisher->publish(
             'channel-one',
             $this->eventFactory('ricardo', '123')
@@ -52,7 +52,12 @@ class SimpleEventClientTest extends SimpleEventTestCase
         $publisher->useTestSocket(fopen(__DIR__ . '/../files/fake-connection.txt', 'w'));
 
         $event = $this->eventFactory('ricardo', '123');
-        $publisher->publish('channel-one', $event);
+
+        $output = $this->gotcha(fn() => $publisher->publish('channel-one', $event));
+
+        $this->assertStringHasMessages([
+            "Publish event of type 'EventOne' to channel 'channel-one'",
+        ], $output);
 
         $lastEvent = $this->readLastEventFromFile('fake-connection.txt');
         $this->assertEquals($lastEvent['channel'], 'channel-one');
@@ -68,7 +73,12 @@ class SimpleEventClientTest extends SimpleEventTestCase
         $publisher->useTestSocket(fopen(__DIR__ . '/../files/fake-connection.txt', 'w'));
 
         $event = new EventSignal(Signals::STOP);
-        $publisher->publish('channel-one', $event);
+
+        $output = $this->gotcha(fn() => $publisher->publish('channel-one', $event));
+
+        $this->assertStringHasMessages([
+            "Publish event of type 'EventSignal' to channel 'channel-one'",
+        ], $output);
 
         $lastEvent = $this->readLastEventFromFile('fake-connection.txt');
         $this->assertEquals($lastEvent['channel'], 'channel-one');

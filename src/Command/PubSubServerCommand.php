@@ -81,7 +81,7 @@ class PubSubServerCommand extends Command
         }
 
         $loop = new EventLoop($publisher);
-        
+
         if ($arguments->getOption('-t') === '1') {
             $callback = include dirname(__DIR__, 2) . '/tests/Example/config-file.php';
             $callback($loop);

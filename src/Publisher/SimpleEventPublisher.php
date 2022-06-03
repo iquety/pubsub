@@ -12,6 +12,7 @@ use RuntimeException;
 
 /**
  * @method SimpleEventPublisher subscribe(string $channel, string $subscriberSignatute)
+ * @method SimpleEventPublisher enableVerboseMode()
  */
 class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
 {
@@ -27,10 +28,13 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
 
     private bool $testMode = false;
 
+    private bool $runInConsole = false;
+
     public function __construct(string $host = 'localhost', int $port = 8080)
     {
         $this->config['host'] = $host;
         $this->config['port'] = $port;
+        $this->runInConsole = (PHP_SAPI === 'cli');
 
         parent::setupErrorHandler();
     }
@@ -40,6 +44,7 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
     {
         $this->customSocket = $socket;
         $this->testMode = true;
+        $this->runInConsole = true;
     }
 
     /**
@@ -51,7 +56,7 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
         $address = $this->getAddressString();
 
         $socketClient = $this->testMode === true
-            ? $this->customSocket
+            ? $this->customSocket ?? false
             : stream_socket_client($address);
 
         if ($socketClient === false || $this->hasError() === true) {
@@ -69,9 +74,9 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
 
         $this->setActivityFor($socketClient, $channel, $event);
 
-        if (PHP_SAPI === 'cli') {
+        if ($this->runInConsole === true) {
             $this->messageFactory(
-                "Publish event of type '" . $this->getShortClassName($event::class) . "'" . 
+                "Publish event of type '" . $this->getShortClassName($event::class) . "'" .
                 " to channel '$channel' in " . $this->getAddressString()
             )->successLn();
         }
@@ -115,14 +120,12 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
         $address = $this->getAddressString();
 
         $socketServer = $this->testMode === true
-            ? $this->customSocket
+            ? $this->customSocket ?? false
             : stream_socket_server($address); // @codeCoverageIgnore
 
         if ($socketServer === false || $this->hasError() === true) {
             throw new RuntimeException($this->getErrorMessage(), $this->getErrorCode());
         }
-
-        // stream_set_blocking($socketServer, false);
 
         $this->messageFactory(
             "The publish/subscriber server has been started in " .
@@ -226,14 +229,10 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
     {
         $exceptions = [];
 
-        $total = stream_select($readStream, $writeStream, $exceptions, PHP_INT_MAX);
-
-        if ($total === false) {
-            return 0;
-        }
+        $streamCount = (int)stream_select($readStream, $writeStream, $exceptions, PHP_INT_MAX);
 
         usleep(200000);
 
-        return $total;
+        return $streamCount;
     }
 }

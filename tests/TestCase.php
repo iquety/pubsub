@@ -19,6 +19,7 @@ class TestCase extends FrameworkTestCase
     protected function eventPublisherFactory(): SimpleEventPublisher
     {
         return (new SimpleEventPublisher())
+            ->enableVerboseMode()
             ->subscribe('channel-one', SubscriberOne::class)
             ->subscribe('channel-one', SubscriberTwo::class)
             ->subscribe('channel-two', SubscriberTwo::class);
@@ -26,7 +27,8 @@ class TestCase extends FrameworkTestCase
 
     protected function emptyEventPublisherFactory(): SimpleEventPublisher
     {
-        return new SimpleEventPublisher();
+        return (new SimpleEventPublisher())
+            ->enableVerboseMode();
     }
 
     protected function eventFactory(string $name, string $cpf): Event

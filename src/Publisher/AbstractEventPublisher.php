@@ -18,9 +18,10 @@ abstract class AbstractEventPublisher implements EventPublisher
 
     private bool $verboseMode = false;
 
-    public function enableVerboseMode(): void
+    public function enableVerboseMode(): self
     {
         $this->verboseMode = true;
+        return $this;
     }
 
     public function isVerboseMode(): bool
@@ -87,7 +88,7 @@ abstract class AbstractEventPublisher implements EventPublisher
     protected function messageFactory(string $message): Message
     {
         $message = new Message($message);
-        
+
         if ($this->isVerboseMode() === false) {
             $message->enableQuietMode();
         }

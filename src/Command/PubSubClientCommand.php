@@ -91,8 +91,7 @@ class PubSubClientCommand extends Command
 
             // parar o servidor de publish/subscribe
             // $publisher->publish('vormir', new EventSignal(Signals::STOP));
-
-        } catch(RuntimeException $exception) {
+        } catch (RuntimeException $exception) {
             $this->error($exception->getMessage());
         }
 

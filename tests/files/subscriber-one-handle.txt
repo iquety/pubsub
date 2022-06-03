@@ -1,2 +1,0 @@
-Tests\Example\Subscribers\SubscriberOne recebeu 
-Tests\Example\Events\EventOne
