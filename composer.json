@@ -44,7 +44,7 @@
             "phpstan analyse --level=8 tests"
         ],
         "pubsub-server": [
-            "php example pubsub -p 8080 -d localhost -v "
+            "php example pubsub -p 8080 -d localhost -t -v "
         ],
         "pubsub-client": [
             "php example pubsub:client-test -p 8080 -d localhost -v"

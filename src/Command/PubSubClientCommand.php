@@ -96,7 +96,7 @@ class PubSubClientCommand extends Command
             $this->error($exception->getMessage());
         }
 
-        $this->info('Eventos Publicados');
-        $this->info('Memoria usada: ' . memory_get_usage());
+        $this->info('Published Events');
+        $this->info('Used memory: ' . memory_get_usage());
     }
 }
