@@ -5,31 +5,54 @@ declare(strict_types=1);
 namespace Freep\PubSub\Event\Serializer;
 
 use Freep\PubSub\Event\Event;
+use RuntimeException;
 
-class JsonEventSerializer implements EventSerializer
+class JsonEventSerializer extends AbstractEventSerializer
 {
-    /** @var array<string> */
-    private array $unpacked = [];
-
-    public function eventType(string $aSerializedEvent): string
+    public function serialize(Event $event): string
     {
-        $unpack = explode("\n", $aSerializedEvent);
-        $this->unpacked = [
-            'type'       => $unpack[0],
-            'serialized' => $unpack[1]
-        ];
-        return $this->unpacked['type'];
+        return $event::class
+            . PHP_EOL
+            . json_encode($event->toArray(), JSON_FORCE_OBJECT);
     }
 
-    public function serialize(Event $aEvent): string
+    public function unserialize(string $serializedEvent): Event
     {
-        return $aEvent::class
-            . "\n"
-            . json_encode($aEvent->toArray());
+        $className = $this->getEventType($serializedEvent);
+        $serialized = $this->getEventSerialized($serializedEvent);
+
+        $arguments = json_decode($serialized, true);
+        $this->assertDecodeError();
+
+        return $className::factory($arguments);
     }
 
-    public function unserialize(string $aSerializedEvent): Event
+    protected function assertDecodeError(): void
     {
-        return json_decode($this->unpacked['serialized'], true);
+        switch (json_last_error()) {
+            case JSON_ERROR_NONE:
+                return;
+            case JSON_ERROR_SYNTAX:
+                $errorMessage = 'Syntax error, malformed JSON';
+                break;
+            // @codeCoverageIgnoreStart
+            case JSON_ERROR_DEPTH:
+                $errorMessage = 'Maximum stack depth exceeded';
+                break;
+            case JSON_ERROR_STATE_MISMATCH:
+                $errorMessage = 'Underflow or the modes mismatch';
+                break;
+            case JSON_ERROR_CTRL_CHAR:
+                $errorMessage = 'Unexpected control character found';
+                break;
+            case JSON_ERROR_UTF8:
+                $errorMessage = 'Malformed UTF-8 characters, possibly incorrectly encoded';
+                break;
+            default:
+                $errorMessage = 'Unknown error';
+            // @codeCoverageIgnoreEnd
+        }
+
+        throw new RuntimeException("The json data is corrupted: $errorMessage");
     }
 }

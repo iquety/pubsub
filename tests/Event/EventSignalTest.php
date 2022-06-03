@@ -24,6 +24,28 @@ class EventSignalTest extends TestCase
             new EventOne('ricardo', '123', new DateTimeImmutable())
         ));
 
-        $this->assertEquals([], $event->toArray());
+        $this->assertEquals([
+            'signal' => Signals::STOP
+        ], $event->toArray());
+    }
+
+    /**
+     * @test
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function eventFactory(): void
+    {
+        $event = EventSignal::factory([ 'signal' => Signals::STOP ]);
+
+        $this->assertEquals(Signals::STOP, $event->signal());
+        $this->assertInstanceOf(DateTimeImmutable::class, $event->ocurredOn());
+        $this->assertTrue($event->sameEventAs(new EventSignal(Signals::STOP)));
+        $this->assertFalse($event->sameEventAs(
+            new EventOne('ricardo', '123', new DateTimeImmutable())
+        ));
+
+        $this->assertEquals([
+            'signal' => Signals::STOP
+        ], $event->toArray());
     }
 }

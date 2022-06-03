@@ -36,7 +36,7 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
     }
 
     /** @param resource|false|null $socket */
-    public function runInTestMode($socket): void
+    public function useTestSocket($socket): void
     {
         $this->customSocket = $socket;
         $this->testMode = true;

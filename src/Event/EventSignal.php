@@ -12,6 +12,15 @@ class EventSignal implements Event
     {
     }
 
+    /**
+     * @param array<string,mixed> $values
+     * @return EventSignal
+     */
+    public static function factory(array $values): Event
+    {
+        return new self($values['signal']);
+    }
+
     public function signal(): string
     {
         return $this->signal;
@@ -24,12 +33,15 @@ class EventSignal implements Event
 
     public function sameEventAs(Event $other): bool
     {
-        return $other instanceof EventSignal && $this->signal() === $other->signal();
+        return $other instanceof EventSignal
+            && $this->signal() === $other->signal();
     }
 
     /** @return array<mixed> */
     public function toArray(): array
     {
-        return [];
+        return [
+            'signal' => $this->signal
+        ];
     }
 }

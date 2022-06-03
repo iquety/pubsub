@@ -1,0 +1,6 @@
+channel-not-exists
+
+Tests\Example\Events\EventOne
+
+Tests\Example\Events\EventOne
+{"cpf":"123","name":"ricardo","ocurredOn":"2020-01-10 00:00:01"}

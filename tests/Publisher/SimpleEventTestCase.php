@@ -7,47 +7,15 @@ namespace Tests\Publisher;
 use Closure;
 use DateTimeImmutable;
 use Freep\PubSub\Event\Event;
-use Freep\PubSub\Publisher\EventPublisher;
 use Tests\Example\Events\EventOne;
 use Tests\Example\Subscribers\SubscriberOne;
 use Tests\Example\Subscribers\SubscriberTwo;
 use Freep\PubSub\Publisher\SimpleEventPublisher;
 use Freep\Security\Filesystem;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class SimpleEventTestCase extends TestCase
 {
-    protected function eventPublisherFactory(): SimpleEventPublisher
-    {
-        return (new SimpleEventPublisher())
-            ->subscribe('channel-one', SubscriberOne::class)
-            ->subscribe('channel-one', SubscriberTwo::class)
-            ->subscribe('channel-two', SubscriberTwo::class);
-    }
-
-    protected function emptyEventPublisherFactory(): SimpleEventPublisher
-    {
-        return new SimpleEventPublisher();
-    }
-
-    protected function eventFactory(string $name, string $cpf): Event
-    {
-        $ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
-        return new EventOne($name, $cpf, $ocurredOn);
-    }
-
-    protected function filesystemFactory(): Filesystem
-    {
-        return new Filesystem(dirname(__DIR__) . '/files');
-    }
-
-    protected function gotcha(Closure $callback): string
-    {
-        ob_start();
-        $callback();
-        return (string)ob_get_clean();
-    }
-
     /** @return array<string,mixed> */
     protected function readLastEventFromFile(string $file): array
     {
@@ -63,9 +31,18 @@ class SimpleEventTestCase extends TestCase
         ];
     }
 
-    protected static function clearLastEventFile(string $file): void
+    protected function clearLastEventFile(string $file): void
     {
-        (new Filesystem(dirname(__DIR__) . '/files'))
-            ->setFileContents($file, '');
+        self::clearFile($file);
+    }
+
+    protected function readLastHandleFromFile(string $file): string
+    {
+        return $this->filesystemFactory()->getFileContents($file);
+    }
+
+    protected function clearLastHandleFile(string $file): void
+    {
+        self::clearFile($file);
     }
 }

@@ -8,6 +8,9 @@ use DateTimeImmutable;
 
 interface Event
 {
+    /** @param array<string,mixed> $values */
+    public static function factory(array $values): Event;
+
     public function ocurredOn(): DateTimeImmutable;
 
     public function sameEventAs(Event $other): bool;

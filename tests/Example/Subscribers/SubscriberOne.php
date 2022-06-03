@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace Tests\Example\Subscribers;
 
-use Tests\Example\Events\EventOne;
+use Freep\PubSub\Event\Event;
 use Freep\PubSub\Subscriber\EventSubscriber;
+use Tests\Example\Events\EventOne;
+use Freep\Security\Filesystem;
 
 class SubscriberOne implements EventSubscriber
 {
-    public function handleEvent(string $aPayload): void
+    public function handleEvent(Event $event): void
     {
-        global $publishedContent;
-        $publishedContent = __CLASS__ . ' recebeu ' . PHP_EOL . $aPayload;
+        $file = new Filesystem(dirname(__DIR__, 2) . '/files');
+
+        $file->setFileContents(
+            'subscriber-one-handle.txt',
+            __CLASS__ . ' recebeu ' . PHP_EOL . $event::class
+        );
     }
 
     public function subscribedToEventType(): string

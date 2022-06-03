@@ -80,11 +80,12 @@ class SimpleEventPublisherTest extends SimpleEventTestCase
     {
         $instance = $this->emptyEventPublisherFactory();
         $instance->subscribe('channel-one', SubscriberOne::class);
+        $instance->subscribe('channel-two', SubscriberTwo::class);
 
         $instance->unsubscribe('channel-one', SubscriberOne::class);
 
         $this->assertCount(0, $instance->subscribers('channel-one'));
-        $this->assertCount(0, $instance->subscribers());
+        $this->assertCount(1, $instance->subscribers());
     }
 
     /** @test */

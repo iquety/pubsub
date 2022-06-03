@@ -9,17 +9,20 @@ use Freep\PubSub\Event\Event;
 
 class EventTwo implements Event
 {
-    private string $cpf;
+    public function __construct(
+        private string $name,
+        private string $cpf,
+        private DateTimeImmutable $ocurredOn
+    ) {
+    }
 
-    private string $name;
-
-    private DateTimeImmutable $ocurredOn;
-
-    public function __construct(string $aName, string $aCpf, DateTimeImmutable $ocurredOn)
+    public static function factory(array $values): Event
     {
-        $this->cpf = $aCpf;
-        $this->name = $aName;
-        $this->ocurredOn = $ocurredOn;
+        return new self(
+            $values['name'],
+            $values['cpf'],
+            new DateTimeImmutable($values['ocurredOn'])
+        );
     }
 
     public function cpf(): string

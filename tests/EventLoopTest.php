@@ -2,23 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Plexi\Foundation\Tests\PubSub;
+namespace Tests;
 
 use Closure;
 use Freep\PubSub\EventLoop;
 use Tests\Example\Subscribers\SubscriberOne;
 use Freep\PubSub\Publisher\SimpleEventPublisher;
-use PHPUnit\Framework\TestCase;
 
 class EventLoopTest extends TestCase
 {
-    private function gotcha(Closure $callback): string
-    {
-        ob_start();
-        $callback();
-        return (string)ob_get_clean();
-    }
-
     /** @test */
     public function addSubscriber(): void
     {
@@ -35,19 +27,18 @@ class EventLoopTest extends TestCase
     {
         $publisher = new SimpleEventPublisher();
 
-        $publisher->runInTestMode(fopen(__DIR__ . '/files/fake-stream-signal.txt', 'r'));
+        $publisher->useTestSocket(fopen(__DIR__ . '/files/stream-signal.txt', 'r'));
 
         $loop = new EventLoop($publisher);
         $loop->addSubscriber('channel-one', SubscriberOne::class);
 
         $output = $this->gotcha(fn() => $loop->run());
 
-        $this->assertStringContainsString("The publish/subscriber server has been started", $output);
-        $this->assertStringContainsString(
+        $this->assertStringHasMessages([
+            "The publish/subscriber server has been started",
             "Message of type 'EventSignal' received on channel 'channel-one'",
-            $output
-        );
-        $this->assertStringContainsString("Message to stop the server received", $output);
-        $this->assertStringContainsString("The publish/subscriber server has been stopped", $output);
+            "Message to stop the server received",
+            "The publish/subscriber server has been stopped",
+        ], $output);
     }
 }

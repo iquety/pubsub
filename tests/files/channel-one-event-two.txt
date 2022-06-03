@@ -1,0 +1,6 @@
+channel-one
+
+Tests\Example\Events\EventTwo
+
+Tests\Example\Events\EventTwo
+{"cpf":"123","name":"ricardo","ocurredOn":"2020-01-10 00:00:01"}

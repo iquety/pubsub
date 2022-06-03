@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Freep\PubSub\Publisher;
 
+use Error;
 use Exception;
 use Freep\PubSub\Event\Event;
 use Freep\PubSub\Subscriber\EventSubscriber;
+use Throwable;
 
 abstract class PhpEventPublisher extends AbstractEventPublisher
 {
@@ -112,7 +114,7 @@ abstract class PhpEventPublisher extends AbstractEventPublisher
     protected function publishToSubscribers(string $channel, string $aPayload): void
     {
         if ($this->hasSubscribers($channel) === false) {
-            $this->messageFactory("There are no subscribers on channel $channel")->outputLn();
+            $this->messageFactory("There are no subscribers on channel '$channel'")->outputLn();
             return;
         }
 
@@ -132,7 +134,7 @@ abstract class PhpEventPublisher extends AbstractEventPublisher
                 }
 
                 if ($eventType === null) {
-                    $eventType = $this->getSerializer()->eventType($aPayload);
+                    $eventType = $this->getSerializer()->getEventType($aPayload);
                 }
 
                 if ($eventType === $subscribedToType) {
@@ -141,7 +143,13 @@ abstract class PhpEventPublisher extends AbstractEventPublisher
                 }
             }
         } catch (Exception $exception) {
-            // ...
+            $this->messageFactory($exception->getMessage())->errorLn();
+            return;
+        }
+
+        if ($this->hasError() === true) {
+            $this->messageFactory($this->getErrorMessage())->errorLn();
+            return;
         }
 
         if ($dispatched === false) {
@@ -155,7 +163,7 @@ abstract class PhpEventPublisher extends AbstractEventPublisher
             "Message dispatched to " . $this->getShortClassName($subscriber::class)
         )->outputLn();
 
-        $subscriber->handleEvent($aPayload);
+        $subscriber->handleEvent($this->getSerializer()->unserialize($aPayload));
     }
 
     protected function getShortClassName(string $classSignature): string
