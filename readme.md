@@ -1,4 +1,4 @@
-# Freep Pubsub
+# Freep Publish/Subscribe
 
 ![PHP Version](https://img.shields.io/badge/php-%5E8.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-blue)

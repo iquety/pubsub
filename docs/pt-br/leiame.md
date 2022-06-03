@@ -1,4 +1,4 @@
-# Freep Console
+# Freep Publish/Subscribe
 
 ## Sinopse
 
