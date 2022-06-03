@@ -7,8 +7,7 @@
 
 ## Synopsis
 
-Este repositório contém as funcionalidades necessárias para executar um sistema de Publish/Subscribe,
-possibilitando incrições e publicações de eventos.
+This repository contains the functionality needed to run a Publish/Subscribe system, enabling registration and publication of events.
 
 For detailed information, consult the documentation in [English](docs/en/index.md) or [Portuguese](docs/pt-br/indice.md). See also this readme in [Portuguese](docs/pt-br/leiame.md).
 
