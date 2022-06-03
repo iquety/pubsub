@@ -85,6 +85,6 @@ Message dispatched to SubscriberTwo
 - [Publishing a stop sign](docs/en/07-publishing-a-stop-sign.md)
 - [Improving the library](docs/en/08-improving-the-library.md)
 
-## Creditos
+## Credits
 
 [Ricardo Pereira Dias](https://www.ricardopedias.com.br)
