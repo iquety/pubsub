@@ -6,19 +6,3 @@ services:
     container_name: freep-pubsub
     volumes:
       - .:/application
-      - ./worker.conf:/etc/supervisor/conf.d/up-worker.conf
-    ports:
-      - "9002:80"
-    networks:
-      - freep-pubsub-net
-
-  redis:
-    image: redis:6.2
-    container_name: freep-pubsub-redis
-    ports:
-      - "9003:6379"
-    networks:
-      - freep-pubsub-net
-networks:
-  freep-pubsub-net:
-    driver: bridge

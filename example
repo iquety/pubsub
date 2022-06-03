@@ -1,0 +1,21 @@
+#!/bin/php
+<?php
+
+// Carrega o autoloader do Composer
+include __DIR__ . "/vendor/autoload.php";
+
+use Freep\Console\Terminal;
+
+// O PHP em modo CLI disponibiliza a variável reservada "$argv", contendo a lista 
+// de palavras digitadas pelo usuário no Terminal. Esta variável será usada para
+// passar as informações ao Terminal da biblioteca.
+
+// Remove o primeiro argumento, que contém o nome do script (ex: ./superapp)
+array_shift($argv);
+
+$terminal = new Terminal(__DIR__ . "/src");
+
+$terminal->loadCommandsFrom(__DIR__ . "/src/Command");
+
+// Usa a variável $argv para interpretar os argumentos do usuário
+$terminal->run($argv);

@@ -165,10 +165,4 @@ abstract class PhpEventPublisher extends AbstractEventPublisher
 
         $subscriber->handleEvent($this->getSerializer()->unserialize($aPayload));
     }
-
-    protected function getShortClassName(string $classSignature): string
-    {
-        $typeNodes = explode("\\", $classSignature);
-        return array_pop($typeNodes);
-    }
 }

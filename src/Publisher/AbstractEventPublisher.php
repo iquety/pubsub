@@ -16,7 +16,23 @@ abstract class AbstractEventPublisher implements EventPublisher
 
     private string $errorMessage = '';
 
-    // serializador
+    private bool $verboseMode = false;
+
+    public function enableVerboseMode(): void
+    {
+        $this->verboseMode = true;
+    }
+
+    public function isVerboseMode(): bool
+    {
+        return $this->verboseMode;
+    }
+
+    protected function getShortClassName(string $classSignature): string
+    {
+        $typeNodes = explode("\\", $classSignature);
+        return array_pop($typeNodes);
+    }
 
     public function useSerializer(EventSerializer $serializer): self
     {
@@ -70,6 +86,12 @@ abstract class AbstractEventPublisher implements EventPublisher
 
     protected function messageFactory(string $message): Message
     {
-        return new Message($message);
+        $message = new Message($message);
+        
+        if ($this->isVerboseMode() === false) {
+            $message->enableQuietMode();
+        }
+
+        return $message;
     }
 }

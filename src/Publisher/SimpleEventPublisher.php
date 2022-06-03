@@ -48,17 +48,17 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
      */
     protected function createClient()
     {
-        $address = 'tcp://' . $this->config['host'] . ':' . $this->config['port'];
-        $errorNumber  = '';
-        $errorMessage = '';
+        $address = $this->getAddressString();
 
-        $socketClient = $this->customSocket !== null
+        $socketClient = $this->testMode === true
             ? $this->customSocket
-            : stream_socket_client($address, $errorNumber, $errorMessage, 30);
+            : stream_socket_client($address);
 
         if ($socketClient === false || $this->hasError() === true) {
             throw new RuntimeException($this->getErrorMessage(), $this->getErrorCode());
         }
+
+        stream_set_blocking($socketClient, false);
 
         return $socketClient;
     }
@@ -68,6 +68,13 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
         $socketClient = $this->createClient();
 
         $this->setActivityFor($socketClient, $channel, $event);
+
+        if (PHP_SAPI === 'cli') {
+            $this->messageFactory(
+                "Publish event of type '" . $this->getShortClassName($event::class) . "'" . 
+                " to channel '$channel' in " . $this->getAddressString()
+            )->successLn();
+        }
 
         return $this;
     }
@@ -88,27 +95,39 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
         fwrite($socketClient, $payload);
         fclose($socketClient);
     }
+
+    private function getNowTimeString(): string
+    {
+        return "[" . date('Y-m-d H:i:s') . "]: ";
+    }
+
+    private function getAddressString(): string
+    {
+        return 'tcp://' . $this->config['host'] . ':' . $this->config['port'];
+    }
+
     /**
      * @return resource
      * @throws RuntimeException
      */
     protected function createServer()
     {
-        $address = 'tcp://' . $this->config['host'] . ':' . $this->config['port'];
-        $socketServer = stream_socket_server($address);
+        $address = $this->getAddressString();
 
-        $errorCode = '';
-        $errorMessage = '';
-
-        $socketServer = $this->customSocket !== null
+        $socketServer = $this->testMode === true
             ? $this->customSocket
-            : stream_socket_client($address, $errorCode, $errorMessage, 30); // @codeCoverageIgnore
+            : stream_socket_server($address); // @codeCoverageIgnore
 
         if ($socketServer === false || $this->hasError() === true) {
             throw new RuntimeException($this->getErrorMessage(), $this->getErrorCode());
         }
 
-        stream_set_blocking($socketServer, false);
+        // stream_set_blocking($socketServer, false);
+
+        $this->messageFactory(
+            "The publish/subscriber server has been started in " .
+            $address . PHP_EOL
+        )->successLn();
 
         return $socketServer;
     }
@@ -116,8 +135,6 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
     public function consumerLoop(): void
     {
         $socketServer = $this->createServer();
-
-        $this->messageFactory("The publish/subscriber server has been started")->successLn();
 
         $this->running = true;
 
@@ -153,8 +170,6 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
             return; // @codeCoverageIgnore
         }
 
-        $nowTime = "[" . date('Y-m-d H:i:s') . "]: ";
-
         $parts = explode($this->separator, $contents); // @phpstan-ignore-line
 
         if (count($parts) !== 3) {
@@ -167,14 +182,14 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
         $payload = trim($parts[2], PHP_EOL);
 
         $this->messageFactory(
-            $nowTime . "Message of type '$type' received on channel '$channel'"
+            $this->getNowTimeString() . "Message of type '$type' received on channel '$channel'"
         )->infoLn();
 
         if ($payload === Signals::STOP) {
             $this->running = false;
 
             $this->messageFactory(
-                $nowTime . "Message to stop the server received"
+                $this->getNowTimeString() . "Message to stop the server received"
             )->infoLn();
 
             return;
@@ -211,6 +226,14 @@ class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
     {
         $exceptions = [];
 
-        return (int)stream_select($readStream, $writeStream, $exceptions, 0, 200000);
+        $total = stream_select($readStream, $writeStream, $exceptions, PHP_INT_MAX);
+
+        if ($total === false) {
+            return 0;
+        }
+
+        usleep(200000);
+
+        return $total;
     }
 }
