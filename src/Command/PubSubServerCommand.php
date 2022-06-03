@@ -22,10 +22,11 @@ class PubSubServerCommand extends Command
 
         $this->addOption(
             new Option(
-                '-v',
-                '--verbose',
-                'Run in verbose mode',
-                Option::OPTIONAL
+                '-c',
+                '--config',
+                'Provides a file containing a list of channels and their subscribers',
+                Option::OPTIONAL | Option::VALUED,
+                ''
             )
         );
 
@@ -57,6 +58,15 @@ class PubSubServerCommand extends Command
                 Option::OPTIONAL
             )
         );
+
+        $this->addOption(
+            new Option(
+                '-v',
+                '--verbose',
+                'Run in verbose mode',
+                Option::OPTIONAL
+            )
+        );
     }
 
     protected function handle(Arguments $arguments): void
@@ -73,9 +83,14 @@ class PubSubServerCommand extends Command
         $loop = new EventLoop($publisher);
         
         if ($arguments->getOption('-t') === '1') {
-            $loop->addSubscriber('channel-vormir', SubscriberOne::class); // recebe EventOne 
-            $loop->addSubscriber('channel-vormir', SubscriberTwo::class); // recebe EventOne e EventTwo
-            $loop->addSubscriber('channel-mordor', SubscriberTwo::class); // recebe EventOne e EventTwo
+            $callback = include dirname(__DIR__, 2) . '/tests/Example/config-file.php';
+            $callback($loop);
+        }
+
+        $configFile = $arguments->getOption('-c');
+        if ($configFile !== null && file_exists($configFile) === true) {
+            $callback = include $configFile;
+            $callback($loop);
         }
 
         $loop->run();
