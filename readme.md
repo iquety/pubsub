@@ -74,7 +74,7 @@ Message dispatched to SubscriberTwo
 - Implemented with unit tests using PHPUnit;
 - Made with :heart: &amp; :coffee:.
 
-## Sumário
+## Summary
 
 - [How to use](docs/en/01-how-to-use.md)
 - [Using a terminal script](docs/en/02-using-terminal-script.md)
