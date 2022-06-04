@@ -14,6 +14,6 @@ Welcome to the Freep Publish/Subscribe library documentation. Here you will find
 - [Using Freep Console commands](03-using-commands-freep-console.md)
 - [Implementing a Subscriber](04-implementing-a-subscriber.md)
 - [Implementing an Event](05-implementing-an-event.md)
-- [Publishing an event](06-publishing-um-event.md)
-- [Publishing a stop sign](07-publishing-a-stop-sign.md)
+- [Publishing an event](06-publishing-an-event.md)
+- [Publishing a stop signal](07-publishing-a-stop-signal.md)
 - [Improving the library](08-improving-the-library.md)
