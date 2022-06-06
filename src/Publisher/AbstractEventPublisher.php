@@ -16,7 +16,26 @@ abstract class AbstractEventPublisher implements EventPublisher
 
     private string $errorMessage = '';
 
+    private bool $errorHandlerInitialized = false;    
+
+    private bool $testMode = false;
+
     private bool $verboseMode = false;
+
+    public function isConsole(): bool
+    {
+        return PHP_SAPI === 'cli' || $this->isTestMode();
+    }
+
+    public function isTestMode(): bool
+    {
+        return $this->testMode;
+    }
+
+    public function enableTestMode(): void
+    {
+        $this->testMode = true;
+    }
 
     public function enableVerboseMode(): self
     {
@@ -46,6 +65,11 @@ abstract class AbstractEventPublisher implements EventPublisher
         return new JsonEventSerializer();
     }
 
+    public function getNowTimeString(): string
+    {
+        return "[" . date('Y-m-d H:i:s') . "]: ";
+    }
+
     public function getSerializer(): EventSerializer
     {
         if ($this->serializer === null) {
@@ -57,23 +81,27 @@ abstract class AbstractEventPublisher implements EventPublisher
 
     // erros
 
-    protected function getErrorMessage(): string
+    public function getErrorMessage(): string
     {
         return $this->errorMessage;
     }
 
-    protected function getErrorCode(): int
+    public function getErrorCode(): int
     {
         return $this->errorCode;
     }
 
-    protected function hasError(): bool
+    public function hasError(): bool
     {
         return $this->errorMessage !== '';
     }
 
     protected function setupErrorHandler(): void
     {
+        if ($this->errorHandlerInitialized === true) {
+            return;
+        }
+
         restore_error_handler();
 
         set_error_handler(function ($errorCode, $errorMessage) {
@@ -81,6 +109,8 @@ abstract class AbstractEventPublisher implements EventPublisher
             $this->errorMessage = $errorMessage;
             return true;
         });
+
+        $this->errorHandlerInitialized = true;
     }
 
     // mensagens de terminal

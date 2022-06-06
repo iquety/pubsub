@@ -4,235 +4,200 @@ declare(strict_types=1);
 
 namespace Freep\PubSub\Publisher;
 
+use Exception;
 use Freep\PubSub\Event\Event;
 use Freep\PubSub\Event\EventSignal;
-use Freep\PubSub\Event\Signals;
-use Freep\PubSub\Publisher\EventPublisher;
-use RuntimeException;
+use Freep\PubSub\Subscriber\EventSubscriber;
 
 /**
- * @method SimpleEventPublisher subscribe(string $channel, string $subscriberSignatute)
- * @method SimpleEventPublisher enableVerboseMode()
+ * Publicador de eventos simples para bootstrap de aplicações
  */
-class SimpleEventPublisher extends PhpEventPublisher implements EventPublisher
+class SimpleEventPublisher extends AbstractEventPublisher
 {
-    /** @var array<string,mixed> */
-    private array $config = [];
+    /** @var array<string,\Freep\PubSub\Subscriber\EventSubscriber> */
+    private array $subscribers = [];
 
-    private bool $running = true;
+    /** @var array<string,array<string>> */
+    private array $subscribersByChannel = [];
 
-    private string $separator = PHP_EOL . PHP_EOL;
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // OBSERVADOR
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-    /** @var resource|false|null */
-    private $customSocket = null;
-
-    private bool $testMode = false;
-
-    private bool $runInConsole = false;
-
-    public function __construct(string $host = 'localhost', int $port = 8080)
+    public function hasSubscribers(string $channel = 'all'): bool
     {
-        $this->config['host'] = $host;
-        $this->config['port'] = $port;
-        $this->runInConsole = (PHP_SAPI === 'cli');
-
-        parent::setupErrorHandler();
-    }
-
-    /** @param resource|false|null $socket */
-    public function useTestSocket($socket): void
-    {
-        $this->customSocket = $socket;
-        $this->testMode = true;
-        $this->runInConsole = true;
-    }
-
-    /**
-     * @return resource
-     * @throws RuntimeException
-     */
-    protected function createClient()
-    {
-        $address = $this->getAddressString();
-
-        $socketClient = $this->testMode === true
-            ? $this->customSocket ?? false
-            : stream_socket_client($address);
-
-        if ($socketClient === false || $this->hasError() === true) {
-            throw new RuntimeException($this->getErrorMessage(), $this->getErrorCode());
+        if ($channel === 'all') {
+            return $this->subscribers !== [];
         }
 
-        stream_set_blocking($socketClient, false);
-
-        return $socketClient;
+        return ($this->subscribersByChannel[$channel] ?? []) !== [];
     }
+
+    public function reset(): self
+    {
+        $this->subscribers = [];
+        $this->subscribersByChannel = [];
+        return $this;
+    }
+
+    public function subscribe(string $channel, string $subscriberSignatute): self
+    {
+        $subscriber = new $subscriberSignatute();
+
+        if (isset($this->subscribersByChannel[$channel]) === false) {
+            $this->subscribersByChannel[$channel] = [];
+        }
+
+        $this->addToChannelIndex($channel, $subscriber);
+        $this->subscribers[$subscriber::class] = $subscriber;
+        return $this;
+    }
+
+    /** @return array<string,\Freep\PubSub\Subscriber\EventSubscriber> */
+    public function subscribers(string $channel = 'all'): array
+    {
+        if ($channel === 'all') {
+            return $this->subscribers;
+        }
+
+        if (isset($this->subscribersByChannel[$channel]) === false) {
+            return [];
+        }
+
+        return array_filter(
+            $this->subscribers,
+            fn($subscriber) => $this->inChannelIndex($channel, $subscriber)
+        );
+    }
+
+    public function unsubscribe(string $channel, string $subscriberSignature): self
+    {
+        $isSingleChannel = $this->isSingleChannelSubscribe($subscriberSignature);
+
+        // remove apenas do indice de canais
+        if (isset($this->subscribersByChannel[$channel][$subscriberSignature]) === true) {
+            unset($this->subscribersByChannel[$channel][$subscriberSignature]);
+        }
+
+        if ($isSingleChannel === false) {
+            return $this;
+        }
+
+        // se estiver em um unico canal, remove também do indice principal
+        if (isset($this->subscribers[$subscriberSignature]) === true) {
+            unset($this->subscribers[$subscriberSignature]);
+        }
+
+        return $this;
+    }
+
+    protected function isSingleChannelSubscribe(string $subscriberSignature): bool
+    {
+        $incidences = 0;
+
+        foreach ($this->subscribersByChannel as $subscriberList) {
+            if (isset($subscriberList[$subscriberSignature]) === false) {
+                continue;
+            }
+
+            $incidences++;
+        }
+
+        return $incidences === 1;
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // PUBLICAÇÃO
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
     public function publish(string $channel, Event $event): self
     {
-        $socketClient = $this->createClient();
+        parent::setupErrorHandler();
 
-        $this->setActivityFor($socketClient, $channel, $event);
+        $type = $this->getShortClassName($event::class);
 
-        if ($this->runInConsole === true) {
+        $this->messageFactory(
+            $this->getNowTimeString() . "Message of type '$type' received on channel '$channel'"
+        )->infoLn();
+
+        if ($this->hasSubscribers($channel) === false) {
+            $this->messageFactory("There are no subscribers on channel '$channel'")->outputLn();
+            return $this;
+        }
+
+        if ($event instanceof EventSignal) {
+            $this->messageFactory(
+                $this->getNowTimeString() . 
+                "EventSignal type messages have no effect on publisher SimpleEventPublisher"
+            )->infoLn();
+
+            return $this;
+        }
+
+        $this->publishToSubscribers($channel, $event);
+
+        if ($this->isConsole() === true) {
             $this->messageFactory(
                 "Publish event of type '" . $this->getShortClassName($event::class) . "'" .
-                " to channel '$channel' in " . $this->getAddressString()
+                " to channel '$channel'"
             )->successLn();
         }
 
         return $this;
     }
 
-    /** @param resource $socketClient */
-    protected function setActivityFor($socketClient, string $channel, Event $event): void
+    private function publishToSubscribers(string $channel, Event $event): void
     {
-        $eventContents = ($event instanceof EventSignal)
-            ? $event->signal()
-            : $this->getSerializer()->serialize($event);
-
-        $payload = $channel
-            . $this->separator
-            . $event::class
-            . $this->separator
-            . $eventContents . PHP_EOL;
-
-        fwrite($socketClient, $payload);
-        fclose($socketClient);
-    }
-
-    private function getNowTimeString(): string
-    {
-        return "[" . date('Y-m-d H:i:s') . "]: ";
-    }
-
-    private function getAddressString(): string
-    {
-        return 'tcp://' . $this->config['host'] . ':' . $this->config['port'];
-    }
-
-    /**
-     * @return resource
-     * @throws RuntimeException
-     */
-    protected function createServer()
-    {
-        $address = $this->getAddressString();
-
-        $socketServer = $this->testMode === true
-            ? $this->customSocket ?? false
-            : stream_socket_server($address); // @codeCoverageIgnore
-
-        if ($socketServer === false || $this->hasError() === true) {
-            throw new RuntimeException($this->getErrorMessage(), $this->getErrorCode());
-        }
-
-        $this->messageFactory(
-            "The publish/subscriber server has been started in " .
-            $address . PHP_EOL
-        )->successLn();
-
-        return $socketServer;
-    }
-
-    public function consumerLoop(): void
-    {
-        $socketServer = $this->createServer();
-
-        $this->running = true;
-
-        while ($this->running === true) {
-            $this->getActivityFrom($socketServer);
-
-            if ($this->testMode === true) {
-                $this->running = false;
-            }
-        }
-
-        fclose($socketServer);
-
-        $this->messageFactory(
-            "The publish/subscriber server has been stopped" . PHP_EOL
-        )->successLn();
-    }
-
-    /** @param resource $socketServer */
-    protected function getActivityFrom($socketServer): void
-    {
-        $readStream = [ $socketServer ];
-        $writeStream = [];
-
-        $streamCount = $this->streamSelect($readStream, $writeStream);
-        if ($streamCount === 0) {
-            return; // @codeCoverageIgnore
-        }
+        $dispatched = false;
 
         try {
-            $contents = $this->getActivityContents($socketServer);
-        } catch (RuntimeException) { // @codeCoverageIgnore
-            return; // @codeCoverageIgnore
-        }
+            $allSubscribers = $this->subscribers($channel);
 
-        $parts = explode($this->separator, $contents); // @phpstan-ignore-line
+            foreach ($allSubscribers as $subscriber) {
+                $subscribedToType = $subscriber->subscribedToEventType();
 
-        if (count($parts) !== 3) {
-            $this->messageFactory("The stream received is corrupt")->warningLn();
+                if ($event::class === $subscribedToType || $subscribedToType === Event::class) {
+                    $this->dispatchTo($channel, $subscriber, $event);
+                    $dispatched = true;
+                }
+            }
+
+        } catch (Exception $exception) {
+            $this->messageFactory($exception->getMessage())->errorLn();
             return;
         }
 
-        $channel = $parts[0];
-        $type    = $this->getShortClassName($parts[1]);
-        $payload = trim($parts[2], PHP_EOL);
+        if ($this->hasError() === true) {
+            $this->messageFactory($this->getErrorMessage())->errorLn();
+            return;
+        }
 
+        if ($dispatched === false) {
+            $this->messageFactory("There are no subscribers who accept this type of event")->outputLn();
+        }
+    }
+
+    private function dispatchTo(string $channel, EventSubscriber $subscriber, Event $event): void
+    {
         $this->messageFactory(
-            $this->getNowTimeString() . "Message of type '$type' received on channel '$channel'"
-        )->infoLn();
+            "Message dispatched to " . $this->getShortClassName($subscriber::class)
+        )->outputLn();
 
-        if ($payload === Signals::STOP) {
-            $this->running = false;
-
-            $this->messageFactory(
-                $this->getNowTimeString() . "Message to stop the server received"
-            )->infoLn();
-
-            return;
-        }
-
-        $this->publishToSubscribers($channel, $payload);
-
-        $this->messageFactory('')->outputLn();
+        $subscriber->handleEvent($event);
     }
 
-    /** @param resource $socketServer */
-    private function getActivityContents($socketServer): string
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // SUPORTE
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+    private function addToChannelIndex(string $channel, EventSubscriber $aSubscriber): void
     {
-        if ($this->testMode === true) {
-            return (string)fread($socketServer, 1024);
-        }
-
-        // @codeCoverageIgnoreStart
-        $connection = stream_socket_accept($socketServer);
-        if ($connection === false) {
-            throw new RuntimeException('');
-        }
-
-        return (string)stream_get_contents($connection);
-        // @codeCoverageIgnoreEnd
+        $this->subscribersByChannel[$channel][$aSubscriber::class] = $aSubscriber::class;
     }
 
-    /**
-     * @param array<mixed> $readStream
-     * @param array<mixed> $writeStream
-     * @return int Total de streamings disponíveis
-     */
-    private function streamSelect(array &$readStream, array &$writeStream): int
+    private function inChannelIndex(string $channel, EventSubscriber $aSubscriber): bool
     {
-        $exceptions = [];
-
-        $streamCount = (int)stream_select($readStream, $writeStream, $exceptions, PHP_INT_MAX);
-
-        usleep(200000);
-
-        return $streamCount;
+        return isset($this->subscribersByChannel[$channel]) === true
+            && isset($this->subscribersByChannel[$channel][$aSubscriber::class]) === true;
     }
 }

@@ -12,7 +12,7 @@ class SubscriberError implements EventSubscriber
     public function handleEvent(Event $event): void
     {
         trigger_error(
-            'Error triggered in subscriber handle to event' . $event::class,
+            'Error triggered in subscriber handle to event ' . $event::class,
             E_USER_ERROR
         );
     }

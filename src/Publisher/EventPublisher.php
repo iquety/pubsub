@@ -10,8 +10,6 @@ use Freep\PubSub\Subscriber\EventSubscriber;
 
 interface EventPublisher
 {
-    public function consumerLoop(): void;
-
     public function hasSubscribers(string $channel = 'all'): bool;
 
     public function publish(string $channel, Event $event): self;

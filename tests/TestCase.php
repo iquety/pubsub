@@ -7,6 +7,7 @@ namespace Tests;
 use Closure;
 use DateTimeImmutable;
 use Freep\PubSub\Event\Event;
+use Freep\PubSub\Publisher\EventPublisher;
 use Tests\Example\Events\EventOne;
 use Tests\Example\Subscribers\SubscriberOne;
 use Tests\Example\Subscribers\SubscriberTwo;
@@ -16,18 +17,18 @@ use PHPUnit\Framework\TestCase as FrameworkTestCase;
 
 class TestCase extends FrameworkTestCase
 {
-    protected function eventPublisherFactory(): SimpleEventPublisher
+    protected function eventPublisherFactory(string $className): EventPublisher
     {
-        return (new SimpleEventPublisher())
+        return (new $className())
             ->enableVerboseMode()
             ->subscribe('channel-one', SubscriberOne::class)
             ->subscribe('channel-one', SubscriberTwo::class)
             ->subscribe('channel-two', SubscriberTwo::class);
     }
 
-    protected function emptyEventPublisherFactory(): SimpleEventPublisher
+    protected function emptyEventPublisherFactory(string $className): EventPublisher
     {
-        return (new SimpleEventPublisher())
+        return (new $className())
             ->enableVerboseMode();
     }
 

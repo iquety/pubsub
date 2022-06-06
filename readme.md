@@ -9,7 +9,7 @@
 
 This repository contains the functionality needed to run a Publish/Subscribe system, enabling registration and publication of events.
 
-For detailed information, consult the documentation in [English](docs/en/index.md) or [Portuguese](docs/en/indice.md). See also this readme in [Portuguese](docs/en/leiame.md).
+For detailed information, consult the documentation in [English](docs/en/index.md) or [Portuguese](docs/pt-br/indice.md). See also this readme in [Portuguese](docs/pt-br/leiame.md).
 
 ## How to use
 
@@ -76,7 +76,7 @@ Message dispatched to SubscriberTwo
 
 ## Summary
 
-- [How to use](docs/en/01-how-to-use.md)
+- [How it works](docs/en/01-how-it-works.md)
 - [Using a terminal script](docs/en/02-using-terminal-script.md)
 - [Using Freep Console commands](docs/en/03-using-commands-freep-console.md)
 - [Implementing a Subscriber](docs/en/04-implementing-a-subscriber.md)

@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Closure;
 use Freep\PubSub\EventLoop;
+use Freep\PubSub\Publisher\PhpEventPublisher;
 use Tests\Example\Subscribers\SubscriberOne;
-use Freep\PubSub\Publisher\SimpleEventPublisher;
 
 class EventLoopTest extends TestCase
 {
     /** @test */
     public function addSubscriber(): void
     {
-        $publisher = new SimpleEventPublisher();
+        $publisher = new PhpEventPublisher();
 
         $loop = new EventLoop($publisher);
         $loop->addSubscriber('channel-one', SubscriberOne::class);
@@ -25,7 +24,7 @@ class EventLoopTest extends TestCase
     /** @test */
     public function loopReceiveSignal(): void
     {
-        $publisher = new SimpleEventPublisher();
+        $publisher = new PhpEventPublisher();
         $publisher->enableVerboseMode();
         $publisher->useTestSocket(fopen(__DIR__ . '/files/stream-signal.txt', 'r'));
 
@@ -45,7 +44,7 @@ class EventLoopTest extends TestCase
     /** @test */
     public function loopReceiveSignalQuiet(): void
     {
-        $publisher = new SimpleEventPublisher();
+        $publisher = new PhpEventPublisher();
         $publisher->useTestSocket(fopen(__DIR__ . '/files/stream-signal.txt', 'r'));
 
         $loop = new EventLoop($publisher);

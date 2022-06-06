@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Publisher;
 
+use Freep\PubSub\Publisher\PhpEventPublisher;
 use RuntimeException;
 use Tests\Example\Subscribers\SubscriberError;
 use Tests\Example\Subscribers\SubscriberException;
 use Tests\Example\Subscribers\SubscriberOne;
 use Tests\Example\Subscribers\SubscriberTwo;
 
-class SimpleEventServerTest extends SimpleEventTestCase
+class PhpEventServerTest extends PhpEventTestCase
 {
     public function setUp(): void
     {
@@ -29,7 +30,9 @@ class SimpleEventServerTest extends SimpleEventTestCase
     {
         $this->expectException(RuntimeException::class);
 
-        $publisher = $this->eventPublisherFactory();
+        /** @var PhpEventPublisher $publisher */
+        $publisher = $this->eventPublisherFactory(PhpEventPublisher::class);
+
         $publisher->useTestSocket(false);
 
         $publisher->consumerLoop();
@@ -40,7 +43,8 @@ class SimpleEventServerTest extends SimpleEventTestCase
     {
         $socketWithEvent = fopen(__DIR__ . '/../files/channel-one-event-one.txt', 'r');
 
-        $publisher = $this->emptyEventPublisherFactory()
+        /** @var PhpEventPublisher $publisher */
+        $publisher = $this->emptyEventPublisherFactory(PhpEventPublisher::class)
             ->subscribe('channel-one', SubscriberOne::class) // pode receber EventOne
             ->subscribe('channel-one', SubscriberTwo::class); // pode receber qualquer evento
 
@@ -87,7 +91,8 @@ class SimpleEventServerTest extends SimpleEventTestCase
     {
         $socketWithEvent = fopen(__DIR__ . '/../files/channel-one-event-two.txt', 'r');
 
-        $publisher = $this->emptyEventPublisherFactory()
+        /** @var PhpEventPublisher $publisher */
+        $publisher = $this->emptyEventPublisherFactory(PhpEventPublisher::class)
             ->subscribe('channel-one', SubscriberOne::class) // pode receber EventOne
             ->subscribe('channel-one', SubscriberTwo::class); // pode receber qualquer evento
 
@@ -136,7 +141,8 @@ class SimpleEventServerTest extends SimpleEventTestCase
     {
         $socketWithEvent = fopen(__DIR__ . '/../files/stream-signal.txt', 'r');
 
-        $publisher = $this->eventPublisherFactory();
+        /** @var PhpEventPublisher $publisher */
+        $publisher = $this->eventPublisherFactory(PhpEventPublisher::class);
 
         $publisher->useTestSocket($socketWithEvent);
 
@@ -155,7 +161,8 @@ class SimpleEventServerTest extends SimpleEventTestCase
     {
         $socketWithEvent = fopen(__DIR__ . '/../files/channel-one-event-two.txt', 'r');
 
-        $publisher = $this->emptyEventPublisherFactory()
+        /** @var PhpEventPublisher $publisher */
+        $publisher = $this->emptyEventPublisherFactory(PhpEventPublisher::class)
             ->subscribe('channel-two', SubscriberOne::class); // pode receber apenas EventOne
 
         $publisher->useTestSocket($socketWithEvent);
@@ -175,7 +182,8 @@ class SimpleEventServerTest extends SimpleEventTestCase
     {
         $socketWithEvent = fopen(__DIR__ . '/../files/channel-two-event-two.txt', 'r');
 
-        $publisher = $this->emptyEventPublisherFactory()
+        /** @var PhpEventPublisher $publisher */
+        $publisher = $this->emptyEventPublisherFactory(PhpEventPublisher::class)
             ->subscribe('channel-two', SubscriberOne::class); // pode receber apenas EventOne
 
         $publisher->useTestSocket($socketWithEvent);
@@ -195,7 +203,8 @@ class SimpleEventServerTest extends SimpleEventTestCase
     {
         $socketWithEvent = fopen(__DIR__ . '/../files/channel-one-corrupt-stream.txt', 'r');
 
-        $publisher = $this->eventPublisherFactory();
+        /** @var PhpEventPublisher $publisher */
+        $publisher = $this->eventPublisherFactory(PhpEventPublisher::class);
 
         $publisher->useTestSocket($socketWithEvent);
 
@@ -213,7 +222,8 @@ class SimpleEventServerTest extends SimpleEventTestCase
     {
         $socketWithEvent = fopen(__DIR__ . '/../files/channel-one-event-one.txt', 'r');
 
-        $publisher = $this->emptyEventPublisherFactory()
+        /** @var PhpEventPublisher $publisher */
+        $publisher = $this->emptyEventPublisherFactory(PhpEventPublisher::class)
             ->subscribe('channel-one', SubscriberException::class);
 
         $publisher->useTestSocket($socketWithEvent);
@@ -232,7 +242,8 @@ class SimpleEventServerTest extends SimpleEventTestCase
     {
         $socketWithEvent = fopen(__DIR__ . '/../files/channel-one-event-one.txt', 'r');
 
-        $publisher = $this->emptyEventPublisherFactory()
+        /** @var PhpEventPublisher $publisher */
+        $publisher = $this->emptyEventPublisherFactory(PhpEventPublisher::class)
             ->subscribe('channel-one', SubscriberError::class);
 
         $publisher->useTestSocket($socketWithEvent);

@@ -4,17 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Publisher;
 
-use Closure;
-use DateTimeImmutable;
-use Freep\PubSub\Event\Event;
-use Tests\Example\Events\EventOne;
-use Tests\Example\Subscribers\SubscriberOne;
-use Tests\Example\Subscribers\SubscriberTwo;
-use Freep\PubSub\Publisher\SimpleEventPublisher;
-use Freep\Security\Filesystem;
 use Tests\TestCase;
 
-class SimpleEventTestCase extends TestCase
+class PhpEventTestCase extends TestCase
 {
     /** @return array<string,mixed> */
     protected function readLastEventFromFile(string $file): array

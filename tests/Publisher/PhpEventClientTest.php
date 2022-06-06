@@ -6,10 +6,11 @@ namespace Tests\Publisher;
 
 use Freep\PubSub\Event\EventSignal;
 use Freep\PubSub\Event\Signals;
+use Freep\PubSub\Publisher\PhpEventPublisher;
 use Tests\Example\Events\EventOne;
 use RuntimeException;
 
-class SimpleEventClientTest extends SimpleEventTestCase
+class PhpEventClientTest extends PhpEventTestCase
 {
     public function tearDown(): void
     {
@@ -21,7 +22,8 @@ class SimpleEventClientTest extends SimpleEventTestCase
     {
         $this->expectException(RuntimeException::class);
 
-        $publisher = $this->eventPublisherFactory();
+        /** @var PhpEventPublisher $publisher */
+        $publisher = $this->eventPublisherFactory(PhpEventPublisher::class);
         $publisher->useTestSocket(false);
 
         $publisher->publish(
@@ -36,7 +38,8 @@ class SimpleEventClientTest extends SimpleEventTestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessageMatches('/Unable to connect to tcp/');
 
-        $publisher = $this->eventPublisherFactory();
+        /** @var PhpEventPublisher $publisher */
+        $publisher = $this->eventPublisherFactory(PhpEventPublisher::class);
 
         $publisher->publish(
             'channel-one',
@@ -47,7 +50,8 @@ class SimpleEventClientTest extends SimpleEventTestCase
     /** @test */
     public function sendEvent(): void
     {
-        $publisher = $this->eventPublisherFactory();
+        /** @var PhpEventPublisher $publisher */
+        $publisher = $this->eventPublisherFactory(PhpEventPublisher::class);
 
         $publisher->useTestSocket(fopen(__DIR__ . '/../files/fake-connection.txt', 'w'));
 
@@ -68,7 +72,8 @@ class SimpleEventClientTest extends SimpleEventTestCase
     /** @test */
     public function sendEventSignal(): void
     {
-        $publisher = $this->eventPublisherFactory();
+        /** @var PhpEventPublisher $publisher */
+        $publisher = $this->eventPublisherFactory(PhpEventPublisher::class);
 
         $publisher->useTestSocket(fopen(__DIR__ . '/../files/fake-connection.txt', 'w'));
 
@@ -85,20 +90,4 @@ class SimpleEventClientTest extends SimpleEventTestCase
         $this->assertEquals($lastEvent['type'], EventSignal::class);
         $this->assertEquals($lastEvent['payload'], $event->signal());
     }
-
-    // /** @test */
-    // public function publishToAnyone(): void
-    // {
-    //     $publisher = $this->emptyEventPublisherFactory();
-
-    //     $publisher->useTestSocket(fopen(__DIR__ . '/../files/fake-connection.txt', 'w'));
-
-    //     $event = $this->eventFactory('ricardo', '123');
-    //     $publisher->publish('channel-not-exists', $event);
-
-    //     $lastEvent = $this->readLastEventFromFile('fake-connection.txt');
-    //     $this->assertEquals($lastEvent['channel'], 'channel-not-exists');
-    //     $this->assertEquals($lastEvent['type'], EventOne::class);
-    //     $this->assertEquals($lastEvent['payload'], $publisher->getSerializer()->serialize($event));
-    // }
 }

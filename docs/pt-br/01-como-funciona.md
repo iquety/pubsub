@@ -1,15 +1,29 @@
-# Freep Publish/Subscribe
+# Como funciona
 
-## Sinopse
+[◂ Voltar ao índice](indice.md) | [Usando um script de terminal ▸](02-usando-script-de-terminal.md)
+-- | --
 
-Este repositório contém as funcionalidades necessárias para executar um sistema de Publish/Subscribe,
-possibilitando incrições e publicações de eventos.
 
-Para informações detalhadas, consulte a documentação em [Inglês](../en/index.md) ou em [Português](indice.md). Veja também este 'readme' em [Inglês](../../readme.md).
+## 1. Arquitetura orientada a eventos
 
-## Como usar
+A primeira coisa a fazer quando implementamos uma arquitetura orientada a eventos é ter um meio de verificar ininterruptamente a aplicação, aguardando algum evento acontecer. Quando um evento é identificado, ele deve ser despachado para as rotinas ou módulos do sistema que estejam preparados para lidar com aquele tipo de evento. 
 
-### 1. Execute o servidor de eventos
+Existem diversas formas de fazer isso. No entanto, esta biblioteca trata de um padrão arquitetônico específico de encaminhamento de eventos chamado de Publish/Subscribe (Publicar/Inscrever em português).
+
+## 2. O padrão Publish/Subscribe
+
+Este padrão arquitetônico consiste em um padrão de projeto chamado "Observer" ([clique para mais informações](https://refactoring.guru/pt-br/design-patterns/observer)). Resumidamente, um "Observer" possui uma lista de "inscritos", como em um canal do Youtube. Cada inscrito tem suas próprias necessidades e recebe notificações sempre que algo de seu interesse acontece.
+
+Existem duas maneiras de umplementar um "Observer" para Publish/Subscribe, com vantagens e desvantagens em cada cenário:
+
+### 2.1. Bootstrap da aplicação
+
+
+
+
+
+
+
 
 Na raiz deste projeto, existe um script para exemplificar o processo.
 Pode ser usado da seguinte maneira:
@@ -61,26 +75,8 @@ Message dispatched to SubscriberTwo
 ...
 ```
 
-## Características
 
-- Feito para o PHP 8.0 ou superior;
-- Codificado com boas práticas e máxima qualidade;
-- Bem documentado e amigável para IDEs;
-- Feito com TDD (Test Driven Development);
-- Implementado com testes de unidade usando PHPUnit;
-- Feito com :heart: &amp; :coffee:.
+...
 
-## Sumário
-
-- [Como funciona](01-como-funciona.md)
-- [Usando um script de terminal](02-usando-script-de-terminal.md)
-- [Usando comandos do Freep Console](03-usando-comandos-freep-console.md)
-- [Implementando um Subscriber](04-implementando-um-subscriber.md)
-- [Implementando um Evento](05-implementando-um-evento.md)
-- [Publicando um evento](06-publicando-um-evento.md)
-- [Publicando um sinal de parada](07-publicando-um-sinal-de-parada.md)
-- [Evoluindo a biblioteca](08-evoluindo-a-biblioteca.md)
-
-## Creditos
-
-[Ricardo Pereira Dias](https://www.ricardopedias.com.br)
+[◂ Voltar ao índice](indice.md) | [Usando um script de terminal ▸](02-usando-script-de-terminal.md)
+-- | --
