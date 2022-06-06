@@ -16,7 +16,7 @@ abstract class AbstractEventPublisher implements EventPublisher
 
     private string $errorMessage = '';
 
-    private bool $errorHandlerInitialized = false;    
+    private bool $errorHandlerInit = false;
 
     private bool $testMode = false;
 
@@ -98,7 +98,7 @@ abstract class AbstractEventPublisher implements EventPublisher
 
     protected function setupErrorHandler(): void
     {
-        if ($this->errorHandlerInitialized === true) {
+        if ($this->errorHandlerInit === true) {
             return;
         }
 
@@ -110,7 +110,7 @@ abstract class AbstractEventPublisher implements EventPublisher
             return true;
         });
 
-        $this->errorHandlerInitialized = true;
+        $this->errorHandlerInit = true;
     }
 
     // mensagens de terminal

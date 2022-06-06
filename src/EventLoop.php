@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Freep\PubSub;
 
-use Freep\PubSub\Publisher\EventPublisher;
-use Freep\PubSub\Subscriber\EventSubscriber;
+use Freep\PubSub\Publisher\EventPublisherLoop;
 
 class EventLoop
 {
-    public function __construct(private EventPublisher $publisher)
+    public function __construct(private EventPublisherLoop $publisher)
     {
     }
 

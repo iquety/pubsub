@@ -20,9 +20,9 @@ class SimpleEventPublisher extends AbstractEventPublisher
     /** @var array<string,array<string>> */
     private array $subscribersByChannel = [];
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // OBSERVADOR
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     public function hasSubscribers(string $channel = 'all'): bool
     {
@@ -106,9 +106,9 @@ class SimpleEventPublisher extends AbstractEventPublisher
         return $incidences === 1;
     }
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // PUBLICAÇÃO
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     public function publish(string $channel, Event $event): self
     {
@@ -127,7 +127,7 @@ class SimpleEventPublisher extends AbstractEventPublisher
 
         if ($event instanceof EventSignal) {
             $this->messageFactory(
-                $this->getNowTimeString() . 
+                $this->getNowTimeString() .
                 "EventSignal type messages have no effect on publisher SimpleEventPublisher"
             )->infoLn();
 
@@ -157,11 +157,10 @@ class SimpleEventPublisher extends AbstractEventPublisher
                 $subscribedToType = $subscriber->subscribedToEventType();
 
                 if ($event::class === $subscribedToType || $subscribedToType === Event::class) {
-                    $this->dispatchTo($channel, $subscriber, $event);
+                    $this->dispatchTo($subscriber, $event);
                     $dispatched = true;
                 }
             }
-
         } catch (Exception $exception) {
             $this->messageFactory($exception->getMessage())->errorLn();
             return;
@@ -177,7 +176,7 @@ class SimpleEventPublisher extends AbstractEventPublisher
         }
     }
 
-    private function dispatchTo(string $channel, EventSubscriber $subscriber, Event $event): void
+    private function dispatchTo(EventSubscriber $subscriber, Event $event): void
     {
         $this->messageFactory(
             "Message dispatched to " . $this->getShortClassName($subscriber::class)
@@ -186,9 +185,9 @@ class SimpleEventPublisher extends AbstractEventPublisher
         $subscriber->handleEvent($event);
     }
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // SUPORTE
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     private function addToChannelIndex(string $channel, EventSubscriber $aSubscriber): void
     {

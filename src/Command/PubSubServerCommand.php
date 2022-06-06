@@ -8,9 +8,7 @@ use Freep\Console\Arguments;
 use Freep\Console\Command;
 use Freep\Console\Option;
 use Freep\PubSub\EventLoop;
-use Freep\PubSub\Publisher\SimpleEventPublisher;
-use Tests\Example\Subscribers\SubscriberOne;
-use Tests\Example\Subscribers\SubscriberTwo;
+use Freep\PubSub\Publisher\PhpEventPublisher;
 
 class PubSubServerCommand extends Command
 {
@@ -71,7 +69,7 @@ class PubSubServerCommand extends Command
 
     protected function handle(Arguments $arguments): void
     {
-        $publisher = new SimpleEventPublisher(
+        $publisher = new PhpEventPublisher(
             $arguments->getOption('-d'),
             (int)$arguments->getOption('-p')
         );

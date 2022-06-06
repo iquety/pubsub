@@ -3,27 +3,21 @@
 [◂ Voltar ao índice](indice.md) | [Usando um script de terminal ▸](02-usando-script-de-terminal.md)
 -- | --
 
-
 ## 1. Arquitetura orientada a eventos
 
-A primeira coisa a fazer quando implementamos uma arquitetura orientada a eventos é ter um meio de verificar ininterruptamente a aplicação, aguardando algum evento acontecer. Quando um evento é identificado, ele deve ser despachado para as rotinas ou módulos do sistema que estejam preparados para lidar com aquele tipo de evento. 
+A primeira coisa a fazer quando implementamos uma arquitetura orientada a eventos é ter um meio de verificar ininterruptamente a aplicação, aguardando algum evento acontecer. Quando um evento é identificado, ele deve ser despachado para as rotinas ou módulos do sistema que estejam preparados para lidar com aquele tipo de evento.
 
 Existem diversas formas de fazer isso. No entanto, esta biblioteca trata de um padrão arquitetônico específico de encaminhamento de eventos chamado de Publish/Subscribe (Publicar/Inscrever em português).
 
 ## 2. O padrão Publish/Subscribe
 
-Este padrão arquitetônico consiste em um padrão de projeto chamado "Observer" ([clique para mais informações](https://refactoring.guru/pt-br/design-patterns/observer)). Resumidamente, um "Observer" possui uma lista de "inscritos", como em um canal do Youtube. Cada inscrito tem suas próprias necessidades e recebe notificações sempre que algo de seu interesse acontece.
+Este padrão arquitetônico consiste em um padrão de projeto chamado "Observer" ([clique aqui para mais informações](https://refactoring.guru/pt-br/design-patterns/observer)). Resumidamente, um "Observer" possui uma lista de "inscritos", como em um canal do Youtube. Cada inscrito tem suas próprias necessidades e recebe notificações sempre que algo de seu interesse acontece.
 
 Existem duas maneiras de umplementar um "Observer" para Publish/Subscribe, com vantagens e desvantagens em cada cenário:
 
 ### 2.1. Bootstrap da aplicação
 
-
-
-
-
-
-
+monomono
 
 Na raiz deste projeto, existe um script para exemplificar o processo.
 Pode ser usado da seguinte maneira:
@@ -74,7 +68,6 @@ Message dispatched to SubscriberTwo
 
 ...
 ```
-
 
 ...
 

@@ -8,13 +8,10 @@ use DateTimeImmutable;
 use Freep\Console\Arguments;
 use Freep\Console\Command;
 use Freep\Console\Option;
-use Freep\PubSub\EventLoop;
-use Freep\PubSub\Publisher\SimpleEventPublisher;
+use Freep\PubSub\Publisher\PhpEventPublisher;
 use RuntimeException;
 use Tests\Example\Events\EventOne;
 use Tests\Example\Events\EventTwo;
-use Tests\Example\Subscribers\SubscriberOne;
-use Tests\Example\Subscribers\SubscriberTwo;
 
 class PubSubClientCommand extends Command
 {
@@ -56,7 +53,7 @@ class PubSubClientCommand extends Command
 
     protected function handle(Arguments $arguments): void
     {
-        $publisher = new SimpleEventPublisher(
+        $publisher = new PhpEventPublisher(
             $arguments->getOption('-d'),
             (int)$arguments->getOption('-p')
         );

@@ -17,7 +17,7 @@ use RuntimeException;
  * @method PhpEventPublisher subscribe(string $channel, string $subscriberSignatute)
  * @method PhpEventPublisher enableVerboseMode()
  */
-class PhpEventPublisher extends SimpleEventPublisher implements EventPublisher, Loop
+class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLoop
 {
     /** @var array<string,mixed> */
     private array $config = [];
@@ -94,9 +94,9 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisher, 
         return 'tcp://' . $this->config['host'] . ':' . $this->config['port'];
     }
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // OBSERVADOR
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     /** @override */
     public function consumerLoop(): void
@@ -255,10 +255,10 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisher, 
 
         $subscriber->handleEvent($this->getSerializer()->unserialize($aPayload));
     }
-    
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // PUBLICAÇÃO
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     /** @override */
     public function publish(string $channel, Event $event): self

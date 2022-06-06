@@ -115,7 +115,7 @@ class SimpleEventObserverTest extends PhpEventTestCase
         ], $subscriberTwoHandle);
     }
 
-    /** 
+    /**
      * Sinais são inúteis em um publicador não baseado em servidor
      * @test
      */
@@ -134,7 +134,7 @@ class SimpleEventObserverTest extends PhpEventTestCase
         ], $output);
     }
 
-    /** 
+    /**
      * Sinais são inúteis em um publicador não baseado em servidor
      * @test
      */
