@@ -38,7 +38,7 @@ Existem duas maneiras de implementar um "Observer" para Publish/Subscribe, com v
 
 Implementação | Prós | Contras
 -- | -- | --
-No bootstrap da aplicação | Simples de implementar e simples de entender, mesmo para quem não conhece a arquitetura. Ideal para comunicação dos módulos dentro de uma mesma aplicação. | Cria um acoplamento com a implementação do bootstrap. Aplicações diferentes precisam reimplementar a configuração do bootstrap, o que pode aumentar a preocupação na hora de adicionar novos inscritos. Aplicações feitas com linguagens diferentes não podem usar esta metodologia.
+No bootstrap da aplicação | Simples de implementar e simples de entender, mesmo para quem não conhece a arquitetura. Ideal para comunicação dos módulos dentro de uma mesma aplicação. | Cria um acoplamento com a implementação do bootstrap. Aplicações diferentes precisam reimplementar a configuração do bootstrap, o que pode aumentar a preocupação na hora de adicionar novos inscritos. Aplicações feitas com linguagens diferentes (ex.: PHP + Java) não podem usar esta metodologia.
 No servidor de publicação | Mais simples de implementar. Ideal para integrar aplicações diferentes. Centraliza a configuração dos inscritos no servidor de eventos. Provê o desacoplamento real entre as partes que se comunicam. | Pode ser mais difícil de entender para os que não conhecem a arquitetura. É preciso executar e manter o servidor de eventos sempre ativo para receber e despachar os eventos ocorridos.
 
 ### 3.1. No bootstrap da aplicação
@@ -196,7 +196,33 @@ $event = new EventOne('Ricardo', '99988877766', $ocurredOn);
 $publisher->publish('channel-vormir', $event);
 ```
 
-...
+### 3.5. Enviando eventos reais a partir de uma linguagem diferente de PHP
+
+É possível enviar eventos a partir de aplicações construídas em linguagens diferentes de PHP. Isso é conseguido enviando uma mensagem TCP simples para o servidor em execução (no caso atual, tcp://localhost:8080). 
+
+O formato da mensagem deve seguir o seguinte esquema:
+
+Conteúdo | Descrição
+-- | --
+nome do canal | texto simples
+duas quebras de linha | "\n" + "\n"
+nome do evento | Nome retornado pelo método getName() do evento
+duas quebras de linha | | "\n" + "\n"
+tipo do evento | Nome completo da classe do evento
+uma quebra de linha | "\n"
+conteúdo json serializado | Importante: o servidor deve estar configurado para usar serializações com a classe "Event\Serializer\JsonEventSerializer"
+uma quebra de linha | "\n"
+
+Um exemplo de envio do evento "Tests\Example\Events\EventOne" pode ser visto abaixo:
+
+```text
+channel-one
+
+Tests\Example\Events\EventOne
+
+Tests\Example\Events\EventOne
+{"cpf":"123","name":"ricardo","ocurredOn":"2020-01-10 00:00:01"}
+```
 
 [◂ Voltar ao índice](indice.md) | [Usando um script de terminal ▸](02-usando-script-de-terminal.md)
 -- | --
