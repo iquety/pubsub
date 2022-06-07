@@ -14,9 +14,9 @@ class PubSubServerCommand extends Command
 {
     protected function initialize(): void
     {
-        $this->setName("pubsub");
+        $this->setName("pubsub:server");
         $this->setDescription("Start the pubsub server");
-        $this->setHowToUse("./example pubsub [options]");
+        $this->setHowToUse("./example pubsub:server [options]");
 
         $this->addOption(
             new Option(

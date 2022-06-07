@@ -20,6 +20,17 @@ class SimpleEventPublisher extends AbstractEventPublisher
     /** @var array<string,array<string>> */
     private array $subscribersByChannel = [];
 
+    private static ?self $instance = null;
+
+    public function instance(): self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // OBSERVADOR
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

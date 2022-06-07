@@ -1,6 +1,6 @@
 # Freep Console: Documentação
 
-[◂ Back to readme](../../readme.md) | [How to use ▸](01-how-to-use.md)
+[◂ Back to readme](../../readme.md) | [How it works ▸](01-how-it-works.md)
 -- | --
 
 ## Introduction
@@ -9,7 +9,7 @@ Welcome to the Freep Publish/Subscribe library documentation. Here you will find
 
 ### Contents
 
-- [How to use](01-how-to-use.md)
+- [How it works](01-how-it-works.md)
 - [Using a terminal script](02-using-terminal-script.md)
 - [Using Freep Console commands](03-using-commands-freep-console.md)
 - [Implementing a Subscriber](04-implementing-a-subscriber.md)

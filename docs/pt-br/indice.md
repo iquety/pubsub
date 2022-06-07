@@ -1,6 +1,6 @@
 # Freep Publish/Subscribe: Documentação
 
-[◂ Voltar ao Leiame](leiame.md) | [Como usar ▸](01-como-usar.md)
+[◂ Voltar ao Leiame](leiame.md) | [Como funciona ▸](01-como-funciona.md)
 -- | --
 
 ## Introdução
@@ -10,7 +10,7 @@ necessárias para utilizar as funcionalidades disponíveis e usufruir ao máximo
 
 ### Conteúdo
 
-- [Como usar](01-como-usar.md)
+- [Como funciona](01-como-funciona.md)
 - [Usando um script de terminal](02-usando-script-de-terminal.md)
 - [Usando comandos do Freep Console](03-usando-comandos-freep-console.md)
 - [Implementando um Subscriber](04-implementando-um-subscriber.md)

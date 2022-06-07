@@ -23,7 +23,7 @@ class PhpEventClientTest extends PhpEventTestCase
         $this->expectException(RuntimeException::class);
 
         /** @var PhpEventPublisher $publisher */
-        $publisher = $this->eventPublisherFactory(PhpEventPublisher::class);
+        $publisher = $this->emptyEventPublisherFactory(PhpEventPublisher::class);
         $publisher->useTestSocket(false);
 
         $publisher->publish(
@@ -39,7 +39,7 @@ class PhpEventClientTest extends PhpEventTestCase
         $this->expectExceptionMessageMatches('/Unable to connect to tcp/');
 
         /** @var PhpEventPublisher $publisher */
-        $publisher = $this->eventPublisherFactory(PhpEventPublisher::class);
+        $publisher = $this->emptyEventPublisherFactory(PhpEventPublisher::class);
 
         $publisher->publish(
             'channel-one',
@@ -51,7 +51,7 @@ class PhpEventClientTest extends PhpEventTestCase
     public function sendEvent(): void
     {
         /** @var PhpEventPublisher $publisher */
-        $publisher = $this->eventPublisherFactory(PhpEventPublisher::class);
+        $publisher = $this->emptyEventPublisherFactory(PhpEventPublisher::class);
 
         $publisher->useTestSocket(fopen(__DIR__ . '/../files/fake-connection.txt', 'w'));
 
@@ -73,7 +73,7 @@ class PhpEventClientTest extends PhpEventTestCase
     public function sendEventSignal(): void
     {
         /** @var PhpEventPublisher $publisher */
-        $publisher = $this->eventPublisherFactory(PhpEventPublisher::class);
+        $publisher = $this->emptyEventPublisherFactory(PhpEventPublisher::class);
 
         $publisher->useTestSocket(fopen(__DIR__ . '/../files/fake-connection.txt', 'w'));
 
