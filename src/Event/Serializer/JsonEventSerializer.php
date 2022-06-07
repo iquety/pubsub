@@ -8,11 +8,13 @@ use RuntimeException;
 
 class JsonEventSerializer implements EventSerializer
 {
+    /** @param array<string,mixed> $eventData */
     public function serialize(array $eventData): string
     {
-        return json_encode($eventData, JSON_FORCE_OBJECT);
+        return (string)json_encode($eventData, JSON_FORCE_OBJECT);
     }
 
+    /** @return array<string,mixed> */
     public function unserialize(string $eventSerializedData): array
     {
         $eventData = json_decode($eventSerializedData, true);

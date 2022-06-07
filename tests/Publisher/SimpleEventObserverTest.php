@@ -70,7 +70,6 @@ class SimpleEventObserverTest extends PhpEventTestCase
     /** @test */
     public function sendEventTwo(): void
     {
-        /** @var SimpleEventPublisher $publisher */
         $this->emptyEventPublisherFactory(SimpleEventPublisher::class)
             ->subscribe('channel-one', SubscriberOne::class) // pode receber EventOne
             ->subscribe('channel-one', SubscriberTwo::class); // pode receber qualquer evento

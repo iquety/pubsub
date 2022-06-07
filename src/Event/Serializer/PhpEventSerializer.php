@@ -9,11 +9,13 @@ use Throwable;
 
 class PhpEventSerializer implements EventSerializer
 {
+    /** @param array<string,mixed> $eventData */
     public function serialize(array $eventData): string
     {
         return serialize($eventData);
     }
 
+    /** @return array<string,mixed> */
     public function unserialize(string $eventSerializedData): array
     {
         try {

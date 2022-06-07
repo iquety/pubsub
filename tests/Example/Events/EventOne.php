@@ -21,6 +21,7 @@ class EventOne implements Event
         return 'event-one';
     }
 
+    /** @param array<string,mixed> $values */
     public static function factory(array $values): Event
     {
         return new self(

@@ -11,24 +11,18 @@ use Freep\Security\Filesystem;
 use Tests\Example\Events\EventOne;
 use Tests\Example\Events\EventTwo;
 
+/** @SuppressWarnings(PHPMD.StaticAccess) */
 class SubscriberTwo implements EventSubscriber
 {
+    /** @param array<string,mixed> $eventData */
     public function eventFactory(string $eventLabel, array $eventData): ?Event
     {
         if ($eventLabel === 'event-one') {
-            return new EventOne(
-                $eventData['name'],
-                $eventData['cpf'],
-                new DateTimeImmutable($eventData['ocurredOn']),
-            );
+            return EventOne::factory($eventData);
         }
 
         if ($eventLabel === 'event-two') {
-            return new EventTwo(
-                $eventData['name'],
-                $eventData['cpf'],
-                new DateTimeImmutable($eventData['ocurredOn']),
-            );
+            return EventTwo::factory($eventData);
         }
 
         return null;

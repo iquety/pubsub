@@ -198,7 +198,7 @@ $publisher->publish('channel-vormir', $event);
 
 ### 3.5. Enviando eventos reais a partir de uma linguagem diferente de PHP
 
-É possível enviar eventos a partir de aplicações construídas em linguagens diferentes de PHP. Isso é conseguido enviando uma mensagem TCP simples para o servidor em execução (no caso atual, tcp://localhost:8080). 
+É possível enviar eventos a partir de aplicações construídas em linguagens diferentes de PHP. Isso é conseguido enviando uma mensagem TCP simples para o servidor em execução (no caso atual, tcp://localhost:8080).
 
 O formato da mensagem deve seguir o seguinte esquema:
 

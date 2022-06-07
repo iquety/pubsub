@@ -10,16 +10,14 @@ use Freep\PubSub\Subscriber\EventSubscriber;
 use Tests\Example\Events\EventOne;
 use Freep\Security\Filesystem;
 
+/** @SuppressWarnings(PHPMD.StaticAccess) */
 class SubscriberOne implements EventSubscriber
 {
+    /** @param array<string,mixed> $eventData */
     public function eventFactory(string $eventLabel, array $eventData): ?Event
     {
         if ($eventLabel === 'event-one') {
-            return new EventOne(
-                $eventData['name'],
-                $eventData['cpf'],
-                new DateTimeImmutable($eventData['ocurredOn']),
-            );
+            return EventOne::factory($eventData);
         }
 
         return null;

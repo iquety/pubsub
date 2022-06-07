@@ -8,10 +8,17 @@ use DateTimeImmutable;
 
 class EventSignal implements Event
 {
+    /** @param array<string,mixed> $context */
     public function __construct(
         private string $signal = Signals::STOP,
         private array $context = []
     ) {
+    }
+
+    /** @param array<string,mixed> $values */
+    public static function factory(array $values): Event
+    {
+        return new self($values['signal'], $values['context']);
     }
 
     public function label(): string
@@ -30,7 +37,7 @@ class EventSignal implements Event
             && $this->label() === $other->label();
     }
 
-    /** @return array<mixed> */
+    /** @return array<string,mixed> */
     public function toArray(): array
     {
         return $this->context;
