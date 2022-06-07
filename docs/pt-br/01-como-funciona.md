@@ -38,7 +38,7 @@ Existem duas maneiras de implementar um "Observer" para Publish/Subscribe, com v
 
 Implementação | Prós | Contras
 -- | -- | --
-No bootstrap da aplicação | Simples de implementar e simples de entender, mesmo para quem não conhece a arquitetura. Ideal para comunicação dos módulos dentro de uma mesma aplicação. Cria um acoplamento com a implementação do bootstrap. | Aplicações diferentes precisam reimplementar a configuração do bootstrap, o que pode aumentar a preocupação na hora de adicionar novos inscritos. Aplicações feitas com linguagens diferentes não podem usar esta metodologia.
+No bootstrap da aplicação | Simples de implementar e simples de entender, mesmo para quem não conhece a arquitetura. Ideal para comunicação dos módulos dentro de uma mesma aplicação. | Cria um acoplamento com a implementação do bootstrap. Aplicações diferentes precisam reimplementar a configuração do bootstrap, o que pode aumentar a preocupação na hora de adicionar novos inscritos. Aplicações feitas com linguagens diferentes não podem usar esta metodologia.
 No servidor de publicação | Mais simples de implementar. Ideal para integrar aplicações diferentes. Centraliza a configuração dos inscritos no servidor de eventos. Provê o desacoplamento real entre as partes que se comunicam. | Pode ser mais difícil de entender para os que não conhecem a arquitetura. É preciso executar e manter o servidor de eventos sempre ativo para receber e despachar os eventos ocorridos.
 
 ### 3.1. No bootstrap da aplicação
