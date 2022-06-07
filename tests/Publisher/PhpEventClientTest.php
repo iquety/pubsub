@@ -55,18 +55,18 @@ class PhpEventClientTest extends PhpEventTestCase
 
         $publisher->useTestSocket(fopen(__DIR__ . '/../files/fake-connection.txt', 'w'));
 
-        $event = $this->eventFactory('ricardo', '123');
+        $event = $this->eventFactory('ricardo', '123', EventOne::class);
 
         $output = $this->gotcha(fn() => $publisher->publish('channel-one', $event));
 
         $this->assertStringHasMessages([
-            "Publish event of type 'EventOne' to channel 'channel-one'",
+            "Publish event labeled as 'event-one' to channel 'channel-one'",
         ], $output);
 
         $lastEvent = $this->readLastEventFromFile('fake-connection.txt');
         $this->assertEquals($lastEvent['channel'], 'channel-one');
-        $this->assertEquals($lastEvent['type'], EventOne::class);
-        $this->assertEquals($lastEvent['payload'], $publisher->getSerializer()->serialize($event));
+        $this->assertEquals($lastEvent['label'], 'event-one');
+        $this->assertEquals($lastEvent['eventData'], $publisher->getSerializer()->serialize($event->toArray()));
     }
 
     /** @test */
@@ -82,12 +82,12 @@ class PhpEventClientTest extends PhpEventTestCase
         $output = $this->gotcha(fn() => $publisher->publish('channel-one', $event));
 
         $this->assertStringHasMessages([
-            "Publish event of type 'EventSignal' to channel 'channel-one'",
+            "Publish event labeled as 'signal.stop' to channel 'channel-one'",
         ], $output);
 
         $lastEvent = $this->readLastEventFromFile('fake-connection.txt');
         $this->assertEquals($lastEvent['channel'], 'channel-one');
-        $this->assertEquals($lastEvent['type'], EventSignal::class);
-        $this->assertEquals($lastEvent['payload'], $event->signal());
+        $this->assertEquals($lastEvent['label'], 'signal.stop');
+        $this->assertEquals($lastEvent['eventData'], $event->label());
     }
 }

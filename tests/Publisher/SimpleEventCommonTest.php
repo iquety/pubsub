@@ -16,110 +16,109 @@ class SimpleEventCommonTest extends TestCase
     /** @test */
     public function hasSubscribers(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->eventPublisherFactory(SimpleEventPublisher::class);
+        $this->eventPublisherFactory(SimpleEventPublisher::class);
 
-        $this->assertTrue($publisher->hasSubscribers());
+        $this->assertTrue(SimpleEventPublisher::instance()->hasSubscribers());
     }
 
     /** @test */
     public function reset(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->eventPublisherFactory(SimpleEventPublisher::class);
+        $this->eventPublisherFactory(SimpleEventPublisher::class);
 
-        $this->assertTrue($publisher->hasSubscribers());
+        $this->assertTrue(SimpleEventPublisher::instance()->hasSubscribers());
 
-        $publisher->reset();
+        SimpleEventPublisher::instance()->reset();
 
-        $this->assertFalse($publisher->hasSubscribers());
+        $this->assertFalse(SimpleEventPublisher::instance()->hasSubscribers());
     }
 
     /** @test */
     public function subscribers(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->eventPublisherFactory(SimpleEventPublisher::class);
+        $this->eventPublisherFactory(SimpleEventPublisher::class);
 
         // os inscritos sao indexados pelo tipo
         $this->assertEquals([
             SubscriberOne::class => new SubscriberOne(),
             SubscriberTwo::class => new SubscriberTwo()
-        ], $publisher->subscribers());
+        ], SimpleEventPublisher::instance()->subscribers());
 
         // e também por canal
-        $this->assertCount(2, $publisher->subscribers('channel-one'));
-        $this->assertCount(1, $publisher->subscribers('channel-two'));
+        $this->assertCount(2, SimpleEventPublisher::instance()->subscribers('channel-one'));
+        $this->assertCount(1, SimpleEventPublisher::instance()->subscribers('channel-two'));
     }
 
     /** @test */
     public function subscribersEmpty(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->emptyEventPublisherFactory(SimpleEventPublisher::class);
-        $this->assertEquals([], $publisher->subscribers());
+
+        $this->emptyEventPublisherFactory(SimpleEventPublisher::class);
+
+        $this->assertEquals([], SimpleEventPublisher::instance()->subscribers());
     }
 
     /** @test */
     public function subscribersByChannelEmpty(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->emptyEventPublisherFactory(SimpleEventPublisher::class);
+        $this->emptyEventPublisherFactory(SimpleEventPublisher::class);
 
-        $this->assertEquals([], $publisher->subscribers('monomon'));
+        $this->assertEquals([], SimpleEventPublisher::instance()->subscribers('monomon'));
     }
 
     /** @test */
     public function unsubscribe(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->eventPublisherFactory(SimpleEventPublisher::class);
+        $this->eventPublisherFactory(SimpleEventPublisher::class);
 
-        $this->assertCount(2, $publisher->subscribers('channel-one'));
-        $this->assertCount(1, $publisher->subscribers('channel-two'));
+        $this->assertCount(2, SimpleEventPublisher::instance()->subscribers('channel-one'));
+        $this->assertCount(1, SimpleEventPublisher::instance()->subscribers('channel-two'));
 
-        $publisher->unsubscribe('channel-one', SubscriberTwo::class);
+        SimpleEventPublisher::instance()->unsubscribe('channel-one', SubscriberTwo::class);
 
-        $this->assertCount(1, $publisher->subscribers('channel-one'));
-        $this->assertCount(1, $publisher->subscribers('channel-two'));
+        $this->assertCount(1, SimpleEventPublisher::instance()->subscribers('channel-one'));
+        $this->assertCount(1, SimpleEventPublisher::instance()->subscribers('channel-two'));
     }
 
     /** @test */
     public function unsubscribeFromSingleChannel(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->emptyEventPublisherFactory(SimpleEventPublisher::class);
+        $this->emptyEventPublisherFactory(SimpleEventPublisher::class);
 
-        $publisher->subscribe('channel-one', SubscriberOne::class);
-        $publisher->subscribe('channel-two', SubscriberTwo::class);
+        SimpleEventPublisher::instance()->subscribe('channel-one', SubscriberOne::class);
+        SimpleEventPublisher::instance()->subscribe('channel-two', SubscriberTwo::class);
 
-        $publisher->unsubscribe('channel-one', SubscriberOne::class);
+        SimpleEventPublisher::instance()->unsubscribe('channel-one', SubscriberOne::class);
 
-        $this->assertCount(0, $publisher->subscribers('channel-one'));
-        $this->assertCount(1, $publisher->subscribers());
+        $this->assertCount(0, SimpleEventPublisher::instance()->subscribers('channel-one'));
+        $this->assertCount(1, SimpleEventPublisher::instance()->subscribers());
     }
 
     /** @test */
     public function unsubscribeFromEmpty(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->emptyEventPublisherFactory(SimpleEventPublisher::class);
+        $this->emptyEventPublisherFactory(SimpleEventPublisher::class);
 
-        $publisher->unsubscribe('monomon', SubscriberOne::class);
+        SimpleEventPublisher::instance()->unsubscribe('monomon', SubscriberOne::class);
 
-        $this->assertCount(0, $publisher->subscribers());
+        $this->assertCount(0, SimpleEventPublisher::instance()->subscribers());
     }
 
     /** @test */
     public function useSerializer(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->eventPublisherFactory(SimpleEventPublisher::class);
+        $this->eventPublisherFactory(SimpleEventPublisher::class);
 
-        $this->assertInstanceOf(JsonEventSerializer::class, $publisher->getSerializer());
+        $this->assertInstanceOf(
+            JsonEventSerializer::class,
+            SimpleEventPublisher::instance()->getSerializer()
+        );
 
-        $publisher->useSerializer(new PhpEventSerializer());
+        SimpleEventPublisher::instance()->useSerializer(new PhpEventSerializer());
 
-        $this->assertInstanceOf(PhpEventSerializer::class, $publisher->getSerializer());
+        $this->assertInstanceOf(
+            PhpEventSerializer::class,
+            SimpleEventPublisher::instance()->getSerializer()
+        );
     }
 }

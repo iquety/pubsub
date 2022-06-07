@@ -8,7 +8,6 @@ use Exception;
 use Freep\PubSub\Event\Event;
 use Freep\PubSub\Event\EventSignal;
 use Freep\PubSub\Event\Signals;
-use Freep\PubSub\Publisher\EventPublisher;
 use Freep\PubSub\Subscriber\EventSubscriber;
 use RuntimeException;
 
@@ -145,14 +144,14 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
         }
 
         $channel = $parts[0];
-        $type    = $this->getShortClassName($parts[1]);
-        $payload = trim($parts[2], PHP_EOL);
+        $label   = $parts[1];
+        $eventSerializedData = trim($parts[2], PHP_EOL);
 
         $this->messageFactory(
-            $this->getNowTimeString() . "Message of type '$type' received on channel '$channel'"
+            $this->getNowTimeString() . "Message labeled as '$label' received on channel '$channel'"
         )->infoLn();
 
-        if ($payload === Signals::STOP) {
+        if ($label === Signals::STOP) {
             $this->running = false;
 
             $this->messageFactory(
@@ -162,7 +161,7 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
             return;
         }
 
-        $this->publishToSubscribers($channel, $payload);
+        $this->publishToSubscribers($channel, $label, $eventSerializedData);
 
         $this->messageFactory('')->outputLn();
     }
@@ -200,7 +199,7 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
         return $streamCount;
     }
 
-    private function publishToSubscribers(string $channel, string $aPayload): void
+    private function publishToSubscribers(string $channel, string $label, string $eventSerializedData): void
     {
         if ($this->hasSubscribers($channel) === false) {
             $this->messageFactory("There are no subscribers on channel '$channel'")->outputLn();
@@ -209,27 +208,21 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
 
         $dispatched = false;
 
+        $eventData = $this->getSerializer()->unserialize($eventSerializedData);
+
         try {
-            $eventType = null;
-
             $allSubscribers = $this->subscribers($channel);
-            foreach ($allSubscribers as $subscriber) {
-                $subscribedToType = $subscriber->subscribedToEventType();
 
-                if ($subscribedToType === Event::class) {
-                    $this->dispatchTo($subscriber, $aPayload);
-                    $dispatched = true;
+            foreach ($allSubscribers as $subscriber) {
+                $event = $subscriber->eventFactory($label, $eventData);
+
+                if ($event === null) {
                     continue;
                 }
 
-                if ($eventType === null) {
-                    $eventType = $this->getSerializer()->getEventType($aPayload);
-                }
+                $this->dispatchTo($subscriber, $event);
 
-                if ($eventType === $subscribedToType) {
-                    $this->dispatchTo($subscriber, $aPayload);
-                    $dispatched = true;
-                }
+                $dispatched = true;
             }
         } catch (Exception $exception) {
             $this->messageFactory($exception->getMessage())->errorLn();
@@ -247,13 +240,13 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
     }
 
     /** @override */
-    protected function dispatchTo(EventSubscriber $subscriber, string $aPayload): void
+    protected function dispatchTo(EventSubscriber $subscriber, Event $event): void
     {
         $this->messageFactory(
             "Message dispatched to " . $this->getShortClassName($subscriber::class)
         )->outputLn();
 
-        $subscriber->handleEvent($this->getSerializer()->unserialize($aPayload));
+        $subscriber->handleEvent($event);
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -269,7 +262,7 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
 
         if ($this->isConsole() === true) {
             $this->messageFactory(
-                "Publish event of type '" . $this->getShortClassName($event::class) . "'" .
+                "Publish event labeled as '" . $event->label() . "'" .
                 " to channel '$channel' in " . $this->getAddressString()
             )->successLn();
         }
@@ -281,12 +274,12 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
     protected function setActivityFor($socketClient, string $channel, Event $event): void
     {
         $eventContents = ($event instanceof EventSignal)
-            ? $event->signal()
-            : $this->getSerializer()->serialize($event);
+            ? $event->label()
+            : $this->getSerializer()->serialize($event->toArray());
 
         $payload = $channel
             . $this->separator
-            . $event::class
+            . $event->label()
             . $this->separator
             . $eventContents . PHP_EOL;
 

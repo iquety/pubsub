@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use Freep\PubSub\Event\EventSignal;
 use Freep\PubSub\Event\Signals;
 use Freep\PubSub\Publisher\SimpleEventPublisher;
+use Tests\Example\Events\EventOne;
 use Tests\Example\Events\EventTwo;
 use Tests\Example\Subscribers\SubscriberError;
 use Tests\Example\Subscribers\SubscriberException;
@@ -31,22 +32,23 @@ class SimpleEventObserverTest extends PhpEventTestCase
     /** @test */
     public function sendEventOne(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->eventPublisherFactory(SimpleEventPublisher::class);
-        $publisher->enableTestMode();
+        $this->eventPublisherFactory(SimpleEventPublisher::class);
+        SimpleEventPublisher::instance()->enableTestMode();
 
         $event = $this->eventFactory('ricardo', '123');
 
-        $output = $this->gotcha(fn() => $publisher->publish('channel-one', $event));
+        $output = $this->gotcha(
+            fn() => SimpleEventPublisher::instance()->publish('channel-one', $event)
+        );
 
         // Mensagens do publicador
         $this->assertStringHasMessages([
-            "Publish event of type 'EventOne' to channel 'channel-one'",
+            "Publish event labeled as 'event-one' to channel 'channel-one'",
         ], $output);
 
         // Mensagens do observador
         $this->assertStringHasMessages([
-            "Message of type 'EventOne' received on channel 'channel-one'",
+            "Message labeled as 'event-one' received on channel 'channel-one'",
             "Message dispatched to SubscriberOne",
             "Message dispatched to SubscriberTwo",
         ], $output);
@@ -69,26 +71,29 @@ class SimpleEventObserverTest extends PhpEventTestCase
     public function sendEventTwo(): void
     {
         /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->emptyEventPublisherFactory(SimpleEventPublisher::class)
+        $this->emptyEventPublisherFactory(SimpleEventPublisher::class)
             ->subscribe('channel-one', SubscriberOne::class) // pode receber EventOne
             ->subscribe('channel-one', SubscriberTwo::class); // pode receber qualquer evento
-        $publisher->enableTestMode();
+
+        SimpleEventPublisher::instance()->enableTestMode();
 
         $ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
         $event = new EventTwo('ricardo', '123', $ocurredOn);
 
-        $output = $this->gotcha(fn() => $publisher->publish('channel-one', $event));
+        $output = $this->gotcha(
+            fn() => SimpleEventPublisher::instance()->publish('channel-one', $event)
+        );
         $subscriberOneHandle = $this->readLastHandleFromFile('subscriber-one-handle.txt');
         $subscriberTwoHandle = $this->readLastHandleFromFile('subscriber-two-handle.txt');
 
         // Mensagens do publicador
         $this->assertStringHasMessages([
-            "Publish event of type 'EventTwo' to channel 'channel-one'",
+            "Publish event labeled as 'event-two' to channel 'channel-one'",
         ], $output);
 
         // Mensagens do observador
         $this->assertStringHasMessages([
-            "Message of type 'EventTwo' received on channel 'channel-one'",
+            "Message labeled as 'event-two' received on channel 'channel-one'",
             "Message dispatched to SubscriberTwo",
         ], $output);
 
@@ -121,13 +126,15 @@ class SimpleEventObserverTest extends PhpEventTestCase
      */
     public function sendEventSignal(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->eventPublisherFactory(SimpleEventPublisher::class);
-        $publisher->enableTestMode();
+        $this->eventPublisherFactory(SimpleEventPublisher::class);
+
+        SimpleEventPublisher::instance()->enableTestMode();
 
         $event = new EventSignal(Signals::STOP);
 
-        $output = $this->gotcha(fn() => $publisher->publish('channel-one', $event));
+        $output = $this->gotcha(
+            fn() => SimpleEventPublisher::instance()->publish('channel-one', $event)
+        );
 
         $this->assertStringHasMessages([
             "EventSignal type messages have no effect on publisher SimpleEventPublisher"
@@ -140,19 +147,23 @@ class SimpleEventObserverTest extends PhpEventTestCase
      */
     public function setupErrorHandlerTwoTimes(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->eventPublisherFactory(SimpleEventPublisher::class);
-        $publisher->enableTestMode();
+        $this->eventPublisherFactory(SimpleEventPublisher::class);
+
+        SimpleEventPublisher::instance()->enableTestMode();
 
         $event = new EventSignal(Signals::STOP);
 
-        $output = $this->gotcha(fn() => $publisher->publish('channel-one', $event));
+        $output = $this->gotcha(
+            fn() => SimpleEventPublisher::instance()->publish('channel-one', $event)
+        );
         $this->assertStringHasMessages([
             "EventSignal type messages have no effect on publisher SimpleEventPublisher"
         ], $output);
 
         // executa novamente para passar pelo setupErrorHandler duas vezes
-        $output = $this->gotcha(fn() => $publisher->publish('channel-one', $event));
+        $output = $this->gotcha(
+            fn() => SimpleEventPublisher::instance()->publish('channel-one', $event)
+        );
         $this->assertStringHasMessages([
             "EventSignal type messages have no effect on publisher SimpleEventPublisher"
         ], $output);
@@ -161,19 +172,20 @@ class SimpleEventObserverTest extends PhpEventTestCase
     /** @test */
     public function receiveEventForNoChannelSubscribers(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->emptyEventPublisherFactory(SimpleEventPublisher::class)
+        $this->emptyEventPublisherFactory(SimpleEventPublisher::class)
             ->subscribe('channel-two', SubscriberOne::class); // pode receber apenas EventOne
 
-        $publisher->enableTestMode();
+        SimpleEventPublisher::instance()->enableTestMode();
 
         $ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
         $event = new EventTwo('ricardo', '123', $ocurredOn);
 
-        $output = $this->gotcha(fn() => $publisher->publish('channel-one', $event));
+        $output = $this->gotcha(
+            fn() => SimpleEventPublisher::instance()->publish('channel-one', $event)
+        );
 
         $this->assertStringHasMessages([
-            "Message of type 'EventTwo' received on channel 'channel-one'",
+            "Message labeled as 'event-two' received on channel 'channel-one'",
             "There are no subscribers on channel 'channel-one'"
         ], $output);
     }
@@ -181,18 +193,20 @@ class SimpleEventObserverTest extends PhpEventTestCase
     /** @test */
     public function receiveEventForNoAbleSubscribers(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->emptyEventPublisherFactory(SimpleEventPublisher::class)
+        $this->emptyEventPublisherFactory(SimpleEventPublisher::class)
             ->subscribe('channel-two', SubscriberOne::class); // pode receber apenas EventOne
 
-        $publisher->enableTestMode();
+        SimpleEventPublisher::instance()->enableTestMode();
 
         $ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
         $event = new EventTwo('ricardo', '123', $ocurredOn);
-        $output = $this->gotcha(fn() => $publisher->publish('channel-two', $event));
+
+        $output = $this->gotcha(
+            fn() => SimpleEventPublisher::instance()->publish('channel-two', $event)
+        );
 
         $this->assertStringHasMessages([
-            "Message of type 'EventTwo' received on channel 'channel-two'",
+            "Message labeled as 'event-two' received on channel 'channel-two'",
             "There are no subscribers who accept this type of event"
         ], $output);
     }
@@ -200,14 +214,15 @@ class SimpleEventObserverTest extends PhpEventTestCase
     /** @test */
     public function receiveEventOnSubscriberException(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->emptyEventPublisherFactory(SimpleEventPublisher::class)
+        $this->emptyEventPublisherFactory(SimpleEventPublisher::class)
             ->subscribe('channel-one', SubscriberException::class);
 
-        $publisher->enableTestMode();
+        SimpleEventPublisher::instance()->enableTestMode();
 
         $event = $this->eventFactory('ricardo', '123');
-        $output = $this->gotcha(fn() => $publisher->publish('channel-one', $event));
+        $output = $this->gotcha(
+            fn() => SimpleEventPublisher::instance()->publish('channel-one', $event)
+        );
 
         $this->assertStringHasMessages([
             "Exception in subscriber handle",
@@ -217,14 +232,15 @@ class SimpleEventObserverTest extends PhpEventTestCase
     /** @test */
     public function receiveEventOnSubscriberError(): void
     {
-        /** @var SimpleEventPublisher $publisher */
-        $publisher = $this->emptyEventPublisherFactory(SimpleEventPublisher::class)
+        $this->emptyEventPublisherFactory(SimpleEventPublisher::class)
             ->subscribe('channel-one', SubscriberError::class);
 
-        $publisher->enableTestMode();
+        SimpleEventPublisher::instance()->enableTestMode();
 
-        $event = $this->eventFactory('ricardo', '123');
-        $output = $this->gotcha(fn() => $publisher->publish('channel-one', $event));
+        $event = $this->eventFactory('ricardo', '123', EventOne::class);
+        $output = $this->gotcha(
+            fn() => SimpleEventPublisher::instance()->publish('channel-one', $event)
+        );
 
         $this->assertStringHasMessages([
             "Error triggered in subscriber handle"

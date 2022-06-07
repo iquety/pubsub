@@ -16,12 +16,11 @@ class PhpEventSerializerTest extends TestCase
     {
         $event = $this->eventFactory('ricardo', '123');
 
-        $serializedEvent = (new PhpEventSerializer())->serialize($event);
+        $serializedEvent = (new PhpEventSerializer())->serialize($event->toArray());
 
         $reconstitution = (new PhpEventSerializer())->unserialize($serializedEvent);
 
-        $this->assertEquals($reconstitution, $event);
-        $this->assertEquals($reconstitution->toArray(), $event->toArray());
+        $this->assertEquals($reconstitution, $event->toArray());
     }
 
     /** @test */
@@ -29,50 +28,11 @@ class PhpEventSerializerTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(
-            "The serialized event is corrupted"
-        );
-
-        (new PhpEventSerializer())->unserialize(
-            '{-php-errado'
-        );
-    }
-
-    /** @test */
-    public function unserializeFormatErrorLastEol(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage(
-            "The serialized event is corrupted"
-        );
-
-        (new PhpEventSerializer())->unserialize(
-            EventOne::class . PHP_EOL . '{-php-errado' . PHP_EOL
-        );
-    }
-
-    /** @test */
-    public function unserializeFormatErrorFirstEol(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage(
-            "The serialized event is corrupted"
-        );
-
-        (new PhpEventSerializer())->unserialize(
-            PHP_EOL . EventOne::class . PHP_EOL . '{-php-errado'
-        );
-    }
-
-    /** @test */
-    public function unserializePhpError(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage(
             "The serialized PHP object is corrupted: unserialize(): Error at offset 0 of 12 bytes"
         );
 
         (new PhpEventSerializer())->unserialize(
-            EventOne::class . PHP_EOL . '{-php-errado'
+            '{-php-errado'
         );
     }
 }

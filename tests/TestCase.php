@@ -8,6 +8,7 @@ use Closure;
 use DateTimeImmutable;
 use Freep\PubSub\Event\Event;
 use Freep\PubSub\Publisher\EventPublisher;
+use Freep\PubSub\Publisher\PhpEventPublisher;
 use Tests\Example\Events\EventOne;
 use Tests\Example\Subscribers\SubscriberOne;
 use Tests\Example\Subscribers\SubscriberTwo;
@@ -19,7 +20,16 @@ class TestCase extends FrameworkTestCase
 {
     protected function eventPublisherFactory(string $className): EventPublisher
     {
-        return (new $className())
+        if ($className === SimpleEventPublisher::class) {
+            return SimpleEventPublisher::instance()
+                ->reset()
+                ->enableVerboseMode()
+                ->subscribe('channel-one', SubscriberOne::class)
+                ->subscribe('channel-one', SubscriberTwo::class)
+                ->subscribe('channel-two', SubscriberTwo::class);
+        }
+
+        return (new PhpEventPublisher('localhost', 8080))
             ->enableVerboseMode()
             ->subscribe('channel-one', SubscriberOne::class)
             ->subscribe('channel-one', SubscriberTwo::class)
@@ -28,14 +38,20 @@ class TestCase extends FrameworkTestCase
 
     protected function emptyEventPublisherFactory(string $className): EventPublisher
     {
-        return (new $className())
+        if ($className === SimpleEventPublisher::class) {
+            return SimpleEventPublisher::instance()
+                ->reset()
+                ->enableVerboseMode();
+        }
+
+        return (new PhpEventPublisher('localhost', 8080))
             ->enableVerboseMode();
     }
 
-    protected function eventFactory(string $name, string $cpf): Event
+    protected function eventFactory(string $name, string $cpf, string $className = EventOne::class): Event
     {
         $ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
-        return new EventOne($name, $cpf, $ocurredOn);
+        return new $className($name, $cpf, $ocurredOn);
     }
 
     protected function filesystemFactory(): Filesystem

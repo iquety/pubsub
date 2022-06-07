@@ -16,6 +16,11 @@ class EventTwo implements Event
     ) {
     }
 
+    public function label(): string
+    {
+        return 'event-two';
+    }
+
     public static function factory(array $values): Event
     {
         return new self(

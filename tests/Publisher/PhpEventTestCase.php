@@ -18,8 +18,8 @@ class PhpEventTestCase extends TestCase
 
         return [
             'channel' => $parts[0],
-            'type'    => $parts[1],
-            'payload' => trim($parts[2])
+            'label'    => $parts[1],
+            'eventData' => trim($parts[2])
         ];
     }
 

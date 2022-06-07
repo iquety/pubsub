@@ -8,7 +8,7 @@ use Freep\PubSub\Event\Event;
 
 interface EventSubscriber
 {
-    public function handleEvent(Event $event): void;
+    public function eventFactory(string $eventLabel, array $eventData): ?Event;
 
-    public function subscribedToEventType(): string;
+    public function handleEvent(Event $event): void;
 }

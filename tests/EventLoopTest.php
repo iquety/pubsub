@@ -35,7 +35,7 @@ class EventLoopTest extends TestCase
 
         $this->assertStringHasMessages([
             "The publish/subscriber server has been started",
-            "Message of type 'EventSignal' received on channel 'channel-one'",
+            "Message labeled as 'signal.stop' received on channel 'channel-one'",
             "Message to stop the server received",
             "The publish/subscriber server has been stopped",
         ], $output);

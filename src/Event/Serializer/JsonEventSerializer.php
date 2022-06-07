@@ -4,27 +4,21 @@ declare(strict_types=1);
 
 namespace Freep\PubSub\Event\Serializer;
 
-use Freep\PubSub\Event\Event;
 use RuntimeException;
 
-class JsonEventSerializer extends AbstractEventSerializer
+class JsonEventSerializer implements EventSerializer
 {
-    public function serialize(Event $event): string
+    public function serialize(array $eventData): string
     {
-        return $event::class
-            . PHP_EOL
-            . json_encode($event->toArray(), JSON_FORCE_OBJECT);
+        return json_encode($eventData, JSON_FORCE_OBJECT);
     }
 
-    public function unserialize(string $serializedEvent): Event
+    public function unserialize(string $eventSerializedData): array
     {
-        $className = $this->getEventType($serializedEvent);
-        $serialized = $this->getEventSerialized($serializedEvent);
-
-        $arguments = json_decode($serialized, true);
+        $eventData = json_decode($eventSerializedData, true);
         $this->assertDecodeError();
 
-        return $className::factory($arguments);
+        return $eventData;
     }
 
     protected function assertDecodeError(): void

@@ -60,7 +60,7 @@ class PhpEventServerTest extends PhpEventTestCase
 
         $this->assertStringHasMessages([
             "The publish/subscriber server has been started",
-            "Message of type 'EventOne' received on channel 'channel-one'",
+            "Message labeled as 'event-one' received on channel 'channel-one'",
             "Message dispatched to SubscriberOne",
             "Message dispatched to SubscriberTwo",
             "The publish/subscriber server has been stopped"
@@ -108,7 +108,7 @@ class PhpEventServerTest extends PhpEventTestCase
 
         $this->assertStringHasMessages([
             "The publish/subscriber server has been started",
-            "Message of type 'EventTwo' received on channel 'channel-one'",
+            "Message labeled as 'event-two' received on channel 'channel-one'",
             "Message dispatched to SubscriberTwo",
             "The publish/subscriber server has been stopped"
         ], $output);
@@ -150,7 +150,7 @@ class PhpEventServerTest extends PhpEventTestCase
 
         $this->assertStringHasMessages([
             "The publish/subscriber server has been started",
-            "Message of type 'EventSignal' received on channel 'channel-one'",
+            "Message labeled as 'signal.stop' received on channel 'channel-one'",
             "Message to stop the server received",
             "The publish/subscriber server has been stopped",
         ], $output);
@@ -171,7 +171,7 @@ class PhpEventServerTest extends PhpEventTestCase
 
         $this->assertStringHasMessages([
             "The publish/subscriber server has been started",
-            "Message of type 'EventTwo' received on channel 'channel-one'",
+            "Message labeled as 'event-two' received on channel 'channel-one'",
             "There are no subscribers on channel 'channel-one'",
             "The publish/subscriber server has been stopped",
         ], $output);
@@ -192,7 +192,7 @@ class PhpEventServerTest extends PhpEventTestCase
 
         $this->assertStringHasMessages([
             "The publish/subscriber server has been started",
-            "Message of type 'EventTwo' received on channel 'channel-two'",
+            "Message labeled as 'event-two' received on channel 'channel-two'",
             "There are no subscribers who accept this type of event",
             "The publish/subscriber server has been stopped",
         ], $output);

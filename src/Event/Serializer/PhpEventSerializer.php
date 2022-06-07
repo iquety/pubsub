@@ -4,30 +4,24 @@ declare(strict_types=1);
 
 namespace Freep\PubSub\Event\Serializer;
 
-use Freep\PubSub\Event\Event;
 use RuntimeException;
 use Throwable;
 
-class PhpEventSerializer extends AbstractEventSerializer
+class PhpEventSerializer implements EventSerializer
 {
-    public function serialize(Event $event): string
+    public function serialize(array $eventData): string
     {
-        return $event::class
-            . PHP_EOL
-            . serialize($event->toArray());
+        return serialize($eventData);
     }
 
-    public function unserialize(string $serializedEvent): Event
+    public function unserialize(string $eventSerializedData): array
     {
-        $className = $this->getEventType($serializedEvent);
-        $serialized = $this->getEventSerialized($serializedEvent);
-
         try {
-            $arguments = unserialize($serialized);
+            $eventData = unserialize($eventSerializedData);
         } catch (Throwable $exception) {
             throw new RuntimeException("The serialized PHP object is corrupted: " . $exception->getMessage());
         }
 
-        return $className::factory($arguments);
+        return $eventData;
     }
 }

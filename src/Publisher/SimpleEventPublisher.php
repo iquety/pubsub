@@ -22,7 +22,7 @@ class SimpleEventPublisher extends AbstractEventPublisher
 
     private static ?self $instance = null;
 
-    public function instance(): self
+    public static function instance(): self
     {
         if (self::$instance === null) {
             self::$instance = new self();
@@ -125,10 +125,10 @@ class SimpleEventPublisher extends AbstractEventPublisher
     {
         parent::setupErrorHandler();
 
-        $type = $this->getShortClassName($event::class);
+        $label = $event->label();
 
         $this->messageFactory(
-            $this->getNowTimeString() . "Message of type '$type' received on channel '$channel'"
+            $this->getNowTimeString() . "Message labeled as '$label' received on channel '$channel'"
         )->infoLn();
 
         if ($this->hasSubscribers($channel) === false) {
@@ -149,8 +149,7 @@ class SimpleEventPublisher extends AbstractEventPublisher
 
         if ($this->isConsole() === true) {
             $this->messageFactory(
-                "Publish event of type '" . $this->getShortClassName($event::class) . "'" .
-                " to channel '$channel'"
+                "Publish event labeled as '$label' to channel '$channel'"
             )->successLn();
         }
 
@@ -165,12 +164,15 @@ class SimpleEventPublisher extends AbstractEventPublisher
             $allSubscribers = $this->subscribers($channel);
 
             foreach ($allSubscribers as $subscriber) {
-                $subscribedToType = $subscriber->subscribedToEventType();
+                $eventResolved = $subscriber->eventFactory($event->label(), $event->toArray());
 
-                if ($event::class === $subscribedToType || $subscribedToType === Event::class) {
-                    $this->dispatchTo($subscriber, $event);
-                    $dispatched = true;
+                if ($eventResolved === null) {
+                    continue;
                 }
+
+                $this->dispatchTo($subscriber, $event);
+
+                $dispatched = true;
             }
         } catch (Exception $exception) {
             $this->messageFactory($exception->getMessage())->errorLn();
@@ -178,8 +180,10 @@ class SimpleEventPublisher extends AbstractEventPublisher
         }
 
         if ($this->hasError() === true) {
+            // @codeCoverageIgnoreStart
             $this->messageFactory($this->getErrorMessage())->errorLn();
             return;
+            // @codeCoverageIgnoreEnd
         }
 
         if ($dispatched === false) {

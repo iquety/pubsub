@@ -1,5 +1,5 @@
 channel-one
 
-Freep\PubSub\Events\EventSignal
+signal.stop
 
-stop
+signal.stop

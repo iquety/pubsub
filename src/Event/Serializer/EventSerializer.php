@@ -8,9 +8,7 @@ use Freep\PubSub\Event\Event;
 
 interface EventSerializer
 {
-    public function getEventType(string $serializedEvent): string;
+    public function serialize(array $eventData): string;
 
-    public function serialize(Event $event): string;
-
-    public function unserialize(string $serializedEvent): Event;
+    public function unserialize(string $eventSerializedData): array;
 }

@@ -16,12 +16,11 @@ class JsonEventSerializerTest extends TestCase
     {
         $event = $this->eventFactory('ricardo', '123');
 
-        $serializedEvent = (new JsonEventSerializer())->serialize($event);
+        $serializedEvent = (new JsonEventSerializer())->serialize($event->toArray());
 
         $reconstitution = (new JsonEventSerializer())->unserialize($serializedEvent);
 
-        $this->assertEquals($reconstitution, $event);
-        $this->assertEquals($reconstitution->toArray(), $event->toArray());
+        $this->assertEquals($reconstitution, $event->toArray());
     }
 
     /** @test */
@@ -29,50 +28,11 @@ class JsonEventSerializerTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(
-            "The serialized event is corrupted"
-        );
-
-        (new JsonEventSerializer())->unserialize(
-            '{-json-errado'
-        );
-    }
-
-    /** @test */
-    public function unserializeFormatErrorLastEol(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage(
-            "The serialized event is corrupted"
-        );
-
-        (new JsonEventSerializer())->unserialize(
-            EventOne::class . PHP_EOL . '{-json-errado' . PHP_EOL
-        );
-    }
-
-    /** @test */
-    public function unserializeFormatErrorFirstEol(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage(
-            "The serialized event is corrupted"
-        );
-
-        (new JsonEventSerializer())->unserialize(
-            PHP_EOL . EventOne::class . PHP_EOL . '{-json-errado'
-        );
-    }
-
-    /** @test */
-    public function unserializeJsonError(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage(
             "The json data is corrupted: Syntax error, malformed JSON"
         );
 
         (new JsonEventSerializer())->unserialize(
-            EventOne::class . PHP_EOL . '{-json-errado'
+            '{-json-errado'
         );
     }
 }

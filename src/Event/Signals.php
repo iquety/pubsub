@@ -6,5 +6,5 @@ namespace Freep\PubSub\Event;
 
 class Signals
 {
-    public const STOP = 'stop';
+    public const STOP = 'signal.stop';
 }
