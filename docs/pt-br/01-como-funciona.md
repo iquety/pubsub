@@ -60,7 +60,7 @@ SimpleEventPublisher::instance()
 
 ```
 
-Agora, para disparar eventos, basta invocar uma chamada para o método `publish()` do publicador:
+Para disparar eventos, em qualquer lugar do sistema, basta invocar uma chamada para o método `publish()` do publicador:
 
 ```php
 // userRegister.php (arquivo qualquer, em outra parte do sistema)
@@ -185,10 +185,10 @@ Message dispatched to SubscriberTwo
 
 ### 3.4. Enviando eventos reais para o servidor de eventos
 
-Para enviar eventos ao servidor em execução, é preciso usar a classe "PhpEventPublisher" e invocar o método `publish()`, como no exemplo abaixo:
+Para enviar eventos ao servidor em execução, é preciso usar a classe "ServerEventPublisher" em qualquer lugar do sistema e invocar o método `publish()`, como no exemplo abaixo:
 
 ```php
-$publisher = new PhpEventPublisher('localhost', 8080);
+$publisher = new ServerEventPublisher('localhost', 8080);
 
 $ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
 $event = new EventOne('Ricardo', '99988877766', $ocurredOn);

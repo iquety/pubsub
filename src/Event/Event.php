@@ -8,7 +8,7 @@ use DateTimeImmutable;
 
 interface Event
 {
-     /** @param array<string,mixed> $values */
+    /** @param array<string,mixed> $values */
     public static function factory(array $values): Event;
 
     public function label(): string;
