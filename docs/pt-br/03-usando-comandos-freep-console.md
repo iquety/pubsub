@@ -55,7 +55,7 @@ $terminal = new Terminal(__DIR__ . "/src");
 $terminal->loadCommandsFrom(EventLoop::commandPath());
 
 // carrega os comandos do meu projeto
-$terminal->loadCommandsFrom(__DIR__ . '/Project/Commands');
+$terminal->loadCommandsFrom(__DIR__ . '/MeuApp/Commands');
 
 $terminal->run($argv);
 ```
