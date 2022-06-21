@@ -1,6 +1,6 @@
 # Como funciona
 
-[◂ Voltar ao índice](indice.md) | [Usando um script de terminal ▸](02-usando-script-de-terminal.md)
+[◂ Voltar ao índice](indice.md) | [Usando o script de terminal ▸](02-usando-script-de-terminal.md)
 -- | --
 
 ## 1. Arquitetura orientada a eventos
@@ -136,5 +136,5 @@ duas quebras de linha | "\n" + "\n"
 conteúdo json serializado | **Importante**: o "Intermediador de Mensagens" deve estar configurado para usar serializações do tipo Json (o padrão da biblioteca). Mais informações em [Usando um script de terminal](02-usando-script-de-terminal.md)
 uma quebra de linha | "\n"
 
-[◂ Voltar ao índice](indice.md) | [Usando um script de terminal ▸](02-usando-script-de-terminal.md)
+[◂ Voltar ao índice](indice.md) | [Usando o script de terminal ▸](02-usando-script-de-terminal.md)
 -- | --

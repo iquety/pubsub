@@ -11,7 +11,7 @@ necessárias para utilizar as funcionalidades disponíveis e usufruir ao máximo
 ### Conteúdo
 
 - [Como funciona](01-como-funciona.md)
-- [Usando um script de terminal](02-usando-script-de-terminal.md)
+- [Usando o script de terminal](02-usando-script-de-terminal.md)
 - [Usando comandos do Freep Console](03-usando-comandos-freep-console.md)
 - [Implementando um Subscriber](04-implementando-um-subscriber.md)
 - [Implementando um Evento](05-implementando-um-evento.md)

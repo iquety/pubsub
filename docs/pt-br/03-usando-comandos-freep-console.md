@@ -1,6 +1,6 @@
 # Usando comandos do Freep Console
 
-[◂ Usando um script de terminal](02-usando-script-de-terminal.md) | [Voltar ao índice](indice.md) | [Implementando um Subscriber ▸](04-implementando-um-subscriber.md)
+[◂ Usando o script de terminal](02-usando-script-de-terminal.md) | [Voltar ao índice](indice.md) | [Implementando um Subscriber ▸](04-implementando-um-subscriber.md)
 -- | -- | --
 
 ## 1. Criando um script personalizado
@@ -68,5 +68,5 @@ Perceba que o script acima inicia com `#!/bin/php`. Essa notação diz para o te
 
 > **Nota**: em sistemas unix ou derivados, para poder invocar diretamente um script (ex: ./meuapp), é preciso que ele possua permissão para executar. Isso é conseguido pelo comando `chmod a+x meuapp`
 
-[◂ Usando um script de terminal](02-usando-script-de-terminal.md) | [Voltar ao índice](indice.md) | [Implementando um Subscriber ▸](04-implementando-um-subscriber.md)
+[◂ Usando o script de terminal](02-usando-script-de-terminal.md) | [Voltar ao índice](indice.md) | [Implementando um Subscriber ▸](04-implementando-um-subscriber.md)
 -- | -- | --

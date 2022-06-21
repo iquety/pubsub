@@ -1,4 +1,4 @@
-# Usando um script de terminal
+# Usando o script de terminal
 
 [◂ Como funciona](01-como-funciona.md) | [Voltar ao índice](indice.md) | [Usando comandos do Freep Console ▸](03-usando-comandos-freep-console.md)
 -- | -- | --
@@ -155,7 +155,7 @@ Message dispatched to SubscriberTwo
 There are no subscribers on channel 'channel-greenville'
 ```
 
-## 4. Mantendo o Intermediador de Mensagens sempre em execução
+## 4. Mantendo o "Intermediador de Mensagens" sempre em execução
 
 ... TODO
 ... Falar do Supervisor e sobre o Sinal de Parada
