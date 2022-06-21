@@ -11,7 +11,7 @@ Um novo Subscriber deve implementar a interface `Freep\PubSub\Subscriber\EventSu
 
 ### 1.1. O método "eventFactory"
 
-Este método recebe uma `string` de identificação ($eventLabel) e um `array` associativo contendo os dados do evento ($eventData). Com base nessas informações o "eventFactory" deve fabricar o evento correto e devolvê-lo corretamente no retorno. Caso não seja possível fabricar um evento adequado, null deverá ser retornado:
+Este método recebe uma `string` de identificação ($eventLabel) e um `array` associativo contendo os dados do evento ($eventData). Com base nessas informações o "eventFactory" deve fabricar o evento correto e devolvê-lo adequadamente no retorno. Caso não seja possível fabricar um evento adequado, `null` deverá ser retornado:
 
 ```php
 /** @param array<string,mixed> $eventData */
