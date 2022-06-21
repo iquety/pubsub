@@ -40,7 +40,7 @@ class PhpEventCommonTest extends PhpEventTestCase
         /** @var PhpEventPublisher $publisher */
         $publisher = $this->eventPublisherFactory(PhpEventPublisher::class);
 
-        // os inscritos sao indexados pelo tipo
+        // os assinante sao indexados pelo tipo
         $this->assertEquals([
             SubscriberOne::class => new SubscriberOne(),
             SubscriberTwo::class => new SubscriberTwo()

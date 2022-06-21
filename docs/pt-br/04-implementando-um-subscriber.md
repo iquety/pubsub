@@ -5,7 +5,7 @@
 
 ## 1. O que é um Subscriber
 
-Um Subscriber (inscrito) é responsável pela manipulação dos eventos ocorridos. Ele deve conter a rotina responsável pela interpretação de um evento e saber o que fazer quando um evento daquele tipo acontecer.
+Um Subscriber (assinante) é responsável pela manipulação dos eventos ocorridos. Ele deve conter a rotina responsável pela interpretação de um evento e saber o que fazer quando um evento daquele tipo acontecer.
 
 Um novo Subscriber deve implementar a interface `Freep\PubSub\Subscriber\EventSubscriber`, que exige três métodos específicos:
 

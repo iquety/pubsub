@@ -11,7 +11,7 @@ Existem diversas formas de fazer isso. No entanto, esta biblioteca trata de um p
 
 ## 2. O padrão Publish/Subscribe
 
-Este padrão arquitetônico faz uso de um padrão de projeto chamado ["Observer"](https://refactoring.guru/pt-br/design-patterns/observer). Resumidamente, um "Observer" possui uma lista de "inscritos" (como em um canal do Youtube). Cada inscrito tem suas próprias necessidades e recebe notificações sempre que algo de seu interesse acontece.
+Este padrão arquitetônico faz uso de um padrão de projeto chamado ["Observer"](https://refactoring.guru/pt-br/design-patterns/observer). Resumidamente, um "Observer" possui uma lista de "assinantes" (como em um canal do Youtube). Cada inscrito tem suas próprias necessidades e recebe notificações sempre que algo de seu interesse acontece.
 
 O exemplo fictício abaixo é autoexplicativo:
 
@@ -38,8 +38,8 @@ Existem duas maneiras de implementar um "Observer" para Publish/Subscribe, com v
 
 Implementação | Prós | Contras
 -- | -- | --
-No início da aplicação (Bootstrap) | Simples de implementar e entender, mesmo para quem não conhece a arquitetura Pub/Sub. Ideal para comunicação dos módulos dentro de uma mesma aplicação. | Cria um acoplamento com a implementação do bootstrap. Aplicações diferentes precisam reimplementar a configuração do bootstrap, o que pode aumentar a preocupação na hora de adicionar novos inscritos. Aplicações feitas com linguagens diferentes de PHP (ex.: Java, Ruby, Python) não podem enviar eventos.
-No "Intermediador de Mensagens" (Message Broker) | Ideal para integrar aplicações diferentes. Centraliza a configuração dos inscritos no "Intermediador de Mensagens". Provê o desacoplamento real entre as partes que se comunicam. Uma aplicação não-PHP também pode enviar eventos para se comunicar | Pode ser mais difícil de entender para aqueles que não estão familiarizados com uma arquitetura orientada a eventos. É preciso executar e manter o servidor de eventos sempre ativo para receber e despachar os eventos ocorridos.
+No início da aplicação (Bootstrap) | Simples de implementar e entender, mesmo para quem não conhece a arquitetura Pub/Sub. Ideal para comunicação dos módulos dentro de uma mesma aplicação. | Cria um acoplamento com a implementação do bootstrap. Aplicações diferentes precisam reimplementar a configuração do bootstrap, o que pode aumentar a preocupação na hora de adicionar novos assinantes. Aplicações feitas com linguagens diferentes de PHP (ex.: Java, Ruby, Python) não podem enviar eventos.
+No "Intermediador de Mensagens" (Message Broker) | Ideal para integrar aplicações diferentes. Centraliza a configuração dos assinantes no "Intermediador de Mensagens". Provê o desacoplamento real entre as partes que se comunicam. Uma aplicação não-PHP também pode enviar eventos para se comunicar | Pode ser mais difícil de entender para aqueles que não estão familiarizados com uma arquitetura orientada a eventos. É preciso executar e manter o servidor de eventos sempre ativo para receber e despachar os eventos ocorridos.
 
 A seguir, mais informações sobre os dois tipos de implementação.
 

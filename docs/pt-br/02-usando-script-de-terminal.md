@@ -60,7 +60,7 @@ pubsub:broker | O comando executado. Pode ser "pubsub:broker" ou "pubsub:client-
 
 ### (-c) O arquivo de configuração
 
-Este arquivo deve retornar uma função anônima (Closure) contendo os "inscritos" (Subscribers) e seus respectivos canais de comunicação. Veja o exemplo abaixo:
+Este arquivo deve retornar uma função anônima (Closure) contendo os "assinantes" (Subscribers) e seus respectivos canais de comunicação. Veja o exemplo abaixo:
 
 ```php
 <?php
@@ -110,7 +110,7 @@ Com o "Intermediador de Mensagens" em execução, basta abrir outro terminal e u
 ./example pubsub:client-test -d localhost -p 8080 -v
 ```
 
-Os eventos de teste são enviados para três canais de comunicação diferentes: 'channel-vormir', 'channel-mordor' e 'channel-greenville'. Dois destes canais possuem "inscritos" (Subscribers) configurados propositalmente no arquivo `tests/Example/config-file.php`.
+Os eventos de teste são enviados para três canais de comunicação diferentes: 'channel-vormir', 'channel-mordor' e 'channel-greenville'. Dois destes canais possuem "assinantes" (Subscribers) configurados propositalmente no arquivo `tests/Example/config-file.php`.
 
 Para mais informações de ajuda, use a opção '--help' com o nome do comando:
 

@@ -38,7 +38,7 @@ class SimpleEventCommonTest extends TestCase
     {
         $this->eventPublisherFactory(SimpleEventPublisher::class);
 
-        // os inscritos sao indexados pelo tipo
+        // os assinante sao indexados pelo tipo
         $this->assertEquals([
             SubscriberOne::class => new SubscriberOne(),
             SubscriberTwo::class => new SubscriberTwo()
