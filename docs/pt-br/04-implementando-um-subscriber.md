@@ -82,12 +82,11 @@ class UserEventSubscriber implements EventSubscriber
         switch($eventLabel) {
             case 'user-registered':
                 return UserRegistered::factory($eventData);
-                break;
+
             case 'user-email-changed':
                 return UserEmailChanged::factory($eventData);
-                break;
         }
-            
+
         return null;
     }
 
