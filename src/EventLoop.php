@@ -12,6 +12,10 @@ class EventLoop
     {
     }
 
+    public static function commandPath(): string
+    {
+        return __DIR__ . DIRECTORY_SEPARATOR . 'Command';
+    }
     public function addSubscriber(string $channel, string $subscriberSignatute): void
     {
         $this->publisher->subscribe($channel, $subscriberSignatute);
