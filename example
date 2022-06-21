@@ -11,7 +11,7 @@ use Freep\PubSub\EventLoop;
 // de palavras digitadas pelo usuário no Terminal. Esta variável será usada para
 // passar as informações ao Terminal da biblioteca.
 
-// Remove o primeiro argumento, que contém o nome do script (ex: ./superapp)
+// Remove o primeiro argumento, que contém o nome do script (ex: ./example)
 array_shift($argv);
 
 $terminal = new Terminal(__DIR__ . "/src");

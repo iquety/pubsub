@@ -92,13 +92,13 @@ Para subir o "Agente de Mensagens", abra um terminal e digite o seguinte comando
 ./example pubsub:broker -c 'tests/Example/config-file.php' -v
 ```
 
-Isso irá executar o servidor de eventos em "localhost" na porta "8080". A saída deverá se parecer como a seguir:
+Isso irá executar o "Agente de Mensagens" em "localhost" na porta "8080", com dois "Subscribers" configurados no arquivo 'tests/Example/config-file.php'. Mais informações em [Usando um script de terminal](02-usando-script-de-terminal.md). A saída deverá se parecer como a seguir:
 
 ```text
 ✔ The publish/subscriber server has been started in tcp://localhost:8080
 ```
 
-#### 5.1.1. Disparar eventos PHP
+### 5.2. Disparar eventos PHP
 
 Para disparar eventos, em qualquer lugar do sistema, basta invocar uma chamada para o método `publish()` do publicador "PhpEventPublisher". Veja um exemplo abaixo:
 
@@ -111,7 +111,7 @@ $event = new EventOne('Ricardo', '99988877766', $ocurredOn);
 $publisher->publish('channel-vormir', $event);
 ```
 
-#### 5.1.2. Disparar eventos a partir de outras linguagens
+### 5.3. Disparar eventos a partir de outras linguagens
 
 É possível enviar eventos a partir de aplicações construídas em linguagens diferentes de PHP. Isso é conseguido enviando uma mensagem TCP simples para o servidor em execução (no caso atual, tcp://localhost:8080).
 
