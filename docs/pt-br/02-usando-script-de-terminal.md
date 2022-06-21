@@ -147,7 +147,7 @@ No terminal do **pubsub:broker**:
 Message dispatched to SubscriberOne
 Message dispatched to SubscriberTwo
 
-➜ [2022-06-03 17:06:09]: Message of type 'EventTwo' received on channel 'channel-vormir'
+➜ [2022-06-03 17:06:09]: Message of type 'EventTwo' received on channel 'channel-mordor'
 Message dispatched to SubscriberTwo
 
 ...
