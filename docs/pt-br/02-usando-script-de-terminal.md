@@ -38,8 +38,6 @@ Para subir o "Intermediador de Mensagens", abra um terminal e use o seguinte com
 Isso irá executar o servidor de eventos em "localhost" na porta "8080". A saída deverá se parecer como a seguir:
 
 ```text
-# Terminal do servidor em execução
-
 ✔ The publish/subscriber server has been started in tcp://localhost:8080
 ```
 
@@ -82,10 +80,9 @@ return function (EventLoop $loop) {
 
 ### (-s) O tipo de serialização
 
-Para serem enviados, os eventos precisam ser serializados antes de serem transmitidos para os canais de comunicação.
-Existem dois tipos de serialização disponíveis: php e json.
+Antes de ser transmitidos para os canais de comunicação, os eventos precisam ser serializados. Existem dois tipos de serialização disponíveis: 'php' e 'json'.
 
-> **Importante**: Para integração de aplicações desenvolvidas somente em PHP, ambas podem ser usadas. No entanto, se a arquitetura do sistema precisar que módulos ou subsistemas escritos em linguagens diferentes (ex.: Java, Ruby, Python etc), a escolha deve ser pela serialização do tipo Json.
+> **Importante**: Para integração de aplicações desenvolvidas somente em PHP, ambos os tipos podem ser usados. No entanto, se a arquitetura do sistema precisar que módulos ou subsistemas escritos em linguagens diferentes (ex.: Java, Ruby, Python etc), a escolha deve ser pela serialização genérica do tipo 'json'.
 
 Exemplo de serialização 'json':
 
@@ -101,15 +98,19 @@ a:3:{s:3:"cpf";s:3:"123";s:4:"name";s:7:"ricardo";s:9:"ocurredOn";s:19:"2020-01-
 
 ### (-v) O modo verboso
 
-Enquanto o servidor estiver em execução, o terminal atual ficará em modo de observação, aguardando eventos. A opção '-v' ativa o 'modo verboso', de forma que quando um evento for recebido, o servidor fará uma notificação no terminal em execução.
+Enquanto o "Intermediador de Mensagens" estiver em execução, o terminal atual ficará em modo de observação, aguardando eventos. A opção '-v' ativa o 'modo verboso' que, a cada evento recebido, faz uma notificação no terminal em execução.
 
 ## 3. Enviando eventos de teste
 
-No mesmo script usado para executar o "Intermediador de Mensagens", existe um comando especial para enviar eventos de teste. Com o "Intermediador de Mensagens" em execução, basta abrir outro terminal e usar o comando abaixo para enviar alguns eventos de teste.
+No mesmo script usado para executar o "Intermediador de Mensagens", existe um comando especial para enviar eventos de teste. 
+
+Com o "Intermediador de Mensagens" em execução, basta abrir outro terminal e usar o comando abaixo para enviar alguns eventos de teste.
 
 ```bash
 ./example pubsub:client-test -d localhost -p 8080 -v
 ```
+
+Os eventos de teste são enviados para três canais de comunicação diferentes: 'channel-vormir', 'channel-mordor' e 'channel-greenville'. Dois destes canais possuem "inscritos" (Subscribers) configurados propositalmente no arquivo `tests/Example/config-file.php`.
 
 Para mais informações de ajuda, use a opção '--help' com o nome do comando:
 
@@ -122,28 +123,25 @@ A seguir, uma explicação breve sobre as opções usadas no comando:
 Opção | Descrição
 -- | --
 pubsub::client-test | O comando executado. Pode ser "pubsub:broker" ou "pubsub:client-test"
--d | O domínio onde o servidor está sendo executado
--p | A porta do servidor
+-d | O domínio onde o servidor está sendo executado. O padrão é 'localhost'
+-p | A porta do servidor. O padrão é '8080'
 -v | Ativa o modo verboso
 
 Observe as mensagens aparecerem nos dois terminais.
 
-```text
-# Terminal do pubsub:client-test
-# ----------------------------------
+No terminal do **pubsub:client-test**:
 
-✔ Publish event of type 'EventOne' to channel 'channel-vormir' in tcp://localhost:8080
-✔ Publish event of type 'EventTwo' to channel 'channel-vormir' in tcp://localhost:8080
+```text
+✔ Publish event of type 'EventOne' to channel 'channel-vormir' in tcp://localhost:8080✔ Publish event of type 'EventTwo' to channel 'channel-vormir' in tcp://localhost:8080
 ✔ Publish event of type 'EventTwo' to channel 'channel-mordor' in tcp://localhost:8080
 ✔ Publish event of type 'EventTwo' to channel 'channel-greenville' in tcp://localhost:8080
 ➜ Published Events
 ➜ Used memory: 1921928
 ```
 
-```text
-# Terminal do pubsub:broker
-# ----------------------------------
+No terminal do **pubsub:broker**:
 
+```text
 ➜ [2022-06-03 17:06:09]: Message of type 'EventOne' received on channel 'channel-vormir'
 Message dispatched to SubscriberOne
 Message dispatched to SubscriberTwo
