@@ -33,7 +33,40 @@ O objetivo de utilizar a biblioteca [Freep\Console](https://github.com/ricardope
 
 Pensando nisso, basta copiar o conteúdo do script `example` e criar um novo script no projeto que fará uso de Publish/Subscribe para contextualizar melhor e facilitar a execução do "Intermediador de Mensagens".
 
-Além disso, é possível implementar facilmente comandos adicionais e carragá-los usando o método `Terminal->loadCommandsFrom('caminho/dos/outros/comandos');`
+Além disso, é possível implementar facilmente comandos adicionais e carragá-los usando o método `Terminal->loadCommandsFrom('caminho/dos/outros/comandos');`.
+
+Por exemplo, você pode criar um script chamado `meuapp` para seu projeto, contendo o seguinte conteúdo:
+
+```php
+#!/bin/php
+<?php
+
+// Carrega o autoloader do Composer
+include __DIR__ . "/vendor/autoload.php";
+
+use Freep\Console\Terminal;
+use Freep\PubSub\EventLoop;
+
+array_shift($argv);
+
+$terminal = new Terminal(__DIR__ . "/src");
+
+// carrega os comandos de Pub/Sub
+$terminal->loadCommandsFrom(EventLoop::commandPath());
+
+// carrega os comandos do meu projeto
+$terminal->loadCommandsFrom(__DIR__ . '/Project/Commands');
+
+$terminal->run($argv);
+```
+
+Perceba que o script acima inicia com `#!/bin/php`. Essa notação diz para o terminal do sistema operacional que este script deverá ser interpretado pelo programa "/bin/php". Dessa forma, não é necessário digitar `php meuapp`, mas apenas `./meuapp`:
+
+```bash
+./meuapp --help
+```
+
+> **Nota**: em sistemas unix ou derivados, para poder invocar diretamente um script (ex: ./meuapp), é preciso que ele possua permissão para executar. Isso é conseguido pelo comando chmod a+x meuapp
 
 [◂ Usando um script de terminal](02-usando-script-de-terminal.md) | [Voltar ao índice](indice.md) | [Implementando um Subscriber ▸](04-implementando-um-subscriber.md)
 -- | -- | --
