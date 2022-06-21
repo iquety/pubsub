@@ -5,7 +5,7 @@
 
 ## 1. O que é um Evento
 
-Um evento é o encapsulamento de informações que representam uma ação ocorrida em um determinado momento no tempo. Eventos devem sempre ser nomeados no passado, pois são alguma coisa que já aconteceu. As "consequencias" de um evento são determinadas pelo assinante (Subscriber), como explicado em [Implementando um Subscriber](04-implementando-um-subscriber.md).
+Um evento é o encapsulamento de informações que representam uma ação ocorrida em um determinado momento no tempo. Eventos devem sempre ser nomeados no passado, pois são alguma coisa que já aconteceu (ex.: UserRegistered, PasswordChanged etc). As "consequências" de um evento são determinadas pelo assinante (Subscriber), como explicado em [Implementando um Subscriber](04-implementando-um-subscriber.md).
 
 ## 2. Como implementar um Evento
 
