@@ -25,7 +25,7 @@ class UserRegistered implements Freep\PubSub\Event\Event
 
 > **Dica**: Getters podem ser implementados, desde que não alterem o estado atual do evento e funcionem apenas como acessores de dados.
 
-A interface exige cinco métodos específicos:
+A interface `Freep\PubSub\Event\Event` exige cinco métodos específicos:
 
 ### 1.1. O método "factory"
 
@@ -39,6 +39,11 @@ Este método recebe um `array` associativo contendo os dados do evento ($values)
 /** @param array<string,mixed> $values */
 public static function factory(array $values): Event
 {
+    // na versão anterior 'cpf' se chamava 'document'
+    if (isset($values['document']) === true) {
+        $values['cpf'] = $values['document'];
+    }
+
     return new self(
         $values['name'],
         $values['cpf'],
@@ -131,6 +136,11 @@ class UserRegistered implements Event
     /** @param array<string,mixed> $values */
     public static function factory(array $values): Event
     {
+        // na versão anterior 'cpf' se chamava 'document'
+        if (isset($values['document']) === true) {
+            $values['cpf'] = $values['document'];
+        }
+        
         return new self(
             $values['name'],
             $values['cpf'],
