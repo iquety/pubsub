@@ -132,7 +132,8 @@ Observe as mensagens aparecerem nos dois terminais.
 No terminal do **pubsub:client-test**:
 
 ```text
-✔ Publish event of type 'EventOne' to channel 'channel-vormir' in tcp://localhost:8080✔ Publish event of type 'EventTwo' to channel 'channel-vormir' in tcp://localhost:8080
+✔ Publish event of type 'EventOne' to channel 'channel-vormir' in tcp://localhost:8080
+✔ Publish event of type 'EventTwo' to channel 'channel-vormir' in tcp://localhost:8080
 ✔ Publish event of type 'EventTwo' to channel 'channel-mordor' in tcp://localhost:8080
 ✔ Publish event of type 'EventTwo' to channel 'channel-greenville' in tcp://localhost:8080
 ➜ Published Events
