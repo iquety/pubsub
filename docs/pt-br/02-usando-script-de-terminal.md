@@ -47,7 +47,8 @@ Opção | Descrição
 pubsub:broker | O comando executado. Pode ser "pubsub:broker" ou "pubsub:client-test"
 -d | O domínio onde o servidor está sendo executado
 -p | A porta do servidor
--c | O arquivo contendo os "Subscribers"
+-c | O arquivo contendo a configuração dos "Subscribers"
+-s | O tipo de serialização a ser usada. Pode ser 'php' ou 'json'. Padrão é 'json'
 -v | Ativa o modo verboso
 
 ### (-c) O arquivo de configuração

@@ -7,6 +7,7 @@ namespace Freep\PubSub\Command;
 use Freep\Console\Arguments;
 use Freep\Console\Command;
 use Freep\Console\Option;
+use Freep\PubSub\Event\Serializer\PhpEventSerializer;
 use Freep\PubSub\EventLoop;
 use Freep\PubSub\Publisher\PhpEventPublisher;
 
@@ -50,6 +51,16 @@ class PubSubBrokerCommand extends Command
 
         $this->addOption(
             new Option(
+                '-s',
+                '--serialization',
+                'Specifies which type of serialization to use: php or json',
+                Option::OPTIONAL | Option::VALUED,
+                'json'
+            )
+        );
+
+        $this->addOption(
+            new Option(
                 '-v',
                 '--verbose',
                 'Run in verbose mode',
@@ -64,6 +75,10 @@ class PubSubBrokerCommand extends Command
             $arguments->getOption('-d'),
             (int)$arguments->getOption('-p')
         );
+
+        if ($arguments->getOption('-s') === 'php') {
+            $publisher->useSerializer(new PhpEventSerializer());
+        }
 
         if ($arguments->getOption('-v') === '1') {
             $publisher->enableVerboseMode();
