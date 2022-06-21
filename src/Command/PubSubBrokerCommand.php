@@ -10,13 +10,13 @@ use Freep\Console\Option;
 use Freep\PubSub\EventLoop;
 use Freep\PubSub\Publisher\PhpEventPublisher;
 
-class PubSubServerCommand extends Command
+class PubSubBrokerCommand extends Command
 {
     protected function initialize(): void
     {
-        $this->setName("pubsub:server");
-        $this->setDescription("Start the pubsub server");
-        $this->setHowToUse("./example pubsub:server [options]");
+        $this->setName("pubsub:broker");
+        $this->setDescription("Start the pubsub message broker");
+        $this->setHowToUse("./example pubsub:broker [options]");
 
         $this->addOption(
             new Option(
@@ -50,15 +50,6 @@ class PubSubServerCommand extends Command
 
         $this->addOption(
             new Option(
-                '-t',
-                '--test',
-                'Runs in test mode, with two subscribers to the "channel-test" channel',
-                Option::OPTIONAL
-            )
-        );
-
-        $this->addOption(
-            new Option(
                 '-v',
                 '--verbose',
                 'Run in verbose mode',
@@ -80,17 +71,26 @@ class PubSubServerCommand extends Command
 
         $loop = new EventLoop($publisher);
 
-        if ($arguments->getOption('-t') === '1') {
-            $callback = include dirname(__DIR__, 2) . '/tests/Example/config-file.php';
-            $callback($loop);
-        }
-
-        $configFile = $arguments->getOption('-c');
-        if ($configFile !== null && file_exists($configFile) === true) {
-            $callback = include $configFile;
-            $callback($loop);
-        }
+        $this->resolveConfigFile($loop, $arguments->getOption('-c'));
 
         $loop->run();
+    }
+
+    private function resolveConfigFile(EventLoop $loop, string $configFile): void
+    {
+        if ($configFile === '') {
+            return;
+        }
+
+        if (str_starts_with($configFile, DIRECTORY_SEPARATOR) === false) {
+            $configFile = getcwd() . DIRECTORY_SEPARATOR . $configFile;
+        }
+
+        if (file_exists($configFile) === false) {
+            return;
+        }
+
+        $callback = include $configFile;
+        $callback($loop);
     }
 }
