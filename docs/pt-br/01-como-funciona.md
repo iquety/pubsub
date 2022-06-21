@@ -32,25 +32,25 @@ Perceba que, no código acima, a notícia 'AssistirNetflix' será recebida por '
 
 Com base no exemplo fictício, chamaremos os ouvintes de "Subscribers" e as notícias de "Events".
 
-## 3. Implementando o observador de eventos
+## 3. Tipos de implementação
 
 Existem duas maneiras de implementar um "Observer" para Publish/Subscribe, com vantagens e desvantagens em cada cenário:
 
 Implementação | Prós | Contras
 -- | -- | --
-No início da aplicação (Bootstrap) | Simples de implementar e simples de entender, mesmo para quem não conhece a arquitetura Pub/Sub. Ideal para comunicação dos módulos dentro de uma mesma aplicação. | Cria um acoplamento com a implementação do bootstrap. Aplicações diferentes precisam reimplementar a configuração do bootstrap, o que pode aumentar a preocupação na hora de adicionar novos inscritos. Aplicações feitas com linguagens diferentes (ex.: PHP + Java) não podem usar esta metodologia.
-No Agente de Mensagens (Message Broker) | Mais simples de implementar. Ideal para integrar aplicações diferentes. Centraliza a configuração dos inscritos no servidor de eventos. Provê o desacoplamento real entre as partes que se comunicam. Uma aplicação não-PHP pode enviar eventos para se comunicar | Pode ser mais difícil de entender para aqueles que não estão familiarizados com a arquitetura Pub/Sub. É preciso executar e manter o servidor de eventos sempre ativo para receber e despachar os eventos ocorridos.
+No início da aplicação (Bootstrap) | Simples de implementar e entender, mesmo para quem não conhece a arquitetura Pub/Sub. Ideal para comunicação dos módulos dentro de uma mesma aplicação. | Cria um acoplamento com a implementação do bootstrap. Aplicações diferentes precisam reimplementar a configuração do bootstrap, o que pode aumentar a preocupação na hora de adicionar novos inscritos. Aplicações feitas com linguagens diferentes de PHP (ex.: Java, Ruby, Python) não podem enviar eventos.
+No Agente de Mensagens (Message Broker) | Ideal para integrar aplicações diferentes. Centraliza a configuração dos inscritos no "Agente de Mensagens". Provê o desacoplamento real entre as partes que se comunicam. Uma aplicação não-PHP também pode enviar eventos para se comunicar | Pode ser mais difícil de entender para aqueles que não estão familiarizados com uma arquitetura orientada a eventos. É preciso executar e manter o servidor de eventos sempre ativo para receber e despachar os eventos ocorridos.
 
 A seguir, mais informações sobre os dois tipos de implementação.
 
-## 4. No início da aplicação (Bootstrap)
+## 4. Implementando no início da aplicação (Bootstrap)
 
 Esta é a forma mais simples de implementar e consiste em iniciar o "Observer" junto com a aplicação através de uma chamada estática à classe 'SimpleEventPublisher'. Nesta chamada, os "Subscribers" devem ser inscritos para serem notificados quando os eventos ocorrerem no sistema.
 
 > Nota: O ponto de início de uma aplicação (também chamado de "Bootstrap") depende de como ela foi pensada, portanto, não existe um padrão. No exemplo abaixo, usamos o próprio arquivo 'index.php':
 
 ```php
-// index.php (arquivo chmamado em todos os acessos ao sistema)
+// index.php (arquivo chamado em todos os acessos ao sistema)
 
 // rotinas iniciais da aplicação ...
 
@@ -74,13 +74,15 @@ SimpleEventPublisher::instance()
 
 No exemplo acima, o evento "UserRegistered" (usuário cadastrado) é publicado no canal "registrations" (cadastros). O inscrito "RegistrationSubscriber" irá lidar com o evento, invocando as rotinas apropriadas para ele.
 
-## 5. No Agente de Mensagens (Message Broker)
+## 5. Implementando no Agente de Mensagens (Message Broker)
 
-Esta é a forma mais simples de implementar e também a mais interessante na maioria dos casos. A arquitetura Publish/Subscribe surgiu justamente para prover um maior desacoplamento na comunicação das coisas que acontecem em um sistema. O objetivo é que as ações ocorram sem gerar dependências entre os módulos, além de permitir que diferentes partes sejam implementadas em diferentes linguagens de programação.
+Esta é a forma mais interessante na maioria dos casos. A arquitetura Publish/Subscribe surgiu justamente para prover um maior desacoplamento na comunicação das coisas que acontecem em um sistema. O objetivo é que as ações ocorram sem gerar dependências entre os módulos. Este formato possibilita que linguagens diferentes de PHP também consigam enviar eventos.
+
+Esta forma de implementação consiste em manter um "Agente de Mensagens" (também conhecido como "Message Broker") em execução, para receber os eventos ocorridos. Como será explicado na sequência.
 
 ### 5.1. Executar o Agente de Mensagens
 
-Esta segunda forma de implementação consiste em manter um "Agente de Mensagens" (também conhecido como "Message Broker") em execução, para receber os eventos ocorridos. Na raiz do projeto existe um script chamado "example", que contém uma implementação de exemplo usando a biblioteca [Freep Console](https://github.com/ricardopedias/freep-console).
+Na raiz do projeto existe um script chamado "example", que contém uma implementação de exemplo usando a biblioteca [Freep Console](https://github.com/ricardopedias/freep-console).
 
 > Nota: você pode implementar um script como esse em seu projeto. Basta copiar a implementação existente no script "example" e colar no seu próprio script Veja mais informações em ["Usando comandos do Freep Console"](03-usando-comandos-freep-console.md).
 
