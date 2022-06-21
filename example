@@ -5,6 +5,7 @@
 include __DIR__ . "/vendor/autoload.php";
 
 use Freep\Console\Terminal;
+use Freep\PubSub\EventLoop;
 
 // O PHP em modo CLI disponibiliza a variável reservada "$argv", contendo a lista 
 // de palavras digitadas pelo usuário no Terminal. Esta variável será usada para
@@ -15,7 +16,7 @@ array_shift($argv);
 
 $terminal = new Terminal(__DIR__ . "/src");
 
-$terminal->loadCommandsFrom(__DIR__ . "/src/Command");
+$terminal->loadCommandsFrom(EventLoop::commandPath());
 
 // Usa a variável $argv para interpretar os argumentos do usuário
 $terminal->run($argv);
