@@ -33,22 +33,16 @@ Este método recebe a instância de um evento e deve invocar a regra de negócio
 ```php
 public function handleEvent(Event $event): void
 {
-    $repository = new UserRepository();
-
     if ($event instanceof UserRegistered) {
-        $repository->register([
-            'name'    => $event->name(),
-            'email'   => $event->email(),
-            'created' => $event->ocurredOn()
-        ]);
+        // ...
+        // rotina que cria um novo usuário no banco de dados
+
         return;
     }
 
     if ($event instanceof UserEmailChanged) {
-        $repository->update($event->id(), [
-            'email' => $event->email(),
-            'updated'  => $event->ocurredOn()
-        ]);
+        // ...
+        // rotina que atualiza o email de um usuário existente no banco de dados
     }
 }
 ```
@@ -77,7 +71,6 @@ namespace Foo\User;
 
 use Foo\User\Events\UserEmailChanged;
 use Foo\User\Events\UserRegistered;
-use Foo\User\UserRepository;
 use Freep\PubSub\Event\Event;
 use Freep\PubSub\Subscriber\EventSubscriber;
 
@@ -100,22 +93,16 @@ class UserEventSubscriber implements EventSubscriber
 
     public function handleEvent(Event $event): void
     {
-        $repository = new UserRepository();
-
         if ($event instanceof UserRegistered) {
-            $repository->register([
-                'name'    => $event->name(),
-                'email'   => $event->email(),
-                'created' => $event->ocurredOn()
-            ]);
+            // ...
+            // rotina que cria um novo usuário no banco de dados
+
             return;
         }
 
         if ($event instanceof UserEmailChanged) {
-            $repository->update($event->id(), [
-                'email' => $event->email(),
-                'updated'  => $event->ocurredOn()
-            ]);
+            // ...
+            // rotina que atualiza o email de um usuário existente no banco de dados
         }
     }
 
