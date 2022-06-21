@@ -18,7 +18,7 @@ class PubSubClientCommand extends Command
     protected function initialize(): void
     {
         $this->setName("pubsub:client-test");
-        $this->setDescription("Send a test events to the publish/subscribe server");
+        $this->setDescription("Send a test events to the pub/sub message broker");
         $this->setHowToUse("./example pubsub:client-test [options]");
 
         $this->addOption(

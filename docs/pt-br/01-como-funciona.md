@@ -39,7 +39,7 @@ Existem duas maneiras de implementar um "Observer" para Publish/Subscribe, com v
 Implementação | Prós | Contras
 -- | -- | --
 No início da aplicação (Bootstrap) | Simples de implementar e entender, mesmo para quem não conhece a arquitetura Pub/Sub. Ideal para comunicação dos módulos dentro de uma mesma aplicação. | Cria um acoplamento com a implementação do bootstrap. Aplicações diferentes precisam reimplementar a configuração do bootstrap, o que pode aumentar a preocupação na hora de adicionar novos inscritos. Aplicações feitas com linguagens diferentes de PHP (ex.: Java, Ruby, Python) não podem enviar eventos.
-No Agente de Mensagens (Message Broker) | Ideal para integrar aplicações diferentes. Centraliza a configuração dos inscritos no "Agente de Mensagens". Provê o desacoplamento real entre as partes que se comunicam. Uma aplicação não-PHP também pode enviar eventos para se comunicar | Pode ser mais difícil de entender para aqueles que não estão familiarizados com uma arquitetura orientada a eventos. É preciso executar e manter o servidor de eventos sempre ativo para receber e despachar os eventos ocorridos.
+No "Intermediador de Mensagens" (Message Broker) | Ideal para integrar aplicações diferentes. Centraliza a configuração dos inscritos no "Intermediador de Mensagens". Provê o desacoplamento real entre as partes que se comunicam. Uma aplicação não-PHP também pode enviar eventos para se comunicar | Pode ser mais difícil de entender para aqueles que não estão familiarizados com uma arquitetura orientada a eventos. É preciso executar e manter o servidor de eventos sempre ativo para receber e despachar os eventos ocorridos.
 
 A seguir, mais informações sobre os dois tipos de implementação.
 
@@ -74,25 +74,25 @@ SimpleEventPublisher::instance()
 
 No exemplo acima, o evento "UserRegistered" (usuário cadastrado) é publicado no canal "registrations" (cadastros). O inscrito "RegistrationSubscriber" irá lidar com o evento, invocando as rotinas apropriadas para ele.
 
-## 5. Implementando no Agente de Mensagens (Message Broker)
+## 5. Implementando no "Intermediador de Mensagens" (Message Broker)
 
 Esta é a forma mais interessante na maioria dos casos. A arquitetura Publish/Subscribe surgiu justamente para prover um maior desacoplamento na comunicação das coisas que acontecem em um sistema. O objetivo é que as ações ocorram sem gerar dependências entre os módulos. Este formato possibilita que linguagens diferentes de PHP também consigam enviar eventos.
 
-Esta forma de implementação consiste em manter um "Agente de Mensagens" (também conhecido como "Message Broker") em execução, para receber os eventos ocorridos. Como será explicado na sequência.
+Esta forma de implementação consiste em manter um "Intermediador de Mensagens" (também conhecido como "Message Broker") em execução, para receber os eventos ocorridos. Como será explicado na sequência.
 
-### 5.1. Executar o Agente de Mensagens
+### 5.1. Executar o Intermediador de Mensagens
 
 Na raiz do projeto existe um script chamado "example", que contém uma implementação de exemplo usando a biblioteca [Freep Console](https://github.com/ricardopedias/freep-console).
 
 > Nota: você pode implementar um script como esse em seu projeto. Basta copiar a implementação existente no script "example" e colar no seu próprio script Veja mais informações em ["Usando comandos do Freep Console"](03-usando-comandos-freep-console.md).
 
-Para subir o "Agente de Mensagens", abra um terminal e digite o seguinte comando:
+Para subir o "Intermediador de Mensagens", abra um terminal e digite o seguinte comando:
 
 ```bash
 ./example pubsub:broker -c 'tests/Example/config-file.php' -v
 ```
 
-Isso irá executar o "Agente de Mensagens" em "localhost" na porta "8080", com dois "Subscribers" (configurados no arquivo `tests/Example/config-file.php`). Mais informações em [Usando um script de terminal](02-usando-script-de-terminal.md). A saída deverá se parecer como a seguir:
+Isso irá executar o "Intermediador de Mensagens" em "localhost" na porta "8080", com dois "Subscribers" e dois canais (configurados no arquivo `tests/Example/config-file.php`). Mais informações em [Usando um script de terminal](02-usando-script-de-terminal.md). A saída deverá se parecer como a seguir:
 
 ```text
 ✔ The publish/subscriber server has been started in tcp://localhost:8080
@@ -113,7 +113,7 @@ $publisher->publish('channel-vormir', $event);
 
 ### 5.3. Disparar eventos a partir de outras linguagens
 
-É possível enviar eventos a partir de aplicações construídas em linguagens diferentes de PHP. Isso é conseguido enviando uma mensagem TCP simples para o "Agente de Mensagens" em execução (no caso atual, tcp://localhost:8080).
+É possível enviar eventos a partir de aplicações construídas em linguagens diferentes de PHP. Isso é conseguido enviando uma mensagem TCP simples para o "Intermediador de Mensagens" em execução (no caso atual, tcp://localhost:8080).
 
 Um exemplo de envio do evento "Tests\Example\Events\EventOne" pode ser visto abaixo:
 
@@ -133,7 +133,7 @@ nome do canal | texto simples
 duas quebras de linha | "\n" + "\n"
 nome do evento | Nome retornado pelo método Event->label() do evento
 duas quebras de linha | "\n" + "\n"
-conteúdo json serializado | **Importante**: o Agente de Mensagens deve estar configurado para usar serializações do tipo Json (o padrão da biblioteca). Mais informações em [Usando um script de terminal](02-usando-script-de-terminal.md)
+conteúdo json serializado | **Importante**: o "Intermediador de Mensagens" deve estar configurado para usar serializações do tipo Json (o padrão da biblioteca). Mais informações em [Usando um script de terminal](02-usando-script-de-terminal.md)
 uma quebra de linha | "\n"
 
 [◂ Voltar ao índice](indice.md) | [Usando um script de terminal ▸](02-usando-script-de-terminal.md)
