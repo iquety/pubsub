@@ -79,12 +79,12 @@ class UserEventSubscriber implements EventSubscriber
     /** @param array<string,mixed> $eventData */
     public function eventFactory(string $eventLabel, array $eventData): ?Event
     {
-        switch($eventLabel) {
-            case 'user-registered':
-                return UserRegistered::factory($eventData);
+        if ($eventLabel === 'user-registered') {
+            return UserRegistered::factory($eventData);
+        }
 
-            case 'user-email-changed':
-                return UserEmailChanged::factory($eventData);
+        if ($eventLabel === 'user-email-changed') {
+            return UserEmailChanged::factory($eventData);
         }
 
         return null;
