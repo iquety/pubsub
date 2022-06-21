@@ -52,8 +52,8 @@ A seguir, uma explicação breve sobre as opções usadas no comando:
 Opção | Descrição
 -- | --
 pubsub:broker | O comando executado. Pode ser "pubsub:broker" ou "pubsub:client-test"
--d | O domínio onde o servidor está sendo executado. O padrão é 'localhost'
--p | A porta do servidor. O padrão é '8080'
+-d | O domínio onde o "Intermediador de Mensagens" deverá ser executado. O padrão é 'localhost'
+-p | A porta para a execução do "Intermediador de Mensagens". O padrão é '8080'
 -c | O arquivo contendo a configuração dos "Subscribers"
 -s | O tipo de serialização a ser usada. Pode ser 'php' ou 'json'. O padrão é 'json'
 -v | Ativa o modo verboso
@@ -123,8 +123,8 @@ A seguir, uma explicação breve sobre as opções usadas no comando:
 Opção | Descrição
 -- | --
 pubsub::client-test | O comando executado. Pode ser "pubsub:broker" ou "pubsub:client-test"
--d | O domínio onde o servidor está sendo executado. O padrão é 'localhost'
--p | A porta do servidor. O padrão é '8080'
+-d | O domínio onde o "Intermediador de Mensagens" está sendo executado. O padrão é 'localhost'
+-p | A porta do "Intermediador de Mensagens". O padrão é '8080'
 -v | Ativa o modo verboso
 
 Observe as mensagens aparecerem nos dois terminais.
