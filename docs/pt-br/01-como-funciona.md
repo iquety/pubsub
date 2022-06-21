@@ -92,7 +92,7 @@ Para subir o "Agente de Mensagens", abra um terminal e digite o seguinte comando
 ./example pubsub:broker -c 'tests/Example/config-file.php' -v
 ```
 
-Isso irá executar o "Agente de Mensagens" em "localhost" na porta "8080", com dois "Subscribers" configurados no arquivo 'tests/Example/config-file.php'. Mais informações em [Usando um script de terminal](02-usando-script-de-terminal.md). A saída deverá se parecer como a seguir:
+Isso irá executar o "Agente de Mensagens" em "localhost" na porta "8080", com dois "Subscribers" (configurados no arquivo `tests/Example/config-file.php`). Mais informações em [Usando um script de terminal](02-usando-script-de-terminal.md). A saída deverá se parecer como a seguir:
 
 ```text
 ✔ The publish/subscriber server has been started in tcp://localhost:8080
@@ -113,7 +113,17 @@ $publisher->publish('channel-vormir', $event);
 
 ### 5.3. Disparar eventos a partir de outras linguagens
 
-É possível enviar eventos a partir de aplicações construídas em linguagens diferentes de PHP. Isso é conseguido enviando uma mensagem TCP simples para o servidor em execução (no caso atual, tcp://localhost:8080).
+É possível enviar eventos a partir de aplicações construídas em linguagens diferentes de PHP. Isso é conseguido enviando uma mensagem TCP simples para o "Agente de Mensagens" em execução (no caso atual, tcp://localhost:8080).
+
+Um exemplo de envio do evento "Tests\Example\Events\EventOne" pode ser visto abaixo:
+
+```text
+channel-one
+
+event-one
+
+{"cpf":"123","name":"ricardo","ocurredOn":"2020-01-10 00:00:01"}
+```
 
 O formato da mensagem deve seguir o seguinte esquema:
 
@@ -125,16 +135,6 @@ nome do evento | Nome retornado pelo método Event->label() do evento
 duas quebras de linha | "\n" + "\n"
 conteúdo json serializado | Importante: o servidor deve estar configurado para usar serializações com a classe "Event\Serializer\JsonEventSerializer"
 uma quebra de linha | "\n"
-
-Um exemplo de envio do evento "Tests\Example\Events\EventOne" pode ser visto abaixo:
-
-```text
-channel-one
-
-event-one
-
-{"cpf":"123","name":"ricardo","ocurredOn":"2020-01-10 00:00:01"}
-```
 
 [◂ Voltar ao índice](indice.md) | [Usando um script de terminal ▸](02-usando-script-de-terminal.md)
 -- | --
