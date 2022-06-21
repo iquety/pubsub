@@ -133,7 +133,7 @@ nome do canal | texto simples
 duas quebras de linha | "\n" + "\n"
 nome do evento | Nome retornado pelo método Event->label() do evento
 duas quebras de linha | "\n" + "\n"
-conteúdo json serializado | **Importante**: o Agente de Mensagens deve estar configurado para usar serializações do tipo Json (o padrão da biblioteca)
+conteúdo json serializado | **Importante**: o Agente de Mensagens deve estar configurado para usar serializações do tipo Json (o padrão da biblioteca). Mais informações em [Usando um script de terminal](02-usando-script-de-terminal.md)
 uma quebra de linha | "\n"
 
 [◂ Voltar ao índice](indice.md) | [Usando um script de terminal ▸](02-usando-script-de-terminal.md)
