@@ -132,25 +132,27 @@ Observe as mensagens aparecerem nos dois terminais.
 No terminal do **pubsub:client-test**:
 
 ```text
-✔ Publish event of type 'EventOne' to channel 'channel-vormir' in tcp://localhost:8080
-✔ Publish event of type 'EventTwo' to channel 'channel-vormir' in tcp://localhost:8080
-✔ Publish event of type 'EventTwo' to channel 'channel-mordor' in tcp://localhost:8080
-✔ Publish event of type 'EventTwo' to channel 'channel-greenville' in tcp://localhost:8080
-➜ Published Events
-➜ Used memory: 1921928
+✔ Publish event labeled as 'event-one' to channel 'channel-vormir' in tcp://localhost:8080
+✔ Publish event labeled as 'event-two' to channel 'channel-vormir' in tcp://localhost:8080
+✔ Publish event labeled as 'event-two' to channel 'channel-mordor' in tcp://localhost:8080
+✔ Publish event labeled as 'event-two' to channel 'channel-greenville' in tcp://localhost:8080
 ```
 
 No terminal do **pubsub:broker**:
 
 ```text
-➜ [2022-06-03 17:06:09]: Message of type 'EventOne' received on channel 'channel-vormir'
+➜ [2022-06-21 17:22:54]: Message labeled as 'event-one' received on channel 'channel-vormir'
 Message dispatched to SubscriberOne
 Message dispatched to SubscriberTwo
 
-➜ [2022-06-03 17:06:09]: Message of type 'EventTwo' received on channel 'channel-mordor'
+➜ [2022-06-21 17:22:55]: Message labeled as 'event-two' received on channel 'channel-vormir'
 Message dispatched to SubscriberTwo
 
-...
+➜ [2022-06-21 17:22:55]: Message labeled as 'event-two' received on channel 'channel-mordor'
+Message dispatched to SubscriberTwo
+
+➜ [2022-06-21 17:22:55]: Message labeled as 'event-two' received on channel 'channel-greenville'
+There are no subscribers on channel 'channel-greenville'
 ```
 
 [◂ Como funciona](01-como-funciona.md) | [Voltar ao índice](indice.md) | [Usando comandos do Freep Console ▸](03-usando-comandos-freep-console.md)
