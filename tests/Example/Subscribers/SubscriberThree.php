@@ -13,7 +13,7 @@ use Tests\Example\Events\EventOne;
 use Tests\Example\Events\EventTwo;
 
 /** @SuppressWarnings(PHPMD.StaticAccess) */
-class SubscriberTwo implements EventSubscriber
+class SubscriberThree implements EventSubscriber
 {
     /** @param array<string,mixed> $eventData */
     public function eventFactory(string $eventLabel, array $eventData): ?Event
@@ -34,7 +34,7 @@ class SubscriberTwo implements EventSubscriber
         $file = new Filesystem(dirname(__DIR__, 2) . '/files');
 
         $file->setFileContents(
-            'subscriber-two-handle.txt',
+            'subscriber-three-handle.txt',
             __CLASS__ . PHP_EOL . 
             'recebeu: ' . $event::class . PHP_EOL .
             'em: ' . $event->ocurredOn()->format('Y-m-d H:i:s')
@@ -43,6 +43,6 @@ class SubscriberTwo implements EventSubscriber
 
     public function receiveInTimezone(): DateTimeZone
     {
-        return new DateTimeZone('America/New_York');
+        return new DateTimeZone('UTC');
     }
 }

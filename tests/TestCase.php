@@ -18,6 +18,34 @@ use PHPUnit\Framework\TestCase as FrameworkTestCase;
 
 class TestCase extends FrameworkTestCase
 {
+    protected function getPlainEventValues(Event $event): array
+    {
+        return array_map(function($value){
+            return $value instanceof DateTimeImmutable
+                ? $value->format('Y-m-d H:i:s')
+                : $value;
+        }, $event->toArray());
+    }
+
+    protected function simpleEventPublisherFactory(): SimpleEventPublisher
+    {
+        return SimpleEventPublisher::instance()
+            ->reset()
+            ->enableVerboseMode()
+            ->subscribe('channel-one', SubscriberOne::class)
+            ->subscribe('channel-one', SubscriberTwo::class)
+            ->subscribe('channel-two', SubscriberTwo::class);
+    }
+
+    protected function phpEventPublisherFactory(): PhpEventPublisher
+    {
+        return (new PhpEventPublisher('localhost', 8080))
+            ->enableVerboseMode()
+            ->subscribe('channel-one', SubscriberOne::class)
+            ->subscribe('channel-one', SubscriberTwo::class)
+            ->subscribe('channel-two', SubscriberTwo::class);
+    }
+
     protected function eventPublisherFactory(string $className): EventPublisher
     {
         if ($className === SimpleEventPublisher::class) {
@@ -48,8 +76,29 @@ class TestCase extends FrameworkTestCase
             ->enableVerboseMode();
     }
 
-    protected function eventFactory(string $name, string $cpf, string $className = EventOne::class): Event
-    {
+    protected function eventOneFactory(
+        DateTimeImmutable $ocurredOn,
+        string $name = 'ricardo'
+    ): Event {
+        return new EventOne($name, '99988877766', $ocurredOn);
+    }
+
+    protected function eventTwoFactory(
+        DateTimeImmutable $ocurredOn,
+        string $name = 'ricardo'
+    ): Event {
+        return new EventOne($name, '55544433322', $ocurredOn);
+    }
+
+
+
+
+    
+    protected function eventFactory(
+        string $name,
+        string $cpf,
+        string $className = EventOne::class
+    ): Event {
         $ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
         return new $className($name, $cpf, $ocurredOn);
     }

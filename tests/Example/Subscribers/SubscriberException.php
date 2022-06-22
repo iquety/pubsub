@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Example\Subscribers;
 
 use DateTimeImmutable;
+use DateTimeZone;
 use Exception;
 use Freep\PubSub\Event\Event;
 use Freep\PubSub\Subscriber\EventSubscriber;
@@ -33,9 +34,8 @@ class SubscriberException implements EventSubscriber
         throw new Exception('Exception in subscriber handle to event ' . $event::class);
     }
 
-    public function subscribedToEventType(): string
+    public function receiveInTimezone(): DateTimeZone
     {
-        // todos os tipos de eventos serão recebidos por este assinante
-        return Event::class;
+        return new DateTimeZone('UTC');
     }
 }

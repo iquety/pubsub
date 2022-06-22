@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Event\Serializer;
 
+use DateTimeImmutable;
 use Freep\PubSub\Event\Serializer\JsonEventSerializer;
 use RuntimeException;
 use Tests\Example\Events\EventOne;
@@ -16,11 +17,11 @@ class JsonEventSerializerTest extends TestCase
     {
         $event = $this->eventFactory('ricardo', '123');
 
-        $serializedEvent = (new JsonEventSerializer())->serialize($event->toArray());
+        $serializedEvent = (new JsonEventSerializer())->serialize($this->getPlainEventValues($event));
 
         $reconstitution = (new JsonEventSerializer())->unserialize($serializedEvent);
 
-        $this->assertEquals($reconstitution, $event->toArray());
+        $this->assertEquals($reconstitution, $this->getPlainEventValues($event));
     }
 
     /** @test */

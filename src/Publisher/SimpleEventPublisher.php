@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Freep\PubSub\Publisher;
 
+use DateTimeZone;
 use Exception;
 use Freep\PubSub\Event\Event;
 use Freep\PubSub\Event\EventSignal;
@@ -21,6 +22,12 @@ class SimpleEventPublisher extends AbstractEventPublisher
     private array $subscribersByChannel = [];
 
     private static ?self $instance = null;
+
+
+    protected function __construct()
+    {
+        $this->publicationTimezone = new DateTimeZone('UTC');
+    }
 
     public static function instance(): self
     {
@@ -48,6 +55,7 @@ class SimpleEventPublisher extends AbstractEventPublisher
     {
         $this->subscribers = [];
         $this->subscribersByChannel = [];
+        $this->publicationTimezone = new DateTimeZone('UTC');
         return $this;
     }
 
@@ -163,14 +171,21 @@ class SimpleEventPublisher extends AbstractEventPublisher
         try {
             $allSubscribers = $this->subscribers($channel);
 
+            $eventDataUtc = $this->convertToStreamData($event, $this->getPublicationTimezone());
+
             foreach ($allSubscribers as $subscriber) {
-                $eventResolved = $subscriber->eventFactory($event->label(), $event->toArray());
+                $eventData = $this->convertFromStreamData(
+                    $eventDataUtc,
+                    $subscriber->receiveInTimezone()
+                );
+
+                $eventResolved = $subscriber->eventFactory($event->label(), $eventData);
 
                 if ($eventResolved === null) {
                     continue;
                 }
 
-                $this->dispatchTo($subscriber, $event);
+                $this->dispatchTo($subscriber, $eventResolved);
 
                 $dispatched = true;
             }
@@ -193,6 +208,7 @@ class SimpleEventPublisher extends AbstractEventPublisher
 
     private function dispatchTo(EventSubscriber $subscriber, Event $event): void
     {
+        // var_dump($event->ocurredOn()); exit;
         $this->messageFactory(
             "Message dispatched to " . $this->getShortClassName($subscriber::class)
         )->outputLn();

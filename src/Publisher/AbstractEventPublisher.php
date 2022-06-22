@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Freep\PubSub\Publisher;
 
+use DateTime;
+use DateTimeImmutable;
+use DateTimeZone;
 use Freep\Console\Message;
+use Freep\PubSub\Event\Event;
 use Freep\PubSub\Event\Serializer\JsonEventSerializer;
 use Freep\PubSub\Event\Serializer\EventSerializer;
 
@@ -17,6 +21,8 @@ abstract class AbstractEventPublisher implements EventPublisher
     private string $errorMessage = '';
 
     private bool $errorHandlerInit = false;
+
+    protected DateTimeZone $publicationTimezone;
 
     private bool $testMode = false;
 
@@ -32,9 +38,10 @@ abstract class AbstractEventPublisher implements EventPublisher
         return $this->testMode;
     }
 
-    public function enableTestMode(): void
+    public function enableTestMode(): self
     {
         $this->testMode = true;
+        return $this;
     }
 
     public function enableVerboseMode(): self
@@ -48,10 +55,21 @@ abstract class AbstractEventPublisher implements EventPublisher
         return $this->verboseMode;
     }
 
+    public function getPublicationTimezone(): DateTimeZone
+    {
+        return $this->publicationTimezone;
+    }
+
     protected function getShortClassName(string $classSignature): string
     {
         $typeNodes = explode("\\", $classSignature);
         return array_pop($typeNodes);
+    }
+
+    public function publishInTimezone(DateTimeZone $timezone): self
+    {
+        $this->publicationTimezone = $timezone;
+        return $this;
     }
 
     public function useSerializer(EventSerializer $serializer): self
@@ -124,5 +142,76 @@ abstract class AbstractEventPublisher implements EventPublisher
         }
 
         return $message;
+    }
+
+    protected function convertFromStreamData(array $streamEventData, DateTimeZone $localTimezone): array
+    {
+        $mapRoutine = function($value) use ($localTimezone) {
+            if (is_string($value) === false) {
+                return $value;
+            }
+
+            $matches = [];
+            $regex = "/([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2})/";
+
+            if (preg_match($regex, $value, $matches) !== false && count($matches) === 3) {
+                return $this->stringToDateTime($value, $localTimezone);
+            }
+            
+            return $value;
+        };
+
+        return array_map($mapRoutine, $streamEventData);
+    }
+
+    protected function convertToStreamData(Event $event, DateTimeZone $publicationTimezone): array
+    {
+        $realEventData = $event->toArray();
+
+        $mapRoutine = function($value) use ($publicationTimezone) {
+            if ($value instanceof DateTimeImmutable) {
+                return $this->dateTimeToString($value, $publicationTimezone);
+            }
+            
+            return $value;
+        };
+
+        return array_map($mapRoutine, $realEventData);
+    }
+
+    /** @return string A data no formado Y-m-d H:i:s e convertida em UTC */
+    private function dateTimeToString(DateTimeImmutable $value, DateTimeZone $publisherTimezone): string
+    {
+        // Os timezones padrões são UTC, tanto para o EventPublisher 
+        // como para os objetos DateTimeImmutable
+
+        if ($publisherTimezone->getName() !== 'UTC') {
+            $valueDatetime = $value->format('Y-m-d H:i:s');
+
+            // cria um novo objeto, determinando o fuso horário
+            $value = new DateTime($valueDatetime, $publisherTimezone);
+
+            // converte para o fuso UTC.
+            // isso universaliza o transporte do evento até o Subscriber.
+            $value->setTimezone(new DateTimeZone('UTC'));
+        }
+
+        return $value->format('Y-m-d H:i:s');
+    }
+
+    /** @return DateTimeImmutable A data convertida para o fuso horário do Subscriber */
+    private function stringToDateTime(string $value, DateTimeZone $subscriberTimezone): DateTimeImmutable
+    {
+        $objectDateTime = new DateTimeImmutable($value);
+
+        // Os timezones padrões são UTC, tanto para o EventPublisher 
+        // como para os objetos DateTimeImmutable
+
+        if ($subscriberTimezone->getName() !== 'UTC') {
+            // o Subscriber irá receber o evento em seu próprio fuso horario
+            $objectDateTime = $objectDateTime->setTimezone($subscriberTimezone);
+        }
+
+        return $objectDateTime;
     }
 }

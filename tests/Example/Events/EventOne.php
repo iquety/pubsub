@@ -27,7 +27,7 @@ class EventOne implements Event
         return new self(
             $values['name'],
             $values['cpf'],
-            new DateTimeImmutable($values['ocurredOn'])
+            $values['ocurredOn']
         );
     }
 
@@ -60,7 +60,7 @@ class EventOne implements Event
         return [
             'cpf'       => $this->cpf,
             'name'      => $this->name,
-            'ocurredOn' => $this->ocurredOn->format('Y-m-d H:i:s')
+            'ocurredOn' => $this->ocurredOn
         ];
     }
 }

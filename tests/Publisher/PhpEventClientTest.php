@@ -66,7 +66,10 @@ class PhpEventClientTest extends PhpEventTestCase
         $lastEvent = $this->readLastEventFromFile('fake-connection.txt');
         $this->assertEquals($lastEvent['channel'], 'channel-one');
         $this->assertEquals($lastEvent['label'], 'event-one');
-        $this->assertEquals($lastEvent['eventData'], $publisher->getSerializer()->serialize($event->toArray()));
+        $this->assertEquals(
+            $lastEvent['eventData'],
+            $publisher->getSerializer()->serialize($this->getPlainEventValues($event))
+        );
     }
 
     /** @test */

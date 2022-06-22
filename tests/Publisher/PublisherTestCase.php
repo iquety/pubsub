@@ -4,10 +4,29 @@ declare(strict_types=1);
 
 namespace Tests\Publisher;
 
+use Freep\PubSub\Publisher\SimpleEventPublisher;
 use Tests\TestCase;
 
-class PhpEventTestCase extends TestCase
+class PublisherTestCase extends TestCase
 {
+    public function setUp(): void
+    {
+        $this->clearLastHandleFile('subscriber-one-handle.txt');
+        $this->clearLastHandleFile('subscriber-two-handle.txt');
+        $this->clearLastHandleFile('subscriber-three-handle.txt');
+
+        SimpleEventPublisher::instance()->reset();
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        self::clearFile('subscriber-one-handle.txt');
+        self::clearFile('subscriber-two-handle.txt');
+        self::clearFile('subscriber-three-handle.txt');
+
+        SimpleEventPublisher::instance()->reset();
+    }
+    
     /** @return array<string,mixed> */
     protected function readLastEventFromFile(string $file): array
     {

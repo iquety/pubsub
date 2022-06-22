@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Example\Subscribers;
 
 use DateTimeImmutable;
+use DateTimeZone;
 use Freep\PubSub\Event\Event;
 use Freep\PubSub\Subscriber\EventSubscriber;
 use Tests\Example\Events\EventOne;
@@ -29,13 +30,14 @@ class SubscriberOne implements EventSubscriber
 
         $file->setFileContents(
             'subscriber-one-handle.txt',
-            __CLASS__ . ' recebeu ' . PHP_EOL . $event::class
+            __CLASS__ . PHP_EOL . 
+            'recebeu: ' . $event::class . PHP_EOL .
+            'em: ' . $event->ocurredOn()->format('Y-m-d H:i:s')
         );
     }
 
-    public function subscribedToEventType(): string
+    public function receiveInTimezone(): DateTimeZone
     {
-        // Apenas eventos deste tipo serão recebidos por este assinante
-        return EventOne::class;
+        return new DateTimeZone('America/Sao_Paulo');
     }
 }

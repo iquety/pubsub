@@ -16,11 +16,11 @@ class PhpEventSerializerTest extends TestCase
     {
         $event = $this->eventFactory('ricardo', '123');
 
-        $serializedEvent = (new PhpEventSerializer())->serialize($event->toArray());
+        $serializedEvent = (new PhpEventSerializer())->serialize($this->getPlainEventValues($event));
 
         $reconstitution = (new PhpEventSerializer())->unserialize($serializedEvent);
 
-        $this->assertEquals($reconstitution, $event->toArray());
+        $this->assertEquals($reconstitution, $this->getPlainEventValues($event));
     }
 
     /** @test */
