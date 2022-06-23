@@ -31,7 +31,8 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
     {
         $this->host = $host;
         $this->port = $port;
-        $this->publicationTimezone = new DateTimeZone('UTC');
+        
+        $this->publishInTimezone(new DateTimeZone('UTC'));
 
         parent::setupErrorHandler();
     }

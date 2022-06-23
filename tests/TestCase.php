@@ -7,120 +7,13 @@ namespace Tests;
 use Closure;
 use DateTimeImmutable;
 use Freep\PubSub\Event\Event;
-use Freep\PubSub\Publisher\EventPublisher;
-use Freep\PubSub\Publisher\PhpEventPublisher;
 use Tests\Example\Events\EventOne;
-use Tests\Example\Subscribers\SubscriberOne;
-use Tests\Example\Subscribers\SubscriberTwo;
-use Freep\PubSub\Publisher\SimpleEventPublisher;
 use Freep\Security\Filesystem;
 use PHPUnit\Framework\TestCase as FrameworkTestCase;
+use Tests\Example\Events\EventTwo;
 
 class TestCase extends FrameworkTestCase
 {
-    protected function getPlainEventValues(Event $event): array
-    {
-        return array_map(function($value){
-            return $value instanceof DateTimeImmutable
-                ? $value->format('Y-m-d H:i:s')
-                : $value;
-        }, $event->toArray());
-    }
-
-    protected function simpleEventPublisherFactory(): SimpleEventPublisher
-    {
-        return SimpleEventPublisher::instance()
-            ->reset()
-            ->enableVerboseMode()
-            ->subscribe('channel-one', SubscriberOne::class)
-            ->subscribe('channel-one', SubscriberTwo::class)
-            ->subscribe('channel-two', SubscriberTwo::class);
-    }
-
-    protected function phpEventPublisherFactory(): PhpEventPublisher
-    {
-        return (new PhpEventPublisher('localhost', 8080))
-            ->enableVerboseMode()
-            ->subscribe('channel-one', SubscriberOne::class)
-            ->subscribe('channel-one', SubscriberTwo::class)
-            ->subscribe('channel-two', SubscriberTwo::class);
-    }
-
-    protected function eventPublisherFactory(string $className): EventPublisher
-    {
-        if ($className === SimpleEventPublisher::class) {
-            return SimpleEventPublisher::instance()
-                ->reset()
-                ->enableVerboseMode()
-                ->subscribe('channel-one', SubscriberOne::class)
-                ->subscribe('channel-one', SubscriberTwo::class)
-                ->subscribe('channel-two', SubscriberTwo::class);
-        }
-
-        return (new PhpEventPublisher('localhost', 8080))
-            ->enableVerboseMode()
-            ->subscribe('channel-one', SubscriberOne::class)
-            ->subscribe('channel-one', SubscriberTwo::class)
-            ->subscribe('channel-two', SubscriberTwo::class);
-    }
-
-    protected function emptyEventPublisherFactory(string $className): EventPublisher
-    {
-        if ($className === SimpleEventPublisher::class) {
-            return SimpleEventPublisher::instance()
-                ->reset()
-                ->enableVerboseMode();
-        }
-
-        return (new PhpEventPublisher('localhost', 8080))
-            ->enableVerboseMode();
-    }
-
-    protected function eventOneFactory(
-        DateTimeImmutable $ocurredOn,
-        string $name = 'ricardo'
-    ): Event {
-        return new EventOne($name, '99988877766', $ocurredOn);
-    }
-
-    protected function eventTwoFactory(
-        DateTimeImmutable $ocurredOn,
-        string $name = 'ricardo'
-    ): Event {
-        return new EventOne($name, '55544433322', $ocurredOn);
-    }
-
-
-
-
-    
-    protected function eventFactory(
-        string $name,
-        string $cpf,
-        string $className = EventOne::class
-    ): Event {
-        $ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
-        return new $className($name, $cpf, $ocurredOn);
-    }
-
-    protected function filesystemFactory(): Filesystem
-    {
-        return new Filesystem(__DIR__ . '/files');
-    }
-
-    protected function gotcha(Closure $callback): string
-    {
-        ob_start();
-        $callback();
-        return (string)ob_get_clean();
-    }
-
-    public static function clearFile(string $file): void
-    {
-        (new Filesystem(__DIR__ . '/files'))
-            ->setFileContents($file, '');
-    }
-
     /** @param array<int,string> $messageList */
     protected function assertStringHasMessages(array $messageList, string $output): void
     {
@@ -135,5 +28,54 @@ class TestCase extends FrameworkTestCase
         foreach ($messageList as $message) {
             $this->assertStringNotContainsString($message, $output);
         }
+    }
+
+    public static function clearFile(string $file): void
+    {
+        (new Filesystem(__DIR__ . '/files'))
+            ->setFileContents($file, '');
+    }
+
+    protected function eventOneFactory(
+        ?DateTimeImmutable $ocurredOn = null,
+        string $name = 'ricardo'
+    ): EventOne {
+        return new EventOne(
+            $name,
+            '99988877766',
+            $ocurredOn ?? new DateTimeImmutable('2022-05-22 17:00:00')
+        );
+    }
+    
+    protected function eventTwoFactory(
+        ?DateTimeImmutable $ocurredOn = null,
+        string $name = 'ricardo'
+    ): EventTwo {
+        return new EventTwo(
+            $name,
+            '55544433322',
+            $ocurredOn ?? new DateTimeImmutable('2022-05-22 17:00:00')
+        );
+    }
+
+    protected function filesystemFactory(): Filesystem
+    {
+        return new Filesystem(__DIR__ . '/files');
+    }
+    
+    protected function getPlainEventValues(Event $event): array
+    {
+        return array_map(function($value){
+            return $value instanceof DateTimeImmutable
+                ? $value->format('Y-m-d H:i:s')
+                : $value;
+        }, $event->toArray());
+    }
+
+    protected function gotcha(Closure $callback): string
+    {
+        ob_start();
+        $callback();
+        return (string)ob_get_clean();
     }
 }

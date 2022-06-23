@@ -12,16 +12,21 @@ use Tests\TestCase;
 
 class JsonEventSerializerTest extends TestCase
 {
+    private function factory(): JsonEventSerializer
+    {
+        return new JsonEventSerializer();
+    }
+
     /** @test */
     public function serializationAndReconstitution(): void
     {
-        $event = $this->eventFactory('ricardo', '123');
+        $event = $this->eventOneFactory();
+        $streamData = $this->getPlainEventValues($event);
 
-        $serializedEvent = (new JsonEventSerializer())->serialize($this->getPlainEventValues($event));
+        $serializedEvent = $this->factory()->serialize($streamData);
+        $reconstitution = $this->factory()->unserialize($serializedEvent);
 
-        $reconstitution = (new JsonEventSerializer())->unserialize($serializedEvent);
-
-        $this->assertEquals($reconstitution, $this->getPlainEventValues($event));
+        $this->assertEquals($reconstitution, $streamData);
     }
 
     /** @test */

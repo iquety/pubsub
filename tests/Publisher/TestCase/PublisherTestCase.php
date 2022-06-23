@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Publisher;
+namespace Tests\Publisher\TestCase;
 
+use DateTimeImmutable;
 use Freep\PubSub\Publisher\SimpleEventPublisher;
+use Tests\Example\Events\EventOne;
+use Tests\Example\Events\EventTwo;
 use Tests\TestCase;
 
 class PublisherTestCase extends TestCase
@@ -14,8 +17,6 @@ class PublisherTestCase extends TestCase
         $this->clearLastHandleFile('subscriber-one-handle.txt');
         $this->clearLastHandleFile('subscriber-two-handle.txt');
         $this->clearLastHandleFile('subscriber-three-handle.txt');
-
-        SimpleEventPublisher::instance()->reset();
     }
 
     public static function tearDownAfterClass(): void
@@ -23,8 +24,6 @@ class PublisherTestCase extends TestCase
         self::clearFile('subscriber-one-handle.txt');
         self::clearFile('subscriber-two-handle.txt');
         self::clearFile('subscriber-three-handle.txt');
-
-        SimpleEventPublisher::instance()->reset();
     }
     
     /** @return array<string,mixed> */

@@ -6,27 +6,26 @@ namespace Tests\Publisher;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Freep\PubSub\Publisher\SimpleEventPublisher;
 use Tests\Example\Subscribers\SubscriberOne;
 use Tests\Example\Subscribers\SubscriberThree;
 use Tests\Example\Subscribers\SubscriberTwo;
+use Tests\Publisher\TestCase\SimplePublisherTestCase;
 
-class SimpleEventTimezoneTest extends PublisherTestCase
+class SimpleEventTimezoneTest extends SimplePublisherTestCase
 {
     /** @test */
     public function defaultToDefault(): void
     {
-        $publisherDatetime = new DateTimeImmutable('2022-05-22 17:00:00');
-        $event = $this->eventOneFactory($publisherDatetime);
+        // cria um evento ocorrido às 17:00:00
+        $event = $this->eventOneFactory();
 
-        // recebe em UTC às 17:00:00
-        SimpleEventPublisher::instance()
-            ->enableTestMode()
-            ->subscribe('channel-one', SubscriberThree::class); 
+        // SubscriberThree recebe em UTC às 17:00:00
+        $publisher = $this->simplePublisherFactory([
+            [ 'channel-one', SubscriberThree::class]
+        ]);
 
-        // envia de UTC às 17:00:00
-        SimpleEventPublisher::instance()
-            ->publish('channel-one', $event);
+        // Publisher envia de UTC às 17:00:00
+        $publisher->publish('channel-one', $event);
 
         $eventHandle = $this->readLastHandleFromFile('subscriber-three-handle.txt');
 
@@ -41,17 +40,17 @@ class SimpleEventTimezoneTest extends PublisherTestCase
     /** @test */
     public function defaultToSaoPaulo(): void
     {
-        $publisherDatetime = new DateTimeImmutable('2022-05-22 17:00:00');
-        $event = $this->eventOneFactory($publisherDatetime);
+        // cria um evento ocorrido às 17:00:00
+        $event = $this->eventOneFactory();
 
-        // recebe em America/Sao_Paulo às 17:00:00
-        SimpleEventPublisher::instance()
-            ->enableTestMode()
-            ->subscribe('channel-one', SubscriberOne::class); 
+        // SubscriberOne recebe em America/Sao_Paulo às 17:00:00
+        $publisher = $this->simplePublisherFactory([
+            [ 'channel-one', SubscriberOne::class]
+        ]);
 
-        // envia de UTC às 17:00:00
-        SimpleEventPublisher::instance()
-            ->publish('channel-one', $event);
+        
+        // Publisher envia de UTC às 17:00:00
+        $publisher->publish('channel-one', $event);
 
         $eventHandle = $this->readLastHandleFromFile('subscriber-one-handle.txt');
 
@@ -66,16 +65,16 @@ class SimpleEventTimezoneTest extends PublisherTestCase
     /** @test */
     public function saoPauloToDefault(): void
     {
-        $publisherDatetime = new DateTimeImmutable('2022-05-22 17:00:00');
-        $event = $this->eventOneFactory($publisherDatetime);
+        // cria um evento ocorrido às 17:00:00
+        $event = $this->eventOneFactory();
 
-        // recebe em UTC às 20:00:00
-        SimpleEventPublisher::instance()
-            ->enableTestMode()
-            ->subscribe('channel-one', SubscriberThree::class); 
+        // SubscriberThree recebe em UTC às 20:00:00
+        $publisher = $this->simplePublisherFactory([
+            [ 'channel-one', SubscriberThree::class]
+        ]);
 
-        // envia de America/Sao_Paulo às 17:00:00
-        SimpleEventPublisher::instance()
+        // Publisher envia de America/Sao_Paulo às 17:00:00
+        $publisher
             ->publishInTimezone(new DateTimeZone('America/Sao_Paulo'))
             ->publish('channel-one', $event);
 
@@ -92,16 +91,16 @@ class SimpleEventTimezoneTest extends PublisherTestCase
     /** @test */
     public function saoPauloToNewYork(): void
     {
-        $publisherDatetime = new DateTimeImmutable('2022-05-22 17:00:00');
-        $event = $this->eventOneFactory($publisherDatetime);
+        // cria um evento ocorrido às 17:00:00
+        $event = $this->eventOneFactory();
 
-        // recebe em America/New_York às 16:00:00
-        SimpleEventPublisher::instance()
-            ->enableTestMode()
-            ->subscribe('channel-one', SubscriberTwo::class); 
+        // SubscriberTwo recebe em America/New_York às 16:00:00
+        $publisher = $this->simplePublisherFactory([
+            [ 'channel-one', SubscriberTwo::class]
+        ]);
 
-        // envia de America/Sao_Paulo às 17:00:00
-        SimpleEventPublisher::instance()
+        // Publisher envia de America/Sao_Paulo às 17:00:00
+        $publisher
             ->publishInTimezone(new DateTimeZone('America/Sao_Paulo'))
             ->publish('channel-one', $event);
 
@@ -118,16 +117,16 @@ class SimpleEventTimezoneTest extends PublisherTestCase
     /** @test */
     public function saoPauloToSaoPaulo(): void
     {
-        $publisherDatetime = new DateTimeImmutable('2022-05-22 17:00:00');
-        $event = $this->eventOneFactory($publisherDatetime);
+        // cria um evento ocorrido às 17:00:00
+        $event = $this->eventOneFactory();
 
-        // recebe em America/Sao_Paulo às 17:00:00
-        SimpleEventPublisher::instance()
-            ->enableTestMode()
-            ->subscribe('channel-one', SubscriberOne::class); 
+        // SubscriberOne recebe em America/Sao_Paulo às 17:00:00
+        $publisher = $this->simplePublisherFactory([
+            [ 'channel-one', SubscriberOne::class]
+        ]);
 
-        // envia de America/Sao_Paulo às 17:00:00
-        SimpleEventPublisher::instance()
+        // Publisher envia de America/Sao_Paulo às 17:00:00
+        $publisher
             ->publishInTimezone(new DateTimeZone('America/Sao_Paulo'))
             ->publish('channel-one', $event);
 

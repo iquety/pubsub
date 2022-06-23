@@ -23,10 +23,9 @@ class SimpleEventPublisher extends AbstractEventPublisher
 
     private static ?self $instance = null;
 
-
     protected function __construct()
     {
-        $this->publicationTimezone = new DateTimeZone('UTC');
+        $this->publishInTimezone(new DateTimeZone('UTC'));
     }
 
     public static function instance(): self
@@ -53,9 +52,11 @@ class SimpleEventPublisher extends AbstractEventPublisher
 
     public function reset(): self
     {
+        parent::reset();
+
         $this->subscribers = [];
         $this->subscribersByChannel = [];
-        $this->publicationTimezone = new DateTimeZone('UTC');
+        
         return $this;
     }
 

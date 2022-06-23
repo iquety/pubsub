@@ -22,7 +22,7 @@ abstract class AbstractEventPublisher implements EventPublisher
 
     private bool $errorHandlerInit = false;
 
-    protected DateTimeZone $publicationTimezone;
+    private DateTimeZone $publicationTimezone;
 
     private bool $testMode = false;
 
@@ -69,6 +69,18 @@ abstract class AbstractEventPublisher implements EventPublisher
     public function publishInTimezone(DateTimeZone $timezone): self
     {
         $this->publicationTimezone = $timezone;
+        return $this;
+    }
+
+    public function reset(): self
+    {
+        $this->errorCode = 0;
+        $this->errorMessage = '';
+        $this->publicationTimezone = new DateTimeZone('UTC');
+        $this->serializer = $this->getDefaultSerializer();
+        $this->testMode = false;
+        $this->verboseMode = false;
+
         return $this;
     }
 

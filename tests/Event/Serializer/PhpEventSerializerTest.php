@@ -11,16 +11,21 @@ use Tests\TestCase;
 
 class PhpEventSerializerTest extends TestCase
 {
+    private function factory(): PhpEventSerializer
+    {
+        return new PhpEventSerializer();
+    }
+
     /** @test */
     public function serializationAndReconstitution(): void
     {
-        $event = $this->eventFactory('ricardo', '123');
+        $event = $this->eventOneFactory();
+        $streamData = $this->getPlainEventValues($event);
 
-        $serializedEvent = (new PhpEventSerializer())->serialize($this->getPlainEventValues($event));
+        $serializedEvent = $this->factory()->serialize($streamData);
+        $reconstitution = $this->factory()->unserialize($serializedEvent);
 
-        $reconstitution = (new PhpEventSerializer())->unserialize($serializedEvent);
-
-        $this->assertEquals($reconstitution, $this->getPlainEventValues($event));
+        $this->assertEquals($reconstitution, $streamData);
     }
 
     /** @test */
