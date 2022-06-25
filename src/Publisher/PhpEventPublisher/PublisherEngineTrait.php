@@ -40,7 +40,7 @@ trait PublisherEngineTrait
         return $socketClient;
     }
 
-    
+
     /** @override */
     public function publish(string $channel, Event $event): self
     {

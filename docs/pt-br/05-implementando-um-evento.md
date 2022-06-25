@@ -31,9 +31,9 @@ A interface `Freep\PubSub\Event\Event` exige cinco métodos específicos:
 
 Este método recebe um `array` associativo contendo os dados do evento ($values). Com base nesses valores, o "factory" deve fabricar o evento devolvê-lo adequadamente no retorno.
 
-> **Importante**: O valor de retorno sempre deve ser um evento do mesmo tipo, sendo que a impossibilidade de se fabricar um novo evento deve disparar uma exceção.
+**Importante**: O valor de retorno sempre deve ser um evento do mesmo tipo, sendo que a impossibilidade de se fabricar um novo evento deve disparar uma exceção.
 
-> **Mais importante ainda**: Caso a implementação dos valores de um evento existente precisem mudar, seja por uma evolução no sistema ou por uma correção necessária, este método deverá garantir o máximo possível de retrocompatibilidade com os dados implementados em versões anteriores. Isso é necessário para garantir que módulos ou subsistemas que ainda não se atualizaram, possam continuar enviando eventos, mesmo que incompletos.
+**Mais importante ainda**: Caso a implementação dos valores de um evento existente precisem mudar, seja por uma evolução no sistema ou por uma correção necessária, este método deverá garantir o máximo possível de retrocompatibilidade com os dados implementados em versões anteriores. Isso é necessário para garantir que módulos ou subsistemas que ainda não se atualizaram, possam continuar enviando eventos, mesmo que incompletos.
 
 ```php
 /** @param array<string,mixed> $values */
@@ -92,7 +92,6 @@ public function sameEventAs(Event $other): bool
         && $this->ocurredOn() === $other->ocurredOn();
 }
 ```
-
 
 ### 1.4. O método "toArray"
 

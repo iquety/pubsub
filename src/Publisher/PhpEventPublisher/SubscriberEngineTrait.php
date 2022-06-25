@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Freep\PubSub\Publisher\PhpEventPublisher;
 
-use DateTimeZone;
 use Exception;
 use Freep\PubSub\Event\Event;
-use Freep\PubSub\Event\EventSignal;
 use Freep\PubSub\Event\Signals;
 use Freep\PubSub\Subscriber\EventSubscriber;
 use RuntimeException;
@@ -42,8 +40,6 @@ trait SubscriberEngineTrait
             "The publish/subscriber server has been stopped" . PHP_EOL
         )->successLn();
     }
-
-    
 
     /**
      * @return resource

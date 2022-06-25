@@ -8,13 +8,23 @@ use DateTimeImmutable;
 use Freep\Console\Arguments;
 use Freep\Console\Command;
 use Freep\Console\Option;
+use Freep\PubSub\Publisher\EventPublisher;
 use Freep\PubSub\Publisher\PhpEventPublisher;
+use Freep\PubSub\Publisher\SimpleEventPublisher;
 use RuntimeException;
 use Tests\Example\Events\EventOne;
 use Tests\Example\Events\EventTwo;
 
 class PubSubClientCommand extends Command
 {
+    private bool $testMode = false;
+
+    public function enableTestMode(): self
+    {
+        $this->testMode = true;
+        return $this;
+    }
+
     protected function initialize(): void
     {
         $this->setName("pubsub:client-test");
@@ -53,18 +63,16 @@ class PubSubClientCommand extends Command
 
     protected function handle(Arguments $arguments): void
     {
-        $publisher = new PhpEventPublisher(
-            $arguments->getOption('-d'),
-            (int)$arguments->getOption('-p')
-        );
+        $publisher = $this->publisherFactory($arguments);
 
         if ($arguments->getOption('-v') === '1') {
             $publisher->enableVerboseMode();
+            $this->info('Verbose mode enabled');
         }
 
         $ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
-        $eventOne = new EventOne('ricardo', '99988877766', $ocurredOn);
-        $eventTwo = new EventTwo('milene', '88877766655', $ocurredOn);
+        $eventOne = new EventOne('ricardo', 99988877766, $ocurredOn);
+        $eventTwo = new EventTwo('roberto', 88877766655, $ocurredOn);
 
         try {
             // Ao mandar dois eventos diferentes,
@@ -88,11 +96,25 @@ class PubSubClientCommand extends Command
 
             // parar o servidor de publish/subscribe
             // $publisher->publish('vormir', new EventSignal(Signals::STOP));
-        } catch (RuntimeException $exception) {
-            $this->error($exception->getMessage());
+        } catch (RuntimeException $exception) { // @codeCoverageIgnore
+            $this->error($exception->getMessage()); // @codeCoverageIgnore
         }
 
         $this->info('Published Events');
         $this->info('Used memory: ' . memory_get_usage());
+    }
+
+    private function publisherFactory(Arguments $arguments): EventPublisher
+    {
+        if ($this->testMode === true) {
+            return SimpleEventPublisher::instance()->reset();
+        }
+
+        // @codeCoverageIgnoreStart
+        return new PhpEventPublisher(
+            $arguments->getOption('-d'),
+            (int)$arguments->getOption('-p')
+        );
+        // @codeCoverageIgnoreEnd
     }
 }

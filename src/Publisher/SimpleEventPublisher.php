@@ -56,7 +56,7 @@ class SimpleEventPublisher extends AbstractEventPublisher
 
         $this->subscribers = [];
         $this->subscribersByChannel = [];
-        
+
         return $this;
     }
 

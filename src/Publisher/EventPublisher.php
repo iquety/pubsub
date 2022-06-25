@@ -4,15 +4,24 @@ declare(strict_types=1);
 
 namespace Freep\PubSub\Publisher;
 
+use DateTimeZone;
 use Freep\PubSub\Event\Event;
 use Freep\PubSub\Event\Serializer\EventSerializer;
 use Freep\PubSub\Subscriber\EventSubscriber;
 
 interface EventPublisher
 {
+    public function enableVerboseMode(): self;
+
+    public function getPublicationTimezone(): DateTimeZone;
+
     public function hasSubscribers(string $channel = 'all'): bool;
 
+    public function isVerboseMode(): bool;
+
     public function publish(string $channel, Event $event): self;
+
+    public function publishInTimezone(DateTimeZone $timezone): self;
 
     public function reset(): self;
 

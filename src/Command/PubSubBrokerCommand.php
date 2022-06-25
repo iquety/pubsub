@@ -13,6 +13,14 @@ use Freep\PubSub\Publisher\PhpEventPublisher;
 
 class PubSubBrokerCommand extends Command
 {
+    private bool $testMode = false;
+
+    public function enableTestMode(): self
+    {
+        $this->testMode = true;
+        return $this;
+    }
+
     protected function initialize(): void
     {
         $this->setName("pubsub:broker");
@@ -76,24 +84,36 @@ class PubSubBrokerCommand extends Command
             (int)$arguments->getOption('-p')
         );
 
+        $serializerMessage = 'Using JsonEventSerializer serializer';
+
         if ($arguments->getOption('-s') === 'php') {
             $publisher->useSerializer(new PhpEventSerializer());
+
+            $serializerMessage = 'Using PhpEventSerializer serializer';
         }
+
+        $this->info($serializerMessage);
 
         if ($arguments->getOption('-v') === '1') {
             $publisher->enableVerboseMode();
+            $this->info('Verbose mode enabled');
         }
 
         $loop = new EventLoop($publisher);
 
         $this->resolveConfigFile($loop, $arguments->getOption('-c'));
 
-        $loop->run();
+        if ($this->testMode === true) {
+            return;
+        }
+
+        $loop->run(); // @codeCoverageIgnore
     }
 
     private function resolveConfigFile(EventLoop $loop, string $configFile): void
     {
         if ($configFile === '') {
+            $this->warning('The specified configuration file is invalid');
             return;
         }
 
@@ -102,7 +122,12 @@ class PubSubBrokerCommand extends Command
         }
 
         if (file_exists($configFile) === false) {
+            $this->warning("Configuration file '$configFile' not found");
             return;
+        }
+
+        if ($this->testMode === true) {
+            $this->line('include ' . $configFile);
         }
 
         $callback = include $configFile;

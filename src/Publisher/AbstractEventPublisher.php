@@ -158,7 +158,7 @@ abstract class AbstractEventPublisher implements EventPublisher
 
     protected function convertFromStreamData(array $streamEventData, DateTimeZone $localTimezone): array
     {
-        $mapRoutine = function($value) use ($localTimezone) {
+        $mapRoutine = function ($value) use ($localTimezone) {
             if (is_string($value) === false) {
                 return $value;
             }
@@ -169,7 +169,7 @@ abstract class AbstractEventPublisher implements EventPublisher
             if (preg_match($regex, $value, $matches) !== false && count($matches) === 3) {
                 return $this->stringToDateTime($value, $localTimezone);
             }
-            
+
             return $value;
         };
 
@@ -180,11 +180,11 @@ abstract class AbstractEventPublisher implements EventPublisher
     {
         $realEventData = $event->toArray();
 
-        $mapRoutine = function($value) use ($publicationTimezone) {
+        $mapRoutine = function ($value) use ($publicationTimezone) {
             if ($value instanceof DateTimeImmutable) {
                 return $this->dateTimeToString($value, $publicationTimezone);
             }
-            
+
             return $value;
         };
 
@@ -194,7 +194,7 @@ abstract class AbstractEventPublisher implements EventPublisher
     /** @return string A data no formado Y-m-d H:i:s e convertida em UTC */
     private function dateTimeToString(DateTimeImmutable $value, DateTimeZone $publisherTimezone): string
     {
-        // Os timezones padrões são UTC, tanto para o EventPublisher 
+        // Os timezones padrões são UTC, tanto para o EventPublisher
         // como para os objetos DateTimeImmutable
 
         if ($publisherTimezone->getName() !== 'UTC') {
@@ -216,7 +216,7 @@ abstract class AbstractEventPublisher implements EventPublisher
     {
         $objectDateTime = new DateTimeImmutable($value);
 
-        // Os timezones padrões são UTC, tanto para o EventPublisher 
+        // Os timezones padrões são UTC, tanto para o EventPublisher
         // como para os objetos DateTimeImmutable
 
         if ($subscriberTimezone->getName() !== 'UTC') {

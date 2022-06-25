@@ -25,13 +25,11 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
 
     private int $port = 8080;
 
-    private bool $running = true;
-
     public function __construct(string $host = 'localhost', int $port = 8080)
     {
         $this->host = $host;
         $this->port = $port;
-        
+
         $this->publishInTimezone(new DateTimeZone('UTC'));
 
         parent::setupErrorHandler();
@@ -47,13 +45,13 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
     {
         return $this->customSocket;
     }
-    
-    protected function getHost(): string
+
+    public function getHost(): string
     {
         return $this->host;
     }
 
-    protected function getPort(): int
+    public function getPort(): int
     {
         return $this->port;
     }
@@ -62,7 +60,7 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
     public function useTestSocket($socket): self
     {
         $this->customSocket = $socket;
-        
+
         $this->enableTestMode();
 
         return $this;

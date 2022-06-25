@@ -102,7 +102,7 @@ Enquanto o "Intermediador de Mensagens" estiver em execução, o terminal atual 
 
 ## 3. Enviando eventos de teste
 
-No mesmo script usado para executar o "Intermediador de Mensagens", existe um comando especial para enviar eventos de teste. 
+No mesmo script usado para executar o "Intermediador de Mensagens", existe um comando especial para enviar eventos de teste.
 
 Com o "Intermediador de Mensagens" em execução, basta abrir outro terminal e usar o comando abaixo para enviar alguns eventos de teste.
 
