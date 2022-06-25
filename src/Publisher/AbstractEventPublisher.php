@@ -156,6 +156,10 @@ abstract class AbstractEventPublisher implements EventPublisher
         return $message;
     }
 
+    /**
+     * @param array<string,mixed> $streamEventData
+     * @return array<string,mixed>
+     */
     protected function convertFromStreamData(array $streamEventData, DateTimeZone $localTimezone): array
     {
         $mapRoutine = function ($value) use ($localTimezone) {
@@ -166,7 +170,10 @@ abstract class AbstractEventPublisher implements EventPublisher
             $matches = [];
             $regex = "/([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2})/";
 
-            if (preg_match($regex, $value, $matches) !== false && count($matches) === 3) {
+            $isMatched = preg_match($regex, $value, $matches) !== false;
+            $isCorrectFormat = count($matches) === 3;
+
+            if ($isMatched === true && $isCorrectFormat === true) {
                 return $this->stringToDateTime($value, $localTimezone);
             }
 
@@ -176,6 +183,7 @@ abstract class AbstractEventPublisher implements EventPublisher
         return array_map($mapRoutine, $streamEventData);
     }
 
+    /** @return array<string,mixed> */
     protected function convertToStreamData(Event $event, DateTimeZone $publicationTimezone): array
     {
         $realEventData = $event->toArray();
