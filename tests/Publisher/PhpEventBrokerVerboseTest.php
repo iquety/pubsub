@@ -75,11 +75,11 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
 
         $subscribers = [];
         $list['zero subscribers'] = [ $subscribers ];
-        
+
         return $list;
     }
 
-    /** 
+    /**
      * @test
      * @dataProvider receiveEventSignalProvider
      */

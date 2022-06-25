@@ -7,8 +7,7 @@ namespace Tests\Event;
 use DateTimeImmutable;
 use Freep\PubSub\Event\EventSignal;
 use Freep\PubSub\Event\Signals;
-use Tests\Example\Events\EventOne;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class EventSignalTest extends TestCase
 {
@@ -20,9 +19,26 @@ class EventSignalTest extends TestCase
         $this->assertEquals(Signals::STOP, $event->label());
         $this->assertInstanceOf(DateTimeImmutable::class, $event->ocurredOn());
         $this->assertTrue($event->sameEventAs(new EventSignal(Signals::STOP)));
-        $this->assertFalse($event->sameEventAs(
-            new EventOne('ricardo', '123', new DateTimeImmutable())
-        ));
+        $this->assertFalse($event->sameEventAs($this->eventOneFactory()));
+
+        $this->assertEquals([], $event->toArray());
+    }
+
+    /**
+     * @test
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function useFactory(): void
+    {
+        $event = EventSignal::factory([
+            'signal' => Signals::STOP,
+            'context' => []
+        ]);
+
+        $this->assertEquals(Signals::STOP, $event->label());
+        $this->assertInstanceOf(DateTimeImmutable::class, $event->ocurredOn());
+        $this->assertTrue($event->sameEventAs(new EventSignal(Signals::STOP)));
+        $this->assertFalse($event->sameEventAs($this->eventOneFactory()));
 
         $this->assertEquals([], $event->toArray());
     }

@@ -48,7 +48,7 @@ class SimpleEventTimezoneTest extends SimplePublisherTestCase
             [ 'channel-one', SubscriberOne::class]
         ]);
 
-        
+
         // Publisher envia de UTC às 17:00:00
         $publisher->publish('channel-one', $event);
 

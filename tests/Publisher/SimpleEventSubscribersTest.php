@@ -35,7 +35,7 @@ class SimpleEventSubscribersTest extends SimplePublisherTestCase
         return $list;
     }
 
-    /** 
+    /**
      * @test
      * @dataProvider hasSubscribersProvider
      */
@@ -56,7 +56,7 @@ class SimpleEventSubscribersTest extends SimplePublisherTestCase
         return $list;
     }
 
-    /** 
+    /**
      * @test
      * @dataProvider resetSubscribersProvider
      */
@@ -74,7 +74,7 @@ class SimpleEventSubscribersTest extends SimplePublisherTestCase
         $publisher = $this->simplePublisherFactory([
             ['channel-one', SubscriberOne::class],
             ['channel-one', SubscriberTwo::class],
-            ['channel-two', SubscriberTwo::class] 
+            ['channel-two', SubscriberTwo::class]
         ]);
 
         // os assinante sao indexados pelo tipo
@@ -110,7 +110,7 @@ class SimpleEventSubscribersTest extends SimplePublisherTestCase
         $publisher = $this->simplePublisherFactory([
             ['channel-one', SubscriberOne::class],
             ['channel-one', SubscriberTwo::class],
-            ['channel-two', SubscriberTwo::class] 
+            ['channel-two', SubscriberTwo::class]
         ]);
 
         $this->assertCount(2, $publisher->subscribers('channel-one'));
@@ -127,7 +127,7 @@ class SimpleEventSubscribersTest extends SimplePublisherTestCase
     {
         $publisher = $this->simplePublisherFactory([
             ['channel-one', SubscriberOne::class],
-            ['channel-two', SubscriberTwo::class] 
+            ['channel-two', SubscriberTwo::class]
         ]);
 
         $publisher->unsubscribe('channel-one', SubscriberOne::class);

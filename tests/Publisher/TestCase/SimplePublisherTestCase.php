@@ -25,7 +25,10 @@ class SimplePublisherTestCase extends PublisherTestCase
         SimpleEventPublisher::instance()->reset();
     }
 
-    /** @param array<int,array<int,string>> */
+    /**
+     * @param array<int,array<int,string>>
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     protected function simplePublisherFactory(array $subcriberList): SimpleEventPublisher
     {
         SimpleEventPublisher::instance()->reset();

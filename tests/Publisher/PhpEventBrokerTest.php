@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Publisher;
 
+use Freep\PubSub\Publisher\PhpEventPublisher;
 use RuntimeException;
 use Tests\Example\Subscribers\SubscriberOne;
 use Tests\Example\Subscribers\SubscriberTwo;
@@ -11,6 +12,33 @@ use Tests\Publisher\TestCase\PhpPublisherTestCase;
 
 class PhpEventBrokerTest extends PhpPublisherTestCase
 {
+    /** @test */
+    public function hostAndPortDefault(): void
+    {
+        $publisher = new PhpEventPublisher();
+
+        $this->assertEquals('localhost', $publisher->getHost());
+        $this->assertEquals(8080, $publisher->getPort());
+    }
+
+    /** @test */
+    public function hostAndPortSettedSame(): void
+    {
+        $publisher = new PhpEventPublisher('localhost', 8080);
+
+        $this->assertEquals('localhost', $publisher->getHost());
+        $this->assertEquals(8080, $publisher->getPort());
+    }
+
+    /** @test */
+    public function hostAndPortSettedOther(): void
+    {
+        $publisher = new PhpEventPublisher('www.google.com', 888);
+
+        $this->assertEquals('www.google.com', $publisher->getHost());
+        $this->assertEquals(888, $publisher->getPort());
+    }
+
     /** @test */
     public function startInvalidServer(): void
     {

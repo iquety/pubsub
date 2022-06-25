@@ -30,7 +30,7 @@ class SubscriberOne implements EventSubscriber
 
         $file->setFileContents(
             'subscriber-one-handle.txt',
-            __CLASS__ . PHP_EOL . 
+            __CLASS__ . PHP_EOL .
             'recebeu: ' . $event::class . PHP_EOL .
             'em: ' . $event->ocurredOn()->format('Y-m-d H:i:s')
         );

@@ -10,6 +10,19 @@ use Tests\Example\Subscribers\SubscriberOne;
 
 class EventLoopTest extends TestCase
 {
+    /**
+     * @test
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function commandPath(): void
+    {
+        $path = dirname(__DIR__)
+            . DIRECTORY_SEPARATOR . 'src'
+            . DIRECTORY_SEPARATOR . 'Command';
+
+        $this->assertEquals($path, EventLoop::commandPath());
+    }
+
     /** @test */
     public function addSubscriber(): void
     {

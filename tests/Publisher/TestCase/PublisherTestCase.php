@@ -25,7 +25,7 @@ class PublisherTestCase extends TestCase
         self::clearFile('subscriber-two-handle.txt');
         self::clearFile('subscriber-three-handle.txt');
     }
-    
+
     /** @return array<string,mixed> */
     protected function readLastEventFromFile(string $file): array
     {

@@ -27,7 +27,7 @@ class SimpleEventResetTest extends SimplePublisherTestCase
                 'isVerboseMode',
                 null
             ],
-            'timezone'     => [ 
+            'timezone'     => [
                 new DateTimeZone('UTC'),
                 'publishInTimezone',
                 'getPublicationTimezone',
@@ -44,7 +44,7 @@ class SimpleEventResetTest extends SimplePublisherTestCase
         return $list;
     }
 
-    /** 
+    /**
      * @test
      * @dataProvider resetableMethodsProvider
      * @param mixed $changedValue
@@ -60,11 +60,19 @@ class SimpleEventResetTest extends SimplePublisherTestCase
 
         if ($isBoolean === true) {
             $publisher->{$setterMethod}();
-            $this->assertTrue($publisher->{$getterMethod}());            
-        } else {
-            $publisher->{$setterMethod}($changedValue);
-            $this->assertEquals($publisher->{$getterMethod}(), $changedValue);
+
+            $this->assertTrue($publisher->{$getterMethod}());
+
+            $publisher->reset();
+
+            $this->assertEquals($publisher->{$getterMethod}(), $defaultValue);
+
+            return;
         }
+
+        $publisher->{$setterMethod}($changedValue);
+
+        $this->assertEquals($publisher->{$getterMethod}(), $changedValue);
 
         $publisher->reset();
 

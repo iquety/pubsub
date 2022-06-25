@@ -6,6 +6,7 @@ namespace Tests;
 
 use Closure;
 use DateTimeImmutable;
+use Freep\Console\Option;
 use Freep\PubSub\Event\Event;
 use Tests\Example\Events\EventOne;
 use Freep\Security\Filesystem;
@@ -42,18 +43,18 @@ class TestCase extends FrameworkTestCase
     ): EventOne {
         return new EventOne(
             $name,
-            '99988877766',
+            99988877766,
             $ocurredOn ?? new DateTimeImmutable('2022-05-22 17:00:00')
         );
     }
-    
+
     protected function eventTwoFactory(
         ?DateTimeImmutable $ocurredOn = null,
         string $name = 'ricardo'
     ): EventTwo {
         return new EventTwo(
             $name,
-            '55544433322',
+            55544433322,
             $ocurredOn ?? new DateTimeImmutable('2022-05-22 17:00:00')
         );
     }
@@ -62,10 +63,10 @@ class TestCase extends FrameworkTestCase
     {
         return new Filesystem(__DIR__ . '/files');
     }
-    
+
     protected function getPlainEventValues(Event $event): array
     {
-        return array_map(function($value){
+        return array_map(function ($value) {
             return $value instanceof DateTimeImmutable
                 ? $value->format('Y-m-d H:i:s')
                 : $value;

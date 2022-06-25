@@ -11,7 +11,7 @@ class EventOne implements Event
 {
     public function __construct(
         private string $name,
-        private string $cpf,
+        private int $cpf,
         private DateTimeImmutable $ocurredOn
     ) {
     }
@@ -31,7 +31,7 @@ class EventOne implements Event
         );
     }
 
-    public function cpf(): string
+    public function cpf(): int
     {
         return $this->cpf;
     }

@@ -1,4 +1,4 @@
 channel-one
 
 event-one
-{"cpf":"123","name":"ricardo","ocurredOn":"2020-01-10 00:00:01"}
+{"cpf":123,"name":"ricardo","ocurredOn":"2020-01-10 00:00:01"}
