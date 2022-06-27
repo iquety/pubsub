@@ -63,6 +63,7 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
         ], $output);
     }
 
+    /** @return array<string,array<int,array<int,array<int,class-string|string>>>> */
     public function receiveEventSignalProvider(): array
     {
         $list = [];
@@ -82,6 +83,7 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
     /**
      * @test
      * @dataProvider receiveEventSignalProvider
+     * @param array<int,array<int,class-string|string>> $subscribers
      */
     public function receiveEventSignal(array $subscribers): void
     {

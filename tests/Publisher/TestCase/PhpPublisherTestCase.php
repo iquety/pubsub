@@ -11,7 +11,7 @@ use Tests\Example\Events\EventTwo;
 
 class PhpPublisherTestCase extends PublisherTestCase
 {
-    /** @param array<int,array<int,string>> */
+    /** @param array<int,array<int,class-string|string>> $subcriberList */
     protected function phpPublisherFactory(array $subcriberList): PhpEventPublisher
     {
         $instance = new PhpEventPublisher('localhost', 8080);

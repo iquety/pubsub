@@ -10,7 +10,7 @@ use Tests\Publisher\TestCase\SimplePublisherTestCase;
 
 class SimpleEventSubscribersTest extends SimplePublisherTestCase
 {
-    /** @return array<int,array<string,array>> */
+    /** @return array<string,array<int,array<int,array<int,class-string|string>>>> */
     public function hasSubscribersProvider(): array
     {
         $list = [];
@@ -38,6 +38,7 @@ class SimpleEventSubscribersTest extends SimplePublisherTestCase
     /**
      * @test
      * @dataProvider hasSubscribersProvider
+     * @param array<int,array<int,class-string|string>> $subscribers
      */
     public function hasSubscribers(array $subscribers): void
     {
@@ -46,7 +47,7 @@ class SimpleEventSubscribersTest extends SimplePublisherTestCase
         $this->assertTrue($publisher->hasSubscribers());
     }
 
-    /** @return array<int,array<string,array>> */
+    /** @return array<string,array<int,array<int,mixed>>> */
     public function resetSubscribersProvider(): array
     {
         $list = $this->hasSubscribersProvider();
@@ -59,6 +60,7 @@ class SimpleEventSubscribersTest extends SimplePublisherTestCase
     /**
      * @test
      * @dataProvider resetSubscribersProvider
+     * @param array<int,array<int,class-string|string>> $subscribers
      */
     public function resetSubscribers(array $subscribers): void
     {

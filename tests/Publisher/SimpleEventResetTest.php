@@ -11,7 +11,7 @@ use Tests\Publisher\TestCase\SimplePublisherTestCase;
 
 class SimpleEventResetTest extends SimplePublisherTestCase
 {
-    /** @return array<int,array<string,array>> */
+    /** @return array<string,array<int,mixed>> */
     public function resetableMethodsProvider(): array
     {
         $list = [

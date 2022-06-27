@@ -26,7 +26,7 @@ class SimplePublisherTestCase extends PublisherTestCase
     }
 
     /**
-     * @param array<int,array<int,string>>
+     * @param array<int,array<int,class-string|string>> $subcriberList
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
     protected function simplePublisherFactory(array $subcriberList): SimpleEventPublisher

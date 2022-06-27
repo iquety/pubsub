@@ -64,6 +64,7 @@ class TestCase extends FrameworkTestCase
         return new Filesystem(__DIR__ . '/files');
     }
 
+    /** @return array<string,mixed> */
     protected function getPlainEventValues(Event $event): array
     {
         return array_map(function ($value) {

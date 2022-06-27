@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Publisher;
 
-use Freep\PubSub\Event\Serializer\JsonEventSerializer;
-use Freep\PubSub\Event\Serializer\PhpEventSerializer;
-use Freep\PubSub\Publisher\PhpEventPublisher;
 use Tests\Example\Subscribers\SubscriberOne;
 use Tests\Example\Subscribers\SubscriberTwo;
 use Tests\Publisher\TestCase\PhpPublisherTestCase;
 
 class PhpEventSubscribersTest extends PhpPublisherTestCase
 {
-    /** @return array<int,array<string,array>> */
+    /** @return array<string,array<int,array<int,array<int,class-string|string>>>>  */
     public function hasSubscribersProvider(): array
     {
         $list = [];
@@ -41,6 +38,7 @@ class PhpEventSubscribersTest extends PhpPublisherTestCase
     /**
      * @test
      * @dataProvider hasSubscribersProvider
+     * @param array<int,array<int,class-string|string>> $subscribers
      */
     public function hasSubscribers(array $subscribers): void
     {
@@ -49,7 +47,7 @@ class PhpEventSubscribersTest extends PhpPublisherTestCase
         $this->assertTrue($publisher->hasSubscribers());
     }
 
-    /** @return array<int,array<string,array>> */
+    /** @return array<string,array<int,array<int,array<int,class-string|string>>>> */
     public function resetSubscribersProvider(): array
     {
         $list = $this->hasSubscribersProvider();
@@ -62,6 +60,7 @@ class PhpEventSubscribersTest extends PhpPublisherTestCase
     /**
      * @test
      * @dataProvider resetSubscribersProvider
+     * @param array<int,array<int,class-string|string>> $subscribers
      */
     public function resetSubscribers(array $subscribers): void
     {
