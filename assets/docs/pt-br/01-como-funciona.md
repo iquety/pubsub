@@ -1,7 +1,6 @@
 # Como funciona
 
-[◂ Sumário da Documentação](indice.md) | [Usando o script de terminal ▸](02-usando-script-de-terminal.md)
--- | --
+--page-nav--
 
 ## 1. Arquitetura orientada a eventos
 
@@ -55,8 +54,8 @@ Esta é a forma mais simples de implementar e consiste em iniciar o "Observer" j
 // rotinas iniciais da aplicação ...
 
 SimpleEventPublisher::instance()
-->subscribe('registrations', RegistrationSubscriber::class)
-->subscribe('payments', PaymentSubscriber::class);
+    ->subscribe('registrations', RegistrationSubscriber::class)
+    ->subscribe('payments', PaymentSubscriber::class);
 ```
 
 Para disparar eventos, em qualquer lugar do sistema, basta invocar uma chamada para o método `publish()` do publicador:
@@ -68,7 +67,7 @@ $ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
 $event = new UserRegistered('Ricardo', '99988877766', $ocurredOn);
 
 SimpleEventPublisher::instance()
-->publish('registrations', $event);
+    ->publish('registrations', $event);
 
 ```
 
@@ -136,5 +135,4 @@ duas quebras de linha | "\n" + "\n"
 conteúdo json serializado | **Importante**: o "Intermediador de Mensagens" deve estar configurado para usar serializações do tipo Json (o padrão da biblioteca). Mais informações em [Usando um script de terminal](02-usando-script-de-terminal.md)
 uma quebra de linha | "\n"
 
-[◂ Sumário da Documentação](indice.md) | [Usando o script de terminal ▸](02-usando-script-de-terminal.md)
--- | --
+--page-nav--

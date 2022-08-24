@@ -1,11 +1,9 @@
 # Publishing a stop signal
 
-[◂ Publishing an event](06-publishing-an-event.md) | [Voltar ao índice](index.md) | [Improving the library ▸](08-improving-the-library.md)
+[◂ Implementing an Event](06-publishing-an-event.md) | [Documentation Summary](index.md) | [Improving the library ▸ ▸](08-improving-the-library.md)
 -- | -- | --
 
-## 1. Mono mono
+Under development...
 
-...
-
-[◂ Publishing an event](06-publishing-an-event.md) | [Voltar ao índice](index.md) | [Improving the library ▸](08-improving-the-library.md)
+[◂ Implementing an Event](06-publishing-an-event.md) | [Documentation Summary](index.md) | [Improving the library ▸ ▸](08-improving-the-library.md)
 -- | -- | --

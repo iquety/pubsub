@@ -1,7 +1,6 @@
 # Implementando um Evento
 
-[◂ Implementando um Subscriber](04-implementando-um-subscriber.md) | [Sumário da Documentação](indice.md) | [Publicando um evento ▸](06-publicando-um-evento.md)
--- | -- | --
+--page-nav--
 
 ## 1. O que é um Evento
 
@@ -14,12 +13,12 @@ Um novo evento deve cumprir o contrato da interface `Freep\PubSub\Event\Event` e
 ```php
 class UserRegistered implements Freep\PubSub\Event\Event
 {
-public function __construct(
-private string $name,
-private string $cpf,
-private DateTimeImmutable $ocurredOn
-) {
-}
+    public function __construct(
+        private string $name,
+        private string $cpf,
+        private DateTimeImmutable $ocurredOn
+    ) {
+    }
 }
 ```
 
@@ -39,16 +38,16 @@ Este método recebe um `array` associativo contendo os dados do evento ($values)
 /** @param array<string,mixed> $values */
 public static function factory(array $values): Event
 {
-// na versão anterior 'cpf' se chamava 'document'
-if (isset($values['document']) === true) {
-$values['cpf'] = $values['document'];
-}
+    // na versão anterior 'cpf' se chamava 'document'
+    if (isset($values['document']) === true) {
+        $values['cpf'] = $values['document'];
+    }
 
-return new self(
-$values['name'],
-$values['cpf'],
-new DateTimeImmutable($values['ocurredOn'])
-);
+    return new self(
+        $values['name'],
+        $values['cpf'],
+        new DateTimeImmutable($values['ocurredOn'])
+    );
 }
 ```
 
@@ -63,7 +62,7 @@ Péssimos exemplos são 'registered', '12345' ou 'abst345sd'.
 ```php
 public function label(): string
 {
-return 'user.registered';
+    return 'user.registered';
 }
 ```
 
@@ -74,7 +73,7 @@ Este método deve devolver uma instancia de `\DateTimeImmutable`, contendo o val
 ```php
 public function ocurredOn(): DateTimeImmutable
 {
-return $this->ocurredOn;
+    return $this->ocurredOn;
 }
 ```
 
@@ -86,10 +85,10 @@ Este método deve comparar duas instâncias para determinar se tratam-se do mesm
 /** @param UserRegistered $other */
 public function sameEventAs(Event $other): bool
 {
-return $other instanceof UserRegistered
-&& $this->name() === $other->name()
-&& $this->cpf() === $other->cpf()
-&& $this->ocurredOn() === $other->ocurredOn();
+    return $other instanceof UserRegistered
+        && $this->name() === $other->name()
+        && $this->cpf() === $other->cpf()
+        && $this->ocurredOn() === $other->ocurredOn();
 }
 ```
 
@@ -100,11 +99,11 @@ Este método deve devolver um `array` associativo contendo os valores do evento 
 ```php
 public function toArray(): array
 {
-return [
-'cpf'       => $this->cpf,
-'name'      => $this->name,
-'ocurredOn' => $this->ocurredOn->format('Y-m-d H:i:s')
-];
+    return [
+        'cpf'       => $this->cpf,
+        'name'      => $this->name,
+        'ocurredOn' => $this->ocurredOn->format('Y-m-d H:i:s')
+    ];
 }
 ```
 
@@ -120,67 +119,66 @@ use Freep\PubSub\Event\Event;
 
 class UserRegistered implements Event
 {
-public function __construct(
-private string $name,
-private string $cpf,
-private DateTimeImmutable $ocurredOn
-) {
-}
+    public function __construct(
+        private string $name,
+        private string $cpf,
+        private DateTimeImmutable $ocurredOn
+    ) {
+    }
 
-public function label(): string
-{
-return 'user.registered';
-}
+    public function label(): string
+    {
+        return 'user.registered';
+    }
 
-/** @param array<string,mixed> $values */
-public static function factory(array $values): Event
-{
-// na versão anterior 'cpf' se chamava 'document'
-if (isset($values['document']) === true) {
-$values['cpf'] = $values['document'];
-}
+    /** @param array<string,mixed> $values */
+    public static function factory(array $values): Event
+    {
+        // na versão anterior 'cpf' se chamava 'document'
+        if (isset($values['document']) === true) {
+            $values['cpf'] = $values['document'];
+        }
+        
+        return new self(
+            $values['name'],
+            $values['cpf'],
+            new DateTimeImmutable($values['ocurredOn'])
+        );
+    }
 
-return new self(
-$values['name'],
-$values['cpf'],
-new DateTimeImmutable($values['ocurredOn'])
-);
-}
+    public function cpf(): string
+    {
+        return $this->cpf;
+    }
 
-public function cpf(): string
-{
-return $this->cpf;
-}
+    public function name(): string
+    {
+        return $this->name;
+    }
 
-public function name(): string
-{
-return $this->name;
-}
+    public function ocurredOn(): DateTimeImmutable
+    {
+        return $this->ocurredOn;
+    }
 
-public function ocurredOn(): DateTimeImmutable
-{
-return $this->ocurredOn;
-}
+    /** @param UserRegistered $other */
+    public function sameEventAs(Event $other): bool
+    {
+        return $other instanceof EventOne
+            && $this->name() === $other->name()
+            && $this->cpf() === $other->cpf()
+            && $this->ocurredOn() === $other->ocurredOn();
+    }
 
-/** @param UserRegistered $other */
-public function sameEventAs(Event $other): bool
-{
-return $other instanceof EventOne
-&& $this->name() === $other->name()
-&& $this->cpf() === $other->cpf()
-&& $this->ocurredOn() === $other->ocurredOn();
-}
-
-public function toArray(): array
-{
-return [
-'cpf'       => $this->cpf,
-'name'      => $this->name,
-'ocurredOn' => $this->ocurredOn->format('Y-m-d H:i:s')
-];
-}
+    public function toArray(): array
+    {
+        return [
+            'cpf'       => $this->cpf,
+            'name'      => $this->name,
+            'ocurredOn' => $this->ocurredOn->format('Y-m-d H:i:s')
+        ];
+    }
 }
 ```
 
-[◂ Implementando um Subscriber](04-implementando-um-subscriber.md) | [Sumário da Documentação](indice.md) | [Publicando um evento ▸](06-publicando-um-evento.md)
--- | -- | --
+--page-nav--

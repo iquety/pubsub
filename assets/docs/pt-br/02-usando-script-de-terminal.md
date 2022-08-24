@@ -1,7 +1,6 @@
 # Usando o script de terminal
 
-[◂ Como funciona](01-como-funciona.md) | [Sumário da Documentação](indice.md) | [Usando comandos do Freep Console ▸](03-usando-comandos-freep-console.md)
--- | -- | --
+--page-nav--
 
 ## 1. O script "example"
 
@@ -16,10 +15,10 @@ Execute o script com a opção '--help' para aprender como usar:
 Algo como o texto abaixo será exibido:
 
 ```bash
-Options:
+Options: 
 -h, --help            Display help information
 
-Available commands:
+Available commands: 
 help                  Display help information
 pubsub:broker         Start the pubsub message broker
 pubsub:client-test    Send a test events to the pub/sub message broker
@@ -72,9 +71,9 @@ use Tests\Example\Subscribers\SubscriberOne;
 use Tests\Example\Subscribers\SubscriberTwo;
 
 return function (EventLoop $loop) {
-$loop->addSubscriber('channel-vormir', SubscriberOne::class); // recebe EventOne
-$loop->addSubscriber('channel-vormir', SubscriberTwo::class); // recebe EventOne e EventTwo
-$loop->addSubscriber('channel-mordor', SubscriberTwo::class); // recebe EventOne e EventTwo
+    $loop->addSubscriber('channel-vormir', SubscriberOne::class); // recebe EventOne
+    $loop->addSubscriber('channel-vormir', SubscriberTwo::class); // recebe EventOne e EventTwo
+    $loop->addSubscriber('channel-mordor', SubscriberTwo::class); // recebe EventOne e EventTwo
 };
 ```
 
@@ -160,5 +159,4 @@ There are no subscribers on channel 'channel-greenville'
 ... TODO
 ... Falar do Supervisor e sobre o Sinal de Parada
 
-[◂ Como funciona](01-como-funciona.md) | [Sumário da Documentação](indice.md) | [Usando comandos do Freep Console ▸](03-usando-comandos-freep-console.md)
--- | -- | --
+--page-nav--

@@ -5,6 +5,9 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/5a911e53f0cc421282d847d323f50203)](https://www.codacy.com/gh/ricardopedias/freep-pubsub/dashboard?utm_source=github.com&utm_medium=referral&utm_content=ricardopedias/freep-pubsub&utm_campaign=Badge_Coverage)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/5a911e53f0cc421282d847d323f50203)](https://www.codacy.com/gh/ricardopedias/freep-pubsub/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ricardopedias/freep-pubsub&amp;utm_campaign=Badge_Grade)
 
+[English](readme.md) | [Português](./docs/pt-br/leiame.md)
+-- | --
+
 ## Synopsis
 
 This repository contains the functionality needed to run a Publish/Subscribe system, enabling registration and publication of events.
@@ -73,17 +76,6 @@ Message dispatched to SubscriberTwo
 - Made with TDD (Test Driven Development);
 - Implemented with unit tests using PHPUnit;
 - Made with :heart: &amp; :coffee:.
-
-## Summary
-
-- [How it works](docs/en/01-how-it-works.md)
-- [Using a terminal script](docs/en/02-using-terminal-script.md)
-- [Using Freep Console commands](docs/en/03-using-commands-freep-console.md)
-- [Implementing a Subscriber](docs/en/04-implementing-a-subscriber.md)
-- [Implementing an Event](docs/en/05-implementing-an-event.md)
-- [Publishing an event](docs/en/06-publishing-an-event.md)
-- [Publishing a stop signal](docs/en/07-publishing-a-stop-signal.md)
-- [Improving the library](docs/en/08-improving-the-library.md)
 
 ## Credits
 

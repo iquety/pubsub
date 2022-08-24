@@ -1,6 +1,6 @@
-# Freep Publish/Subscribe: Documentação
+# Sumário da Documentação
 
-[◂ Voltar ao Leiame](leiame.md) | [Como funciona ▸](01-como-funciona.md)
+[◂ Voltar para o leiame](leiame.md) | [Como funciona ▸](01-como-funciona.md)
 -- | --
 
 ## Introdução

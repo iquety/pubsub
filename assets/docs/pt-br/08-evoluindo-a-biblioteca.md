@@ -1,7 +1,6 @@
 # Evoluindo a biblioteca
 
-[◂ Publicando um sinal de parada](07-publicando-um-sinal-de-parada.md) | [Sumário da Documentação ▸](indice.md)
--- | --
+--page-nav--
 
 ## 1. Infraestrutura
 
@@ -43,13 +42,12 @@ Uma boa navegação é indispensável para que a documentação seja fácil de u
 Pensando nisso, foi utilizada a ferramenta [Freep Docmap](https://github.com/ricardopedias/freep-docmap),
 para gerar um agradável menu de navegação em todas as páginas da documentação.
 
-Os documentos editáveis se encontram no diretório `assets/docs`. Após acrescentar ou editar quaisquer
-documentos contidos ali, basta executar o comando abaixo para gerar a documentação navegável no
+Os documentos editáveis se encontram no diretório `assets/docs`. Após acrescentar ou editar quaisquer 
+documentos contidos ali, basta executar o comando abaixo para gerar a documentação navegável no 
 diretório `docs`:
 
 ```bash
 composer docmap
 ```
 
-[◂ Publicando um sinal de parada](07-publicando-um-sinal-de-parada.md) | [Sumário da Documentação ▸](indice.md)
--- | --
+--page-nav--

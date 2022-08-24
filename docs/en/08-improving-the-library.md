@@ -1,11 +1,9 @@
 # Improving the library ▸
 
-[◂ Publishing a stop signal](07-publishing-a-stop-signal.md) | [Voltar ao índice ▸](index.md)
+[◂ Publishing a stop signal](07-publishing-a-stop-signal.md) | [Documentation Summary ▸](index.md)
 -- | --
 
-## 1. Mono mono
+Under development...
 
-...
-
-[◂ Publishing a stop signal](07-publishing-a-stop-signal.md) | [Voltar ao índice ▸](index.md)
+[◂ Publishing a stop signal](07-publishing-a-stop-signal.md) | [Documentation Summary ▸](index.md)
 -- | --

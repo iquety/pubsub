@@ -1,7 +1,6 @@
 # Implementando um Subscriber
 
-[◂ Usando comandos do Freep Console](03-usando-comandos-freep-console.md) | [Sumário da Documentação](indice.md) | [Implementando um Evento ▸](05-implementando-um-evento.md)
--- | -- | --
+--page-nav--
 
 ## 1. O que é um Subscriber
 
@@ -17,12 +16,12 @@ Este método recebe uma `string` de identificação ($eventLabel) e um `array` a
 /** @param array<string,mixed> $eventData */
 public function eventFactory(string $eventLabel, array $eventData): ?Event
 {
-// humm... vamos fabricar o UserRegistered
-if ($eventLabel === 'user-registered') {
-return UserRegistered::factory($eventData);
-}
+    // humm... vamos fabricar o UserRegistered
+    if ($eventLabel === 'user-registered') { 
+        return UserRegistered::factory($eventData);
+    }
 
-return null;
+    return null;
 }
 ```
 
@@ -33,17 +32,17 @@ Este método recebe a instância de um evento e deve invocar a regra de negócio
 ```php
 public function handleEvent(Event $event): void
 {
-if ($event instanceof UserRegistered) {
-// ...
-// rotina que cria um novo usuário no banco de dados
+    if ($event instanceof UserRegistered) {
+        // ...
+        // rotina que cria um novo usuário no banco de dados
 
-return;
-}
+        return;
+    }
 
-if ($event instanceof UserEmailChanged) {
-// ...
-// rotina que atualiza o email de um usuário existente no banco de dados
-}
+    if ($event instanceof UserEmailChanged) {
+        // ...
+        // rotina que atualiza o email de um usuário existente no banco de dados
+    }
 }
 ```
 
@@ -55,8 +54,8 @@ Apenas eventos deste tipo serão recebidos no método `handleEvent`.
 ```php
 public function subscribedToEventType(): string
 {
-// Apenas eventos deste tipo serão recebidos por este assinante
-return UserEvent::class;
+    // Apenas eventos deste tipo serão recebidos por este assinante
+    return UserEvent::class;
 }
 ```
 
@@ -76,42 +75,41 @@ use Freep\PubSub\Subscriber\EventSubscriber;
 
 class UserEventSubscriber implements EventSubscriber
 {
-/** @param array<string,mixed> $eventData */
-public function eventFactory(string $eventLabel, array $eventData): ?Event
-{
-if ($eventLabel === 'user-registered') {
-return UserRegistered::factory($eventData);
-}
+    /** @param array<string,mixed> $eventData */
+    public function eventFactory(string $eventLabel, array $eventData): ?Event
+    {
+        if ($eventLabel === 'user-registered') {
+            return UserRegistered::factory($eventData);
+        }
 
-if ($eventLabel === 'user-email-changed') {
-return UserEmailChanged::factory($eventData);
-}
+        if ($eventLabel === 'user-email-changed') {
+            return UserEmailChanged::factory($eventData);
+        }
 
-return null;
-}
+        return null;
+    }
 
-public function handleEvent(Event $event): void
-{
-if ($event instanceof UserRegistered) {
-// ...
-// rotina que cria um novo usuário no banco de dados
+    public function handleEvent(Event $event): void
+    {
+        if ($event instanceof UserRegistered) {
+            // ...
+            // rotina que cria um novo usuário no banco de dados
 
-return;
-}
+            return;
+        }
 
-if ($event instanceof UserEmailChanged) {
-// ...
-// rotina que atualiza o email de um usuário existente no banco de dados
-}
-}
+        if ($event instanceof UserEmailChanged) {
+            // ...
+            // rotina que atualiza o email de um usuário existente no banco de dados
+        }
+    }
 
-public function subscribedToEventType(): string
-{
-// Apenas eventos deste tipo serão recebidos por este assinante
-return UserEvent::class;
-}
+    public function subscribedToEventType(): string
+    {
+        // Apenas eventos deste tipo serão recebidos por este assinante
+        return UserEvent::class;
+    }
 }
 ```
 
-[◂ Usando comandos do Freep Console](03-usando-comandos-freep-console.md) | [Sumário da Documentação](indice.md) | [Implementando um Evento ▸](05-implementando-um-evento.md)
--- | -- | --
+--page-nav--
