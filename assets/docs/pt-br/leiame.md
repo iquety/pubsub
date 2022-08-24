@@ -8,7 +8,7 @@
 Este repositório contém as funcionalidades necessárias para executar um sistema de Publish/Subscribe,
 possibilitando incrições e publicações de eventos.
 
-Para informações detalhadas, consulte a documentação em [Inglês](../en/index.md) ou em [Português](indice.md). Veja também este 'readme' em [Inglês](../../readme.md).
+Para informações detalhadas, consulte o [Sumário da Documentação](indice.md).
 
 ## Como usar
 
