@@ -4,7 +4,7 @@
 
 ## 1. O que é um Subscriber
 
-Um Subscriber (assinante) é responsável pela manipulação dos eventos ocorridos. Ele deve conter a rotina responsável pela interpretação de um evento e saber o que fazer quando um evento daquele tipo acontecer.
+Um Subscriber (Assinante) é responsável pela manipulação dos eventos ocorridos. Ele deve conter a rotina responsável pela interpretação de um evento e saber o que fazer quando um evento daquele tipo acontecer.
 
 Um novo Subscriber deve implementar a interface `Freep\PubSub\Subscriber\EventSubscriber`, que exige três métodos específicos:
 
@@ -48,8 +48,7 @@ public function handleEvent(Event $event): void
 
 ### 1.3. O método "subscribedToEventType"
 
-Este método deve retornar o tipo de evento que o Subscriber é capaz de manipular.
-Apenas eventos deste tipo serão recebidos no método `handleEvent`.
+Este método deve retornar o tipo de evento que o Subscriber é capaz de manipular. Apenas eventos deste tipo serão recebidos no método `handleEvent`.
 
 ```php
 public function subscribedToEventType(): string

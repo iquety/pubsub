@@ -4,8 +4,7 @@
 
 ## Introdução
 
-Bem vindo(a) à documentação da biblioteca Freep Publish/Subscribe. Aqui você encontra as informações
-necessárias para utilizar as funcionalidades disponíveis e usufruir ao máximo da biblioteca.
+Bem vindo(a) à documentação da biblioteca Freep Publish/Subscribe. Aqui você encontra as informações necessárias para utilizar as funcionalidades disponíveis e usufruir ao máximo da biblioteca.
 
 ### Conteúdo
 
