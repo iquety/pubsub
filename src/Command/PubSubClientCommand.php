@@ -56,7 +56,7 @@ class PubSubClientCommand extends Command
                 '--port',
                 'Provides the port available for connections',
                 Option::OPTIONAL | Option::VALUED,
-                '8080'
+                '7703'
             )
         );
     }

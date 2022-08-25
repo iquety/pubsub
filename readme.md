@@ -1,4 +1,4 @@
-# Freep Publish/Subscribe
+# Freep Pub/Sub
 
 ![PHP Version](https://img.shields.io/badge/php-%5E8.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-blue)
@@ -22,7 +22,7 @@ At the root of this project, there is a script to exemplify the process.
 It can be used as follows:
 
 ```bash
-./example pubsub -d localhost -p 8080 -t -v
+./example pubsub:broker -d localhost -p 8080 -t -v
 ```
 
 ```text

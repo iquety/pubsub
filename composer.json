@@ -50,10 +50,10 @@
             "vendor/bin/docmap -s assets/docs/en -d docs/en"
         ],
         "pubsub-server": [
-            "php example pubsub -p 8080 -d localhost -t -v "
+            "php example pubsub:broker -c 'tests/Example/config-file.php' -v"
         ],
         "pubsub-client": [
-            "php example pubsub:client-test -p 8080 -d localhost -v"
+            "php example pubsub:client-test -p 7703 -d localhost -v"
         ],
         "test": "vendor/bin/phpunit --testdox"
     }
