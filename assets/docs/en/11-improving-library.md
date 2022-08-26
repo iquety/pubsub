@@ -1,50 +1,46 @@
-# Evoluindo a biblioteca
+# Improving the library
 
 --page-nav--
 
-## 1. Infraestrutura
+## 1. Infrastructure
 
-Se o [Docker](https://www.docker.com/) estiver instalado no computador, não será necessário ter o Composer ou PHP instalados.
+If [Docker](https://www.docker.com/) is installed on your computer, it is not necessary to have Composer or PHP installed.
 
 Para usar o Composer e as bibliotecas de qualidade de código, use o script `./composer`, localizado na raiz deste repositório. Este script é, na verdade, uma ponte para todos os comandos do Composer, executando-os através do Docker.
 
-## 2. Controle de qualidade
+## 2. Quality control
 
-### 2.1. Ferramentas
+### 2.1. Tools
 
-Para o desenvolvimento, foram utilizadas ferramentas para testes de unidade e análise estática. Todas configuradas no nível máximo de exigência.
+For development, tools for unit testing and static analysis were used. All configured to the maximum level of demand.
 
-São as seguintes ferramentas:
+These are the following tools:
 
 - [PHP Unit](https://phpunit.de)
 - [PHP Stan](https://phpstan.org)
 - [PHP Code Sniffer](https://github.com/squizlabs/PHP_CodeSniffer)
 - [PHP MD](https://phpmd.org)
 
-### 2.2. Análise estática
+### 2.2. Static analysis
 
-Para fazer a análise do código implementado e colher feedback das ferramentas, use:
+To analyze the implemented code and gather feedback from the tools, use:
 
 ```bash
 ./composer analyse
 ```
 
-### 2.3. Testes automatizados
+### 2.3. Automated tests
 
-Para executar os testes de unidade, use:
+To run the unit tests, use:
 
 ```bash
 ./composer test
 ```
-## 3. Documentação
+## 3. Documentation
 
-Uma boa navegação é indispensável para que a documentação seja fácil de usar.
-Pensando nisso, foi utilizada a ferramenta [Freep Docmap](https://github.com/ricardopedias/freep-docmap),
-para gerar um agradável menu de navegação em todas as páginas da documentação.
+Good navigation is essential for the documentation to be easy to use. With that in mind, the tool [Freep Docmap](https://github.com/ricardopedias/freep-docmap) was used to generate a pleasant navigation menu on all pages of the documentation.
 
-Os documentos editáveis se encontram no diretório `assets/docs`. Após acrescentar ou editar quaisquer 
-documentos contidos ali, basta executar o comando abaixo para gerar a documentação navegável no 
-diretório `docs`:
+Editable documents are located in the `assets/docs` directory. After adding or editing any documents contained there, simply run the command below to generate the navigable documentation in the `docs` directory:
 
 ```bash
 composer docmap

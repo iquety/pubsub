@@ -1,63 +1,63 @@
-# Implementando um Evento
+# Implementing an Event
 
 --page-nav--
 
-## 1. O que é um Evento
+## 1. What is an Event
 
-Um evento é o encapsulamento de informações que representam uma ação ocorrida em um determinado momento no tempo. Eventos devem sempre ser nomeados no passado, pois são alguma coisa que já aconteceu (ex.: UserRegistered, PasswordChanged etc). As "consequências" de um evento são determinadas pelo assinante (Subscriber), como explicado em [Implementando um Subscriber](07-implementando-um-subscriber.md).
+An event is the encapsulation of information that represents an action that took place at a certain point in time. Events should always be named in the past tense as they are something that has already happened (eg UserRegistered, PasswordChanged etc). The "consequences" of an event are determined by the subscriber (Subscriber), as explained in [Implementing a Subscriber](07-implementing-a-subscriber.md).
 
-## 2. Como implementar um Evento
+## 2. How to implement an Event
 
-Um novo evento deve cumprir o contrato da interface `Freep\PubSub\Event\Event` e seus valores devem ser fornecidos somente através do construtor, não sendo possível alterá-los após a instanciação:
+A new event must comply with the `Freep\PubSub\Event\Event` interface contract and its values must be provided only through the constructor, not being possible to change them after instantiation:
 
 ```php
 class UserRegistered implements Freep\PubSub\Event\Event
 {
     public function __construct(
         private string $name,
-        private string $cpf,
+        private string $doc,
         private DateTimeImmutable $ocurredOn
     ) {
     }
 }
 ```
 
-> **Dica**: Getters podem ser implementados, desde que não alterem o estado atual do evento e funcionem apenas como acessores de dados.
+> **Tip**: Getters can be implemented as long as they don't change the current state of the event and only work as data accessors.
 
-A interface `Freep\PubSub\Event\Event` exige cinco métodos específicos:
+The `Freep\PubSub\Event\Event` interface requires five specific methods:
 
-### 1.1. O método "factory"
+### 1.1. The "factory" method
 
-Este método recebe um `array` associativo contendo os dados do evento ($values). Com base nesses valores, o "factory" deve fabricar o evento devolvê-lo adequadamente no retorno.
+This method receives an associative `array` containing the event data ($values). Based on these values, the "factory" should manufacture the event and properly return it on return.
 
-**Importante**: O valor de retorno sempre deve ser um evento do mesmo tipo, sendo que a impossibilidade de se fabricar um novo evento deve disparar uma exceção.
+**Important**: The return value must always be an event of the same type, and the impossibility of make a new event must trigger an exception.
 
-**Mais importante ainda**: Caso a implementação dos valores de um evento existente precisem mudar, seja por uma evolução no sistema ou por uma correção necessária, este método deverá garantir o máximo possível de retrocompatibilidade com os dados implementados em versões anteriores. Isso é necessário para garantir que módulos ou subsistemas que ainda não se atualizaram, possam continuar enviando eventos, mesmo que incompletos.
+**More importantly**: If the implementation of the values of an existing event needs to change, either due to an evolution in the system or a necessary correction, this method should guarantee as much backward compatibility as possible with the data implemented in previous versions. This is necessary to ensure that modules or subsystems that have not yet been updated can continue to send events, even if incomplete.
 
 ```php
 /** @param array<string,mixed> $values */
 public static function factory(array $values): Event
 {
-    // na versão anterior 'cpf' se chamava 'document'
+    // in the previous version 'doc' was called 'document'
     if (isset($values['document']) === true) {
-        $values['cpf'] = $values['document'];
+        $values['doc'] = $values['document'];
     }
 
     return new self(
         $values['name'],
-        $values['cpf'],
+        $values['doc'],
         new DateTimeImmutable($values['ocurredOn'])
     );
 }
 ```
 
-### 1.2. O método "label"
+### 1.2. The "label" method
 
-Este método deve devolver uma identificação textual única, que nomeie o evento de forma clara e objetiva. Deve ser um nome declarativo e facilmente reconhecível por humanos.
+This method must return a unique textual identification, which names the event clearly and objectively. It must be a declarative name and easily recognizable by humans.
 
-Bons exemplos de identificação são 'user_registered' ou 'user.registered'.
+Good examples of identification are 'user_registered' or 'user.registered'.
 
-Péssimos exemplos são 'registered', '12345' ou 'abst345sd'.
+Bad examples are 'registered', '12345' or 'abst345sd'.
 
 ```php
 public function label(): string
@@ -66,9 +66,9 @@ public function label(): string
 }
 ```
 
-### 1.3. O método "ocurredOn"
+### 1.3. The "occurredOn" method
 
-Este método deve devolver uma instancia de `\DateTimeImmutable`, contendo o valor para a data e hora atuais.
+This method should return an instance of `\DateTimeImmutable`, containing the value for the current date and time.
 
 ```php
 public function ocurredOn(): DateTimeImmutable
@@ -77,9 +77,9 @@ public function ocurredOn(): DateTimeImmutable
 }
 ```
 
-### 1.4. O método "sameEventAs"
+### 1.4. The "sameEventAs" method
 
-Este método deve comparar duas instâncias para determinar se tratam-se do mesmo evento.
+This method must compare two instances to determine if they are the same event.
 
 ```php
 /** @param UserRegistered $other */
@@ -87,27 +87,27 @@ public function sameEventAs(Event $other): bool
 {
     return $other instanceof UserRegistered
         && $this->name() === $other->name()
-        && $this->cpf() === $other->cpf()
+        && $this->doc() === $other->doc()
         && $this->ocurredOn() === $other->ocurredOn();
 }
 ```
 
-### 1.4. O método "toArray"
+### 1.4. The "toArray" method
 
-Este método deve devolver um `array` associativo contendo os valores do evento em tipos primitivos simples: `string`, `int`, `float` e `bool`.
+This method should return an associative `array` containing the event values in simple primitive types: `string`, `int`, `float` and `bool`.
 
 ```php
 public function toArray(): array
 {
     return [
-        'cpf'       => $this->cpf,
+        'doc'       => $this->doc,
         'name'      => $this->name,
         'ocurredOn' => $this->ocurredOn->format('Y-m-d H:i:s')
     ];
 }
 ```
 
-Abaixo, um exemplo de implementação para o evento "UserRegistered":
+Below is an example implementation for the "UserRegistered" event:
 
 ```php
 declare(strict_types=1);
@@ -121,7 +121,7 @@ class UserRegistered implements Event
 {
     public function __construct(
         private string $name,
-        private string $cpf,
+        private string $doc,
         private DateTimeImmutable $ocurredOn
     ) {
     }
@@ -134,21 +134,21 @@ class UserRegistered implements Event
     /** @param array<string,mixed> $values */
     public static function factory(array $values): Event
     {
-        // na versão anterior 'cpf' se chamava 'document'
+        // in the previous version 'doc' was called 'document'
         if (isset($values['document']) === true) {
-            $values['cpf'] = $values['document'];
+            $values['doc'] = $values['document'];
         }
         
         return new self(
             $values['name'],
-            $values['cpf'],
+            $values['doc'],
             new DateTimeImmutable($values['ocurredOn'])
         );
     }
 
-    public function cpf(): string
+    public function doc(): string
     {
-        return $this->cpf;
+        return $this->doc;
     }
 
     public function name(): string
@@ -166,14 +166,14 @@ class UserRegistered implements Event
     {
         return $other instanceof EventOne
             && $this->name() === $other->name()
-            && $this->cpf() === $other->cpf()
+            && $this->doc() === $other->doc()
             && $this->ocurredOn() === $other->ocurredOn();
     }
 
     public function toArray(): array
     {
         return [
-            'cpf'       => $this->cpf,
+            'doc'       => $this->doc,
             'name'      => $this->name,
             'ocurredOn' => $this->ocurredOn->format('Y-m-d H:i:s')
         ];

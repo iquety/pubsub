@@ -1,22 +1,22 @@
-# Implementando um Subscriber
+# Implementing a Subscriber
 
 --page-nav--
 
-## 1. O que é um Subscriber
+## 1. What is a Subscriber
 
-Um Subscriber (Assinante) é responsável pela manipulação dos eventos ocorridos. Ele deve conter a rotina responsável pela interpretação de um evento e saber o que fazer quando um evento daquele tipo acontecer.
+A Subscriber is responsible for handling the events that occur. It must contain the routine responsible for interpreting an event and knowing what to do when an event of that type happens.
 
-Um novo Subscriber deve implementar a interface `Freep\PubSub\Subscriber\EventSubscriber`, que exige três métodos específicos:
+A new Subscriber must implement the `Freep\PubSub\Subscriber\EventSubscriber` interface, which requires three specific methods:
 
-### 1.1. O método "eventFactory"
+### 1.1. The "eventFactory" method
 
-Este método recebe uma `string` de identificação ($eventLabel) e um `array` associativo contendo os dados do evento ($eventData). Com base nessas informações o "eventFactory" deve fabricar o evento correto e devolvê-lo adequadamente no retorno. Caso não seja possível fabricar um evento adequado, `null` deverá ser retornado:
+This method receives an identification `string` ($eventLabel) and an associative `array` containing the event data ($eventData). Based on this information the "eventFactory" must make the correct event and return it properly on return. If it is not possible to manufacture a suitable event, `null` should be returned:
 
 ```php
 /** @param array<string,mixed> $eventData */
 public function eventFactory(string $eventLabel, array $eventData): ?Event
 {
-    // humm... vamos fabricar o UserRegistered
+    // hmmm... let's make UserRegistered
     if ($eventLabel === 'user-registered') { 
         return UserRegistered::factory($eventData);
     }
@@ -25,42 +25,42 @@ public function eventFactory(string $eventLabel, array $eventData): ?Event
 }
 ```
 
-### 1.2. O método "handleEvent"
+### 1.2. The "handleEvent" method
 
-Este método recebe a instância de um evento e deve invocar a regra de negócio adequada para ele. Por exemplo, se for um evento de cadastro, pode invocar algum repositório ou serviço que efetue o cadastro apropriado.
+This method receives an event instance and must invoke the appropriate business rule for it. For example, if it is a registration event, it can invoke some repository or service that performs the appropriate registration.
 
 ```php
 public function handleEvent(Event $event): void
 {
     if ($event instanceof UserRegistered) {
         // ...
-        // rotina que cria um novo usuário no banco de dados
+        // routine that creates a new user in the database
 
         return;
     }
 
     if ($event instanceof UserEmailChanged) {
         // ...
-        // rotina que atualiza o email de um usuário existente no banco de dados
+        // routine that updates the email of an existing user in the database
     }
 }
 ```
 
-### 1.3. O método "subscribedToEventType"
+### 1.3. The "subscribedToEventType" method
 
-Este método deve retornar o tipo de evento que o Subscriber é capaz de manipular. Apenas eventos deste tipo serão recebidos no método `handleEvent`.
+This method must return the type of event that the Subscriber is able to handle. Only events of this type will be received in the `handleEvent` method.
 
 ```php
 public function subscribedToEventType(): string
 {
-    // Apenas eventos deste tipo serão recebidos por este assinante
+    // Only events of this type will be received by this subscriber
     return UserEvent::class;
 }
 ```
 
-**Importante**: Os tipo de evento pode ser determinado atraves de polimorfismo. Por exemplo, se `subscribedToEventType` retornar o tipo `UserEvent`, todos os eventos que implementarem a interface `UserEvent` serão recebidos no método `handleEvent`.
+**Important**: Event types can be determined through polymorphism. For example, if `subscribedToEventType` returns type `UserEvent`, all events that implement the `UserEvent` interface will be received in the `handleEvent` method.
 
-Abaixo, um exemplo de implementação para o "UserEventSubscriber":
+Below is an example implementation for the "UserEventSubscriber":
 
 ```php
 declare(strict_types=1);
@@ -92,20 +92,20 @@ class UserEventSubscriber implements EventSubscriber
     {
         if ($event instanceof UserRegistered) {
             // ...
-            // rotina que cria um novo usuário no banco de dados
+            // routine that creates a new user in the database
 
             return;
         }
 
         if ($event instanceof UserEmailChanged) {
             // ...
-            // rotina que atualiza o email de um usuário existente no banco de dados
+            // routine that updates the email of an existing user in the database
         }
     }
 
     public function subscribedToEventType(): string
     {
-        // Apenas eventos deste tipo serão recebidos por este assinante
+        // Only events of this type will be received by this subscriber
         return UserEvent::class;
     }
 }
