@@ -13,8 +13,7 @@ Para informações detalhadas, consulte o [Sumário da Documentação](indice.md
 
 ### 1. Execute o servidor de eventos
 
-Na raiz deste projeto, existe um comando de terminal para exemplificar o processo.
-Pode ser usado da seguinte maneira:
+Na raiz deste projeto, existe um comando de terminal para exemplificar o processo. Pode ser usado da seguinte maneira:
 
 ```bash
 # executando no PHP local
@@ -36,7 +35,7 @@ ou
 
 Pronto! O servidor de eventos está executando na porta 7703, que ficará disponível para receber eventos.
 
-> Nota: enquanto o servidor estiver em execução, o terminal atual ficará em modo de "observação", aguardando para receber eventos. A opção "-v" ativa o modo "verboso", de forma que, sempre que um um evento for recebido, o servidor fará uma notificação no teminal em execução.
+> **Nota**: enquanto o servidor estiver em execução, o terminal atual ficará em modo de "observação", aguardando para receber eventos. A opção "-v" ativa o modo "verboso", de forma que, sempre que um um evento for recebido, o servidor fará uma notificação no teminal em execução.
 
 ### 3. Envie eventos para o servidor
 

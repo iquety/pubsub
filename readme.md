@@ -10,53 +10,67 @@
 
 ## Synopsis
 
-This repository contains the functionality needed to run a Publish/Subscribe system, enabling registration and publication of events.
+This repository contains the necessary functionalities to run a Publish/Subscribe system, making it possible to subscribe and publish events.
 
 For detailed information, see [Documentation Summary](docs/en/index.md).
 
-## How to use
+## How it works
 
 ### 1. Run the event server
 
-At the root of this project, there is a script to exemplify the process.
-It can be used as follows:
+At the root of this project, there is a terminal command to exemplify the process. It can be used as follows:
 
 ```bash
-./example pubsub:broker -d localhost -p 8080 -t -v
+# running in local PHP
+./example pubsub:broker -c 'tests/Example/config-file.php' -v
+
+ou
+
+# running in Dockerized PHP
+./composer pubsub-server
 ```
 
 ```text
 # Server terminal running
 
-✔ The publish/subscriber server has been started in tcp://localhost:8080
+➜ Using JsonEventSerializer serializer
+➜ Verbose mode enabled
+✔ The publish/subscriber server has been started in tcp://localhost:7703
 ```
 
-This will run the server event server on port 8080, which will be available to receive messages.
+Ready! The event server is running on port 7703, which will be available to receive events.
 
-> Note: while the server is running, the current terminal will be in watch mode, waiting for events. The '-v' option activates the 'verbose' mode, so that whenever an event is received, the server will notify the running terminal.
+> **Note**: while the server is running, the current terminal will be in "watch" mode, waiting to receive events. The "-v" option activates the "verbose" mode, so that whenever an event is received, the server will notify the running terminal.
 
 ### 3. Send events to the server
 
-With the server running, just open another terminal and use the command below to send some test events.
-Watch the messages appear on both terminals.
+With the server running, just open another terminal and use the command below to send some test events:
 
 ```bash
-./example pubsub:client-test -d localhost -p 8080 -v
+# running in local PHP
+./example pubsub:client-test -d localhost -p 7703 -v
+
+ou
+
+# running in Dockerized PHP
+./composer pubsub-client
 ```
 
-```text
-# Sending terminal
+The two terminals will react to the sending of events, showing the corresponding information:
 
-✔ Publish event of type 'EventOne' to channel 'channel-vormir' in tcp://localhost:8080
-✔ Publish event of type 'EventTwo' to channel 'channel-vormir' in tcp://localhost:8080
-✔ Publish event of type 'EventTwo' to channel 'channel-mordor' in tcp://localhost:8080
-✔ Publish event of type 'EventTwo' to channel 'channel-greenville' in tcp://localhost:8080
+```text
+# Terminal where events were sent
+
+✔ Publish event of type 'EventOne' to channel 'channel-vormir' in tcp://localhost:7703
+✔ Publish event of type 'EventTwo' to channel 'channel-vormir' in tcp://localhost:7703
+✔ Publish event of type 'EventTwo' to channel 'channel-mordor' in tcp://localhost:7703
+✔ Publish event of type 'EventTwo' to channel 'channel-greenville' in tcp://localhost:7703
 ➜ Published Events
 ➜ Used memory: 1921928
 ```
 
 ```text
-# Server terminal running
+# Server terminal that received the events
 
 ➜ [2022-06-03 17:06:09]: Message of type 'EventOne' received on channel 'channel-vormir'
 Message dispatched to SubscriberOne
@@ -68,10 +82,10 @@ Message dispatched to SubscriberTwo
 ...
 ```
 
-## Characteristics
+## Características
 
 - Made for PHP 8.0 or higher;
-- Codified with best practices and maximum quality;
+- Coded with best practices and maximum quality;
 - Well documented and IDE friendly;
 - Made with TDD (Test Driven Development);
 - Implemented with unit tests using PHPUnit;
