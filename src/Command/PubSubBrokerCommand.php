@@ -113,7 +113,6 @@ class PubSubBrokerCommand extends Command
     private function resolveConfigFile(EventLoop $loop, string $configFile): void
     {
         if ($configFile === '') {
-            // $this->warning('The specified configuration file is invalid');
             return;
         }
 

@@ -72,7 +72,7 @@ class PubSubClientTest extends ConsoleTestCase
         $this->assertOptionHasShortNotation('-p', $options[3]);
         $this->assertOptionIsNotRequired($options[3]);
         $this->assertOptionIsValued($options[3]);
-        $this->assertOptionHasDefaultValue('8080', $options[3]);
+        $this->assertOptionHasDefaultValue('7703', $options[3]);
     }
 
     /** @test */
