@@ -7,6 +7,10 @@
 
 Este repositório contém as funcionalidades necessárias para executar um sistema de Publish/Subscribe, possibilitando assinar e publicar eventos.
 
+```bash
+composer require ricardopedias/freep-pubsub
+```
+
 Para informações detalhadas, consulte o [Sumário da Documentação](indice.md).
 
 ## Como funciona

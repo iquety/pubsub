@@ -2,8 +2,8 @@
 
 ![PHP Version](https://img.shields.io/badge/php-%5E8.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/5a911e53f0cc421282d847d323f50203)](https://www.codacy.com/gh/ricardopedias/freep-pubsub/dashboard?utm_source=github.com&utm_medium=referral&utm_content=ricardopedias/freep-pubsub&utm_campaign=Badge_Coverage)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/5a911e53f0cc421282d847d323f50203)](https://www.codacy.com/gh/ricardopedias/freep-pubsub/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ricardopedias/freep-pubsub&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d6f373b9eacc4d7388ddae8f300636e2)](https://www.codacy.com/gh/ricardopedias/freep-pubsub/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ricardopedias/freep-pubsub&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/d6f373b9eacc4d7388ddae8f300636e2)](https://www.codacy.com/gh/ricardopedias/freep-pubsub/dashboard?utm_source=github.com&utm_medium=referral&utm_content=ricardopedias/freep-pubsub&utm_campaign=Badge_Coverage)
 
 [English](readme.md) | [Português](./docs/pt-br/leiame.md)
 -- | --
@@ -12,13 +12,17 @@
 
 This repository contains the necessary functionalities to run a Publish/Subscribe system, making it possible to subscribe and publish events.
 
+```bash
+composer require ricardopedias/freep-pubsub
+```
+
 For detailed information, see [Documentation Summary](docs/en/index.md).
 
 ## How it works
 
 ### 1. Run the event server
 
-At the root of this project, there is a terminal command to exemplify the process. It can be used as follows:
+At the root of this repository, there is a terminal command to exemplify the process. It can be used as follows:
 
 ```bash
 # running in local PHP
