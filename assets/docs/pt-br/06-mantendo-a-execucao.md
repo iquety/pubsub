@@ -2,7 +2,7 @@
 
 --page-nav--
 
-É muito importante que o "Intermediador de Mensagens" se mantenha executando ininterruptamente. Porém, em casos muito específicos (um problema interno do servidor, hardware, memória, etc), o observador poderá parar e precisará ser iniciado novamente.
+É muito importante que o "Intermediador de Mensagens" se mantenha executando ininterruptamente. Porém, em casos muito específicos (recebimento de um [evento de sinal](10-publicando-um-sinal-de-parada.md), um problema interno do servidor, hardware, memória, etc), o observador poderá parar e precisará ser iniciado novamente.
 
 Para não se preocupar em reiniciá-lo manualmente, é uma prática excelente usar um mecanismo secundário que fique verificando se o "Intermediador de Mensagens" está "vivo".
 
