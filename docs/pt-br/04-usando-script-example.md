@@ -1,11 +1,11 @@
-# Usando o script de terminal
+# Usando o script "example"
 
-[◂ Como funciona](01-como-funciona.md) | [Sumário da Documentação](indice.md) | [Usando comandos do Freep Console ▸](03-usando-comandos-freep-console.md)
+[◂ Implementando no "Intermediador de Mensagens" (Message Broker)](03-implementando-no-broker.md) | [Sumário da Documentação](indice.md) | [Criando um script personalizado ▸](05-criando-script-personalizado.md)
 -- | -- | --
 
 ## 1. O script "example"
 
-A biblioteca vem acompanhada com dois comandos de terminal, implementados utilizando a biblioteca [Freep\Console](https://github.com/ricardopedias/freep-console). Os comandos podem ser encontrados no diretório 'src/Command' e são usados no script de exemplo, chamado "example", localizado na raiz do repositório.
+Este repositório vem acompanhado com dois comandos de terminal, implementados com a biblioteca [Freep\Console](https://github.com/ricardopedias/freep-console). Os comandos podem ser encontrados no diretório 'src/Command' e são invicados pelo script "example" localizado na raiz do repositório.
 
 Execute o script com a opção '--help' para aprender como usar:
 
@@ -27,7 +27,7 @@ pubsub:client-test    Send a test events to the pub/sub message broker
 
 ## 2. Executando o "Intermediador de Mensagens" (Message Broker)
 
-Na seção ["Como funciona"](01-como-funciona.md) foi explicado, de forma rápida, como executar o "Intermediador de Mensagens". Aqui, entraremos nos detalhas mais minuciosos do comando.
+Em ["Implementando no 'Intermediador de Mensagens' (Message Broker)"](03-implementando-no-broker.md) foi explicado, de forma rápida, como executar o "Intermediador de Mensagens". Aqui, entraremos nos detalhes mais minuciosos do comando.
 
 Para subir o "Intermediador de Mensagens", abra um terminal e use o seguinte comando:
 
@@ -53,7 +53,7 @@ Opção | Descrição
 -- | --
 pubsub:broker | O comando executado. Pode ser "pubsub:broker" ou "pubsub:client-test"
 -d | O domínio onde o "Intermediador de Mensagens" deverá ser executado. O padrão é 'localhost'
--p | A porta para a execução do "Intermediador de Mensagens". O padrão é '8080'
+-p | A porta para a execução do "Intermediador de Mensagens". O padrão é '7703'
 -c | O arquivo contendo a configuração dos "Subscribers"
 -s | O tipo de serialização a ser usada. Pode ser 'php' ou 'json'. O padrão é 'json'
 -v | Ativa o modo verboso
@@ -80,9 +80,9 @@ $loop->addSubscriber('channel-mordor', SubscriberTwo::class); // recebe EventOne
 
 ### (-s) O tipo de serialização
 
-Antes de ser transmitidos para os canais de comunicação, os eventos precisam ser serializados. Existem dois tipos de serialização disponíveis: 'php' e 'json'.
+Os eventos precisam ser serializados anntes de ser transmitidos para os canais de comunicação. Existem dois tipos de serialização disponíveis: 'php' e 'json'.
 
-> **Importante**: Para integração de aplicações desenvolvidas somente em PHP, ambos os tipos podem ser usados. No entanto, se a arquitetura do sistema precisar que módulos ou subsistemas escritos em linguagens diferentes (ex.: Java, Ruby, Python etc), a escolha deve ser pela serialização genérica do tipo 'json'.
+> **Importante**: Para integração de aplicações desenvolvidas somente em PHP, ambos os tipos podem ser usados. No entanto, se a arquitetura do sistema precisar que módulos ou subsistemas escritos em linguagens diferentes (ex.: Java, Ruby, Python etc), a escolha deve ser pela serialização genérica do tipo 'json', que pode ser replicada facilmente em qualquer linguagem.
 
 Exemplo de serialização 'json':
 
@@ -98,7 +98,7 @@ a:3:{s:3:"cpf";s:3:"123";s:4:"name";s:7:"ricardo";s:9:"ocurredOn";s:19:"2020-01-
 
 ### (-v) O modo verboso
 
-Enquanto o "Intermediador de Mensagens" estiver em execução, o terminal atual ficará em modo de observação, aguardando eventos. A opção '-v' ativa o 'modo verboso' que, a cada evento recebido, faz uma notificação no terminal em execução.
+Enquanto o "Intermediador de Mensagens" estiver em execução, o terminal atual ficará em modo de observação, aguardando eventos. A opção '-v' ativa o 'modo verboso' que, a cada evento recebido, faz uma notificação no terminal aberto.
 
 ## 3. Enviando eventos de teste
 
@@ -110,7 +110,7 @@ Com o "Intermediador de Mensagens" em execução, basta abrir outro terminal e u
 ./example pubsub:client-test -d localhost -p 8080 -v
 ```
 
-Os eventos de teste são enviados para três canais de comunicação diferentes: 'channel-vormir', 'channel-mordor' e 'channel-greenville'. Dois destes canais possuem "assinantes" (Subscribers) configurados propositalmente no arquivo `tests/Example/config-file.php`.
+Os eventos de teste são enviados para três canais de comunicação diferentes: 'channel-vormir', 'channel-mordor' e 'channel-greenville'. Dois destes canais possuem "assinantes" (Subscribers) configurados propositalmente a partir do arquivo `tests/Example/config-file.php`.
 
 Para mais informações de ajuda, use a opção '--help' com o nome do comando:
 
@@ -124,7 +124,7 @@ Opção | Descrição
 -- | --
 pubsub::client-test | O comando executado. Pode ser "pubsub:broker" ou "pubsub:client-test"
 -d | O domínio onde o "Intermediador de Mensagens" está sendo executado. O padrão é 'localhost'
--p | A porta do "Intermediador de Mensagens". O padrão é '8080'
+-p | A porta do "Intermediador de Mensagens". O padrão é '7703'
 -v | Ativa o modo verboso
 
 Observe as mensagens aparecerem nos dois terminais.
@@ -155,10 +155,5 @@ Message dispatched to SubscriberTwo
 There are no subscribers on channel 'channel-greenville'
 ```
 
-## 4. Mantendo o "Intermediador de Mensagens" sempre em execução
-
-... TODO
-... Falar do Supervisor e sobre o Sinal de Parada
-
-[◂ Como funciona](01-como-funciona.md) | [Sumário da Documentação](indice.md) | [Usando comandos do Freep Console ▸](03-usando-comandos-freep-console.md)
+[◂ Implementando no "Intermediador de Mensagens" (Message Broker)](03-implementando-no-broker.md) | [Sumário da Documentação](indice.md) | [Criando um script personalizado ▸](05-criando-script-personalizado.md)
 -- | -- | --

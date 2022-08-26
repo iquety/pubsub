@@ -1,6 +1,7 @@
 # O padrão Publish/Subscribe
 
---page-nav--
+[◂ Sumário da Documentação](indice.md) | [Implementando no "Ponto de início" da aplicação (Bootstrap) ▸](02-implementando-no-bootstrap.md)
+-- | --
 
 ## 1. Arquitetura orientada a eventos
 
@@ -51,4 +52,5 @@ No "Intermediador de Mensagens" (Message Broker) | Ideal para integrar aplicaç�
 
 A seguir, mais informações sobre os dois tipos de implementação.
 
---page-nav--
+[◂ Sumário da Documentação](indice.md) | [Implementando no "Ponto de início" da aplicação (Bootstrap) ▸](02-implementando-no-bootstrap.md)
+-- | --

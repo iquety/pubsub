@@ -1,11 +1,11 @@
 # Implementando um Evento
 
-[◂ Implementando um Subscriber](04-implementando-um-subscriber.md) | [Sumário da Documentação](indice.md) | [Publicando um evento ▸](06-publicando-um-evento.md)
+[◂ Implementando um Subscriber](07-implementando-um-subscriber.md) | [Sumário da Documentação](indice.md) | [Publicando um evento ▸](09-publicando-um-evento.md)
 -- | -- | --
 
 ## 1. O que é um Evento
 
-Um evento é o encapsulamento de informações que representam uma ação ocorrida em um determinado momento no tempo. Eventos devem sempre ser nomeados no passado, pois são alguma coisa que já aconteceu (ex.: UserRegistered, PasswordChanged etc). As "consequências" de um evento são determinadas pelo assinante (Subscriber), como explicado em [Implementando um Subscriber](04-implementando-um-subscriber.md).
+Um evento é o encapsulamento de informações que representam uma ação ocorrida em um determinado momento no tempo. Eventos devem sempre ser nomeados no passado, pois são alguma coisa que já aconteceu (ex.: UserRegistered, PasswordChanged etc). As "consequências" de um evento são determinadas pelo assinante (Subscriber), como explicado em [Implementando um Subscriber](07-implementando-um-subscriber.md).
 
 ## 2. Como implementar um Evento
 
@@ -182,5 +182,5 @@ return [
 }
 ```
 
-[◂ Implementando um Subscriber](04-implementando-um-subscriber.md) | [Sumário da Documentação](indice.md) | [Publicando um evento ▸](06-publicando-um-evento.md)
+[◂ Implementando um Subscriber](07-implementando-um-subscriber.md) | [Sumário da Documentação](indice.md) | [Publicando um evento ▸](09-publicando-um-evento.md)
 -- | -- | --

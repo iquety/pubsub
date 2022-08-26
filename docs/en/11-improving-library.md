@@ -1,6 +1,7 @@
 # Improving the library
 
---page-nav--
+[◂ Publishing a stop sign](10-publishing-a-stop-sign.md) | [Documentation Summary ▸](index.md)
+-- | --
 
 ## 1. Infrastructure
 
@@ -47,4 +48,5 @@ Editable documents are located in the `assets/docs` directory. After adding or e
 composer docmap
 ```
 
---page-nav--
+[◂ Publishing a stop sign](10-publishing-a-stop-sign.md) | [Documentation Summary ▸](index.md)
+-- | --

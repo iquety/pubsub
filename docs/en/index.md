@@ -1,6 +1,6 @@
 # Documentation Summary
 
-[◂ Back to readme](../../readme.md) | [How to use ▸](01-how-it-works.md)
+[◂ Back to readme](../../readme.md) | [The Publish/Subscribe pattern ▸](01-pubsub-pattern.md)
 -- | --
 
 ## Introduction
@@ -9,11 +9,14 @@ Welcome to the Freep Publish/Subscribe library documentation. Here you will find
 
 ### Contents
 
-- [How to use](01-how-it-works.md)
-- [Using a terminal script](02-using-terminal-script.md)
-- [Using Freep Console commands](03-using-commands-freep-console.md)
-- [Implementing a Subscriber](04-implementing-a-subscriber.md)
-- [Implementing an Event](05-implementing-an-event.md)
-- [Implementing an Event](06-publishing-an-event.md)
-- [Publishing a stop signal](07-publishing-a-stop-signal.md)
-- [Improving the library ▸](08-improving-the-library.md)
+- [The Publish/Subscribe pattern](01-pubsub-pattern.md)
+- [Implementing in the application's "Start point" (Bootstrap)](02-implementing-in-bootstrap.md)
+- [Implementing in "Message Broker"](03-implementing-in-broker.md)
+- [Using the example script](04-using-script-example.md)
+- [Creating a custom script](05-creating-custom-script.md)
+- [Keeping "Message Broker" always running](06-keeping-running.md)
+- [Implementing a Subscriber](07-implementing-a-subscriber.md)
+- [Implementing an Event](08-implementing-an-event.md)
+- [Publishing an event](09-publishing-an-event.md)
+- [Publishing a stop sign](10-publishing-a-stop-sign.md)
+- [Improving the library](11-improving-library.md)

@@ -1,11 +1,11 @@
 # Implementando um Subscriber
 
-[◂ Usando comandos do Freep Console](03-usando-comandos-freep-console.md) | [Sumário da Documentação](indice.md) | [Implementando um Evento ▸](05-implementando-um-evento.md)
+[◂ Mantendo o "Intermediador de Mensagens" sempre em execução](06-mantendo-a-execucao.md) | [Sumário da Documentação](indice.md) | [Implementando um Evento ▸](08-implementando-um-evento.md)
 -- | -- | --
 
 ## 1. O que é um Subscriber
 
-Um Subscriber (assinante) é responsável pela manipulação dos eventos ocorridos. Ele deve conter a rotina responsável pela interpretação de um evento e saber o que fazer quando um evento daquele tipo acontecer.
+Um Subscriber (Assinante) é responsável pela manipulação dos eventos ocorridos. Ele deve conter a rotina responsável pela interpretação de um evento e saber o que fazer quando um evento daquele tipo acontecer.
 
 Um novo Subscriber deve implementar a interface `Freep\PubSub\Subscriber\EventSubscriber`, que exige três métodos específicos:
 
@@ -49,8 +49,7 @@ if ($event instanceof UserEmailChanged) {
 
 ### 1.3. O método "subscribedToEventType"
 
-Este método deve retornar o tipo de evento que o Subscriber é capaz de manipular.
-Apenas eventos deste tipo serão recebidos no método `handleEvent`.
+Este método deve retornar o tipo de evento que o Subscriber é capaz de manipular. Apenas eventos deste tipo serão recebidos no método `handleEvent`.
 
 ```php
 public function subscribedToEventType(): string
@@ -113,5 +112,5 @@ return UserEvent::class;
 }
 ```
 
-[◂ Usando comandos do Freep Console](03-usando-comandos-freep-console.md) | [Sumário da Documentação](indice.md) | [Implementando um Evento ▸](05-implementando-um-evento.md)
+[◂ Mantendo o "Intermediador de Mensagens" sempre em execução](06-mantendo-a-execucao.md) | [Sumário da Documentação](indice.md) | [Implementando um Evento ▸](08-implementando-um-evento.md)
 -- | -- | --

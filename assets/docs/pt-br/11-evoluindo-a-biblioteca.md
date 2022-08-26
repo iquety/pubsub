@@ -36,6 +36,7 @@ Para executar os testes de unidade, use:
 ```bash
 ./composer test
 ```
+
 ## 3. Documentação
 
 Uma boa navegação é indispensável para que a documentação seja fácil de usar. Pensando nisso, foi utilizada a ferramenta [Freep Docmap](https://github.com/ricardopedias/freep-docmap), para gerar um agradável menu de navegação em todas as páginas da documentação.

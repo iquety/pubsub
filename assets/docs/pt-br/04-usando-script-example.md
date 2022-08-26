@@ -39,6 +39,7 @@ Isso irá executar o servidor de eventos em "localhost" na porta "8080". A saíd
 ```text
 ✔ The publish/subscriber server has been started in tcp://localhost:8080
 ```
+
 Para mais informações de ajuda, use a opção '--help' com o nome do comando:
 
 ```bash

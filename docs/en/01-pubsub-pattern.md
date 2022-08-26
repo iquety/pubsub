@@ -1,6 +1,7 @@
 # The Publish/Subscribe pattern
 
---page-nav--
+[◂ Documentation Summary](index.md) | [Implementing in the application's "Start point" (Bootstrap) ▸](02-implementing-in-bootstrap.md)
+-- | --
 
 ## 1. Event-driven architecture
 
@@ -51,4 +52,5 @@ In the "Message Broker" | Ideal for integrating different applications. | It may
 
 The following is more information about the two types of implementation.
 
---page-nav--
+[◂ Documentation Summary](index.md) | [Implementing in the application's "Start point" (Bootstrap) ▸](02-implementing-in-bootstrap.md)
+-- | --
