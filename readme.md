@@ -2,7 +2,7 @@
 
 ![PHP Version](https://img.shields.io/badge/php-%5E8.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d6f373b9eacc4d7388ddae8f300636e2)](https://www.codacy.com/gh/iquety/pubsub/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iquety/pubsub&amp;utm_campaign=Badge_Grade)
+[![Codacy Grade](https://app.codacy.com/project/badge/Grade/8b2a8762c63a4c1b9495b066fd00e82d)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iquety/pubsub&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/d6f373b9eacc4d7388ddae8f300636e2)](https://www.codacy.com/gh/iquety/pubsub/dashboard?utm_source=github.com&utm_medium=referral&utm_content=iquety/pubsub&utm_campaign=Badge_Coverage)
 
 [English](readme.md) | [Português](./docs/pt-br/leiame.md)
