@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub;
+namespace Iquety\PubSub;
 
-use Freep\PubSub\Publisher\EventPublisherLoop;
+use Iquety\PubSub\Publisher\EventPublisherLoop;
 
 class EventLoop
 {

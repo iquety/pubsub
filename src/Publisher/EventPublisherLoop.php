@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub\Publisher;
+namespace Iquety\PubSub\Publisher;
 
 interface EventPublisherLoop extends EventPublisher
 {

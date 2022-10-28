@@ -6,7 +6,7 @@
 
 A Subscriber is responsible for handling the events that occur. It must contain the routine responsible for interpreting an event and knowing what to do when an event of that type happens.
 
-A new Subscriber must implement the `Freep\PubSub\Subscriber\EventSubscriber` interface, which requires three specific methods:
+A new Subscriber must implement the `Iquety\PubSub\Subscriber\EventSubscriber` interface, which requires three specific methods:
 
 ### 1.1. The "eventFactory" method
 
@@ -69,8 +69,8 @@ namespace Foo\User;
 
 use Foo\User\Events\UserEmailChanged;
 use Foo\User\Events\UserRegistered;
-use Freep\PubSub\Event\Event;
-use Freep\PubSub\Subscriber\EventSubscriber;
+use Iquety\PubSub\Event\Event;
+use Iquety\PubSub\Subscriber\EventSubscriber;
 
 class UserEventSubscriber implements EventSubscriber
 {

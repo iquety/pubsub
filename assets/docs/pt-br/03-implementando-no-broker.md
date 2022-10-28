@@ -12,7 +12,7 @@ Este tipo de abordagem consiste em manter em execução um "Intermediador de Men
 
 ### 1. Executar o Intermediador de Mensagens
 
-Na raiz deste repositório existe um script chamado "example", que contém uma implementação de exemplo usando a biblioteca [Freep Console](https://github.com/ricardopedias/freep-console).
+Na raiz deste repositório existe um script chamado "example", que contém uma implementação de exemplo usando a biblioteca [Iquety Console](https://github.com/iquety/console).
 
 > **Nota**: para facilitar a execução, você pode implementar em seu projeto um script personalizado semelhante a esse. Veja mais informações em ["Usando um script personalizado"](05-usando-script-personalizado.md).
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub\Event\Serializer;
+namespace Iquety\PubSub\Event\Serializer;
 
 use RuntimeException;
 

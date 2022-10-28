@@ -7,8 +7,8 @@ namespace Tests\Example\Subscribers;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
-use Freep\PubSub\Event\Event;
-use Freep\PubSub\Subscriber\EventSubscriber;
+use Iquety\PubSub\Event\Event;
+use Iquety\PubSub\Subscriber\EventSubscriber;
 use Tests\Example\Events\EventOne;
 use Tests\Example\Events\EventTwo;
 

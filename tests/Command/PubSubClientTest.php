@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Command;
 
-use Freep\Console\Command;
-use Freep\Console\PhpUnit\ConsoleTestCase;
-use Freep\Console\Terminal;
-use Freep\PubSub\Command\PubSubClientCommand;
+use Iquety\Console\Command;
+use Iquety\Console\PhpUnit\ConsoleTestCase;
+use Iquety\Console\Terminal;
+use Iquety\PubSub\Command\PubSubClientCommand;
 
 class PubSubClientTest extends ConsoleTestCase
 {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Publisher\TestCase;
 
 use DateTimeImmutable;
-use Freep\PubSub\Publisher\PhpEventPublisher;
+use Iquety\PubSub\Publisher\PhpEventPublisher;
 use Tests\Example\Events\EventOne;
 use Tests\Example\Events\EventTwo;
 

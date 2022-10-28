@@ -14,8 +14,8 @@ See the content of the script:
 // Load Composer autoloader
 include __DIR__ . "/vendor/autoload.php";
 
-use Freep\Console\Terminal;
-use Freep\PubSub\EventLoop;
+use Iquety\Console\Terminal;
+use Iquety\PubSub\EventLoop;
 
 array_shift($argv);
 
@@ -27,7 +27,7 @@ $terminal->loadCommandsFrom(EventLoop::commandPath());
 $terminal->run($argv);
 ```
 
-The purpose of using the [Freep\Console](https://github.com/ricardopedias/freep-console) library is that it makes command portability much easier. You can implement commands in several separate modules and load them all from a single point using the "Terminal->loadCommandsFrom()" method.
+The purpose of using the [Iquety\Console](https://github.com/iquety/console) library is that it makes command portability much easier. You can implement commands in several separate modules and load them all from a single point using the "Terminal->loadCommandsFrom()" method.
 
 Therefore, just copy the content of the `example` script and create a new script in the project that will make use of Publish/Subscribe to better contextualize its objective and facilitate the execution of the "Message Intermediator".
 
@@ -40,8 +40,8 @@ For example, you can create a script called `myapp` for your project, containing
 // Load Composer autoloader
 include __DIR__ . "/vendor/autoload.php";
 
-use Freep\Console\Terminal;
-use Freep\PubSub\EventLoop;
+use Iquety\Console\Terminal;
+use Iquety\PubSub\EventLoop;
 
 array_shift($argv);
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub\Event\Serializer;
+namespace Iquety\PubSub\Event\Serializer;
 
-use Freep\PubSub\Event\Event;
+use Iquety\PubSub\Event\Event;
 
 interface EventSerializer
 {

@@ -12,7 +12,7 @@ This type of approach consists of keeping a "Message Broker" running to receive 
 
 ### 1. Run the Message Broker
 
-At the root of this repository there is a script called "example", which contains an example implementation using the library [Freep Console](https://github.com/ricardopedias/freep-console).
+At the root of this repository there is a script called "example", which contains an example implementation using the library [Iquety Console](https://github.com/iquety/console).
 
 > **Note**: For ease of execution, you can implement a custom script similar to this one in your project. See ["Creating a custom script"](05-creating-custom-script.md) for more information.
 

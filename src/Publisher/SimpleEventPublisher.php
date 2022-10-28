@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub\Publisher;
+namespace Iquety\PubSub\Publisher;
 
 use DateTimeZone;
 use Exception;
-use Freep\PubSub\Event\Event;
-use Freep\PubSub\Event\EventSignal;
-use Freep\PubSub\Subscriber\EventSubscriber;
+use Iquety\PubSub\Event\Event;
+use Iquety\PubSub\Event\EventSignal;
+use Iquety\PubSub\Subscriber\EventSubscriber;
 
 /**
  * Publicador de eventos simples para bootstrap de aplicações
  */
 class SimpleEventPublisher extends AbstractEventPublisher
 {
-    /** @var array<string,\Freep\PubSub\Subscriber\EventSubscriber> */
+    /** @var array<string,\Iquety\PubSub\Subscriber\EventSubscriber> */
     private array $subscribers = [];
 
     /** @var array<string,array<string>> */
@@ -73,7 +73,7 @@ class SimpleEventPublisher extends AbstractEventPublisher
         return $this;
     }
 
-    /** @return array<string,\Freep\PubSub\Subscriber\EventSubscriber> */
+    /** @return array<string,\Iquety\PubSub\Subscriber\EventSubscriber> */
     public function subscribers(string $channel = 'all'): array
     {
         if ($channel === 'all') {

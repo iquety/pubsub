@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Freep\PubSub\EventLoop;
+use Iquety\PubSub\EventLoop;
 use Tests\Example\Subscribers\SubscriberOne;
 use Tests\Example\Subscribers\SubscriberTwo;
 

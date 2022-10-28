@@ -6,10 +6,10 @@ namespace Tests;
 
 use Closure;
 use DateTimeImmutable;
-use Freep\Console\Option;
-use Freep\PubSub\Event\Event;
+use Iquety\Console\Option;
+use Iquety\PubSub\Event\Event;
 use Tests\Example\Events\EventOne;
-use Freep\Security\Filesystem;
+use Iquety\Security\Filesystem;
 use PHPUnit\Framework\TestCase as FrameworkTestCase;
 use Tests\Example\Events\EventTwo;
 

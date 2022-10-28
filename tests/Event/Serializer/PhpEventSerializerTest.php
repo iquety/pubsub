@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Event\Serializer;
 
-use Freep\PubSub\Event\Serializer\PhpEventSerializer;
+use Iquety\PubSub\Event\Serializer\PhpEventSerializer;
 use RuntimeException;
 use Tests\Example\Events\EventOne;
 use Tests\TestCase;

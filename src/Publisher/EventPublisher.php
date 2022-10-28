@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub\Publisher;
+namespace Iquety\PubSub\Publisher;
 
 use DateTimeZone;
-use Freep\PubSub\Event\Event;
-use Freep\PubSub\Event\Serializer\EventSerializer;
-use Freep\PubSub\Subscriber\EventSubscriber;
+use Iquety\PubSub\Event\Event;
+use Iquety\PubSub\Event\Serializer\EventSerializer;
+use Iquety\PubSub\Subscriber\EventSubscriber;
 
 interface EventPublisher
 {
@@ -27,7 +27,7 @@ interface EventPublisher
 
     public function subscribe(string $channel, string $subscriberSignatute): self;
 
-    /** @return array<\Freep\PubSub\Subscriber\EventSubscriber> */
+    /** @return array<\Iquety\PubSub\Subscriber\EventSubscriber> */
     public function subscribers(string $channel = 'all'): array;
 
     public function unsubscribe(string $channel, string $subscriberSignature): self;

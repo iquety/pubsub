@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Publisher;
 
-use Freep\PubSub\Publisher\PhpEventPublisher;
+use Iquety\PubSub\Publisher\PhpEventPublisher;
 use RuntimeException;
 use Tests\Example\Subscribers\SubscriberOne;
 use Tests\Example\Subscribers\SubscriberTwo;

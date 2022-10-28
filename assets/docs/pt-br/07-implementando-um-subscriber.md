@@ -6,7 +6,7 @@
 
 Um Subscriber (Assinante) é responsável pela manipulação dos eventos ocorridos. Ele deve conter a rotina responsável pela interpretação de um evento e saber o que fazer quando um evento daquele tipo acontecer.
 
-Um novo Subscriber deve implementar a interface `Freep\PubSub\Subscriber\EventSubscriber`, que exige três métodos específicos:
+Um novo Subscriber deve implementar a interface `Iquety\PubSub\Subscriber\EventSubscriber`, que exige três métodos específicos:
 
 ### 1.1. O método "eventFactory"
 
@@ -69,8 +69,8 @@ namespace Foo\User;
 
 use Foo\User\Events\UserEmailChanged;
 use Foo\User\Events\UserRegistered;
-use Freep\PubSub\Event\Event;
-use Freep\PubSub\Subscriber\EventSubscriber;
+use Iquety\PubSub\Event\Event;
+use Iquety\PubSub\Subscriber\EventSubscriber;
 
 class UserEventSubscriber implements EventSubscriber
 {

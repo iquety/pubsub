@@ -1,4 +1,4 @@
-# Freep Pub/Sub
+# Iquety Pub/Sub
 
 [English](../../readme.md) | [Português](leiame.md)
 -- | --
@@ -8,7 +8,7 @@
 Este repositório contém as funcionalidades necessárias para executar um sistema de Publish/Subscribe, possibilitando assinar e publicar eventos.
 
 ```bash
-composer require ricardopedias/freep-pubsub
+composer require iquety/pubsub
 ```
 
 Para informações detalhadas, consulte o [Sumário da Documentação](indice.md).

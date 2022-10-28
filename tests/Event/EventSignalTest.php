@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Event;
 
 use DateTimeImmutable;
-use Freep\PubSub\Event\EventSignal;
-use Freep\PubSub\Event\Signals;
+use Iquety\PubSub\Event\EventSignal;
+use Iquety\PubSub\Event\Signals;
 use Tests\TestCase;
 
 class EventSignalTest extends TestCase

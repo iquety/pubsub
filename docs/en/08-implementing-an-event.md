@@ -9,10 +9,10 @@ An event is the encapsulation of information that represents an action that took
 
 ## 2. How to implement an Event
 
-A new event must comply with the `Freep\PubSub\Event\Event` interface contract and its values must be provided only through the constructor, not being possible to change them after instantiation:
+A new event must comply with the `Iquety\PubSub\Event\Event` interface contract and its values must be provided only through the constructor, not being possible to change them after instantiation:
 
 ```php
-class UserRegistered implements Freep\PubSub\Event\Event
+class UserRegistered implements Iquety\PubSub\Event\Event
 {
 public function __construct(
 private string $name,
@@ -25,7 +25,7 @@ private DateTimeImmutable $ocurredOn
 
 > **Tip**: Getters can be implemented as long as they don't change the current state of the event and only work as data accessors.
 
-The `Freep\PubSub\Event\Event` interface requires five specific methods:
+The `Iquety\PubSub\Event\Event` interface requires five specific methods:
 
 ### 1.1. The "factory" method
 
@@ -116,7 +116,7 @@ declare(strict_types=1);
 namespace Foo\User\Events;
 
 use DateTimeImmutable;
-use Freep\PubSub\Event\Event;
+use Iquety\PubSub\Event\Event;
 
 class UserRegistered implements Event
 {

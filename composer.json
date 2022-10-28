@@ -1,24 +1,24 @@
 {
-    "name": "ricardopedias/freep-pubsub",
+    "name": "iquety/pubsub",
     "type": "library",
-    "description": "Secure implementations for critical native functions",
-    "keywords": ["framework", "freep", "security"],
+    "description": "Library for implementing the Publish/Subscribe architectural pattern",
+    "keywords": ["framework", "pubsub", "publish", "subscribe", "events"],
     "license": "MIT",
     "require": {
         "php": "^8.0.0",
-        "ricardopedias/freep-console": "dev-main"
+        "iquety/console": "dev-main"
     },
     "require-dev": {
         "codacy/coverage": "dev-master",
         "phpunit/phpunit": "^9",
         "phpstan/phpstan": "^0.12",
         "phpmd/phpmd": "@stable",
-        "ricardopedias/freep-docmap": "dev-main",
+        "iquety/docmap": "dev-main",
         "squizlabs/php_codesniffer": "3.*"
     },
     "autoload": {
         "psr-4": {
-            "Freep\\PubSub\\": "src/"
+            "Iquety\\PubSub\\": "src/"
         }
     },
     "autoload-dev": {

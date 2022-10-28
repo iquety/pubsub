@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Example\Events;
 
 use DateTimeImmutable;
-use Freep\PubSub\Event\Event;
+use Iquety\PubSub\Event\Event;
 
 class EventTwo implements Event
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Freep\PubSub\EventLoop;
-use Freep\PubSub\Publisher\PhpEventPublisher;
+use Iquety\PubSub\EventLoop;
+use Iquety\PubSub\Publisher\PhpEventPublisher;
 use Tests\Example\Subscribers\SubscriberOne;
 
 class EventLoopTest extends TestCase

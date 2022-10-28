@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub\Command;
+namespace Iquety\PubSub\Command;
 
 use DateTimeImmutable;
-use Freep\Console\Arguments;
-use Freep\Console\Command;
-use Freep\Console\Option;
-use Freep\PubSub\Publisher\EventPublisher;
-use Freep\PubSub\Publisher\PhpEventPublisher;
-use Freep\PubSub\Publisher\SimpleEventPublisher;
+use Iquety\Console\Arguments;
+use Iquety\Console\Command;
+use Iquety\Console\Option;
+use Iquety\PubSub\Publisher\EventPublisher;
+use Iquety\PubSub\Publisher\PhpEventPublisher;
+use Iquety\PubSub\Publisher\SimpleEventPublisher;
 use RuntimeException;
 use Tests\Example\Events\EventOne;
 use Tests\Example\Events\EventTwo;

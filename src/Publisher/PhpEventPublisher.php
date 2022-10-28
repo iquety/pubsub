@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub\Publisher;
+namespace Iquety\PubSub\Publisher;
 
 use DateTimeZone;
-use Freep\PubSub\Publisher\PhpEventPublisher\PublisherEngineTrait;
-use Freep\PubSub\Publisher\PhpEventPublisher\SubscriberEngineTrait;
+use Iquety\PubSub\Publisher\PhpEventPublisher\PublisherEngineTrait;
+use Iquety\PubSub\Publisher\PhpEventPublisher\SubscriberEngineTrait;
 
 /**
  * Publicador de eventos para servidoer baseado em PHP

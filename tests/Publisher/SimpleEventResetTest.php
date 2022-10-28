@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Publisher;
 
 use DateTimeZone;
-use Freep\PubSub\Event\Serializer\JsonEventSerializer;
-use Freep\PubSub\Event\Serializer\PhpEventSerializer;
+use Iquety\PubSub\Event\Serializer\JsonEventSerializer;
+use Iquety\PubSub\Event\Serializer\PhpEventSerializer;
 use Tests\Publisher\TestCase\SimplePublisherTestCase;
 
 class SimpleEventResetTest extends SimplePublisherTestCase

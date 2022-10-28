@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub\Command;
+namespace Iquety\PubSub\Command;
 
-use Freep\Console\Arguments;
-use Freep\Console\Command;
-use Freep\Console\Option;
-use Freep\PubSub\Event\Serializer\PhpEventSerializer;
-use Freep\PubSub\EventLoop;
-use Freep\PubSub\Publisher\PhpEventPublisher;
+use Iquety\Console\Arguments;
+use Iquety\Console\Command;
+use Iquety\Console\Option;
+use Iquety\PubSub\Event\Serializer\PhpEventSerializer;
+use Iquety\PubSub\EventLoop;
+use Iquety\PubSub\Publisher\PhpEventPublisher;
 
 class PubSubBrokerCommand extends Command
 {

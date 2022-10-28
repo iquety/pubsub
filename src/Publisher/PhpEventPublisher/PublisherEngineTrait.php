@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub\Publisher\PhpEventPublisher;
+namespace Iquety\PubSub\Publisher\PhpEventPublisher;
 
 use DateTimeZone;
 use Exception;
-use Freep\PubSub\Event\Event;
-use Freep\PubSub\Event\EventSignal;
-use Freep\PubSub\Event\Signals;
-use Freep\PubSub\Subscriber\EventSubscriber;
+use Iquety\PubSub\Event\Event;
+use Iquety\PubSub\Event\EventSignal;
+use Iquety\PubSub\Event\Signals;
+use Iquety\PubSub\Subscriber\EventSubscriber;
 use RuntimeException;
 
 /**

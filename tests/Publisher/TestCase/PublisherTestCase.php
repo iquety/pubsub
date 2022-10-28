@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Publisher\TestCase;
 
 use DateTimeImmutable;
-use Freep\PubSub\Publisher\SimpleEventPublisher;
+use Iquety\PubSub\Publisher\SimpleEventPublisher;
 use Tests\Example\Events\EventOne;
 use Tests\Example\Events\EventTwo;
 use Tests\TestCase;

@@ -4,8 +4,8 @@
 // Carrega o autoloader do Composer
 include __DIR__ . "/vendor/autoload.php";
 
-use Freep\Console\Terminal;
-use Freep\PubSub\EventLoop;
+use Iquety\Console\Terminal;
+use Iquety\PubSub\EventLoop;
 
 // O PHP em modo CLI disponibiliza a variável reservada "$argv", contendo a lista 
 // de palavras digitadas pelo usuário no Terminal. Esta variável será usada para

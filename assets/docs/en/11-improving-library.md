@@ -39,7 +39,7 @@ To run the unit tests, use:
 
 ## 3. Documentation
 
-Good navigation is essential for the documentation to be easy to use. With that in mind, the tool [Freep Docmap](https://github.com/ricardopedias/freep-docmap) was used to generate a pleasant navigation menu on all pages of the documentation.
+Good navigation is essential for the documentation to be easy to use. With that in mind, the tool [Iquety Docmap](https://github.com/iquety/docmap) was used to generate a pleasant navigation menu on all pages of the documentation.
 
 Editable documents are located in the `assets/docs` directory. After adding or editing any documents contained there, simply run the command below to generate the navigable documentation in the `docs` directory:
 

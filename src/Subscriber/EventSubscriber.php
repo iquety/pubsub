@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub\Subscriber;
+namespace Iquety\PubSub\Subscriber;
 
 use DateTimeZone;
-use Freep\PubSub\Event\Event;
+use Iquety\PubSub\Event\Event;
 
 interface EventSubscriber
 {

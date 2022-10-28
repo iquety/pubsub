@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Publisher;
 
-use Freep\PubSub\Event\EventSignal;
-use Freep\PubSub\Event\Signals;
+use Iquety\PubSub\Event\EventSignal;
+use Iquety\PubSub\Event\Signals;
 use RuntimeException;
 use Tests\Publisher\TestCase\PhpPublisherTestCase;
 

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Freep\PubSub\Publisher;
+namespace Iquety\PubSub\Publisher;
 
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
-use Freep\Console\Message;
-use Freep\PubSub\Event\Event;
-use Freep\PubSub\Event\Serializer\JsonEventSerializer;
-use Freep\PubSub\Event\Serializer\EventSerializer;
+use Iquety\Console\Message;
+use Iquety\PubSub\Event\Event;
+use Iquety\PubSub\Event\Serializer\JsonEventSerializer;
+use Iquety\PubSub\Event\Serializer\EventSerializer;
 
 abstract class AbstractEventPublisher implements EventPublisher
 {

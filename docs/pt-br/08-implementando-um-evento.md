@@ -9,10 +9,10 @@ Um evento é o encapsulamento de informações que representam uma ação ocorri
 
 ## 2. Como implementar um Evento
 
-Um novo evento deve cumprir o contrato da interface `Freep\PubSub\Event\Event` e seus valores devem ser fornecidos somente através do construtor, não sendo possível alterá-los após a instanciação:
+Um novo evento deve cumprir o contrato da interface `Iquety\PubSub\Event\Event` e seus valores devem ser fornecidos somente através do construtor, não sendo possível alterá-los após a instanciação:
 
 ```php
-class UserRegistered implements Freep\PubSub\Event\Event
+class UserRegistered implements Iquety\PubSub\Event\Event
 {
 public function __construct(
 private string $name,
@@ -25,7 +25,7 @@ private DateTimeImmutable $ocurredOn
 
 > **Dica**: Getters podem ser implementados, desde que não alterem o estado atual do evento e funcionem apenas como acessores de dados.
 
-A interface `Freep\PubSub\Event\Event` exige cinco métodos específicos:
+A interface `Iquety\PubSub\Event\Event` exige cinco métodos específicos:
 
 ### 1.1. O método "factory"
 
@@ -116,7 +116,7 @@ declare(strict_types=1);
 namespace Foo\User\Events;
 
 use DateTimeImmutable;
-use Freep\PubSub\Event\Event;
+use Iquety\PubSub\Event\Event;
 
 class UserRegistered implements Event
 {

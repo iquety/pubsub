@@ -4,7 +4,7 @@
 
 ## 1. The "example" script
 
-This repository comes with two terminal commands, implemented with the library [Freep\Console](https://github.com/ricardopedias/freep-console). The commands can be found in the 'src/Command' directory and are invoked by the "example" script located at the root of the repository.
+This repository comes with two terminal commands, implemented with the library [Iquety\Console](https://github.com/iquety/console). The commands can be found in the 'src/Command' directory and are invoked by the "example" script located at the root of the repository.
 
 Run the script with the '--help' option to learn how to use it:
 
@@ -66,7 +66,7 @@ This file must return an anonymous function (Closure) containing the "subscriber
 
 declare(strict_types=1);
 
-use Freep\PubSub\EventLoop;
+use Iquety\PubSub\EventLoop;
 use Tests\Example\Subscribers\SubscriberOne;
 use Tests\Example\Subscribers\SubscriberTwo;
 
