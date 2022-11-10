@@ -25,7 +25,7 @@ interface EventPublisher
 
     public function reset(): self;
 
-    public function subscribe(string $channel, string $subscriberSignatute): self;
+    public function subscribe(string $channel, EventSubscriber|string $identifier): self;
 
     /** @return array<\Iquety\PubSub\Subscriber\EventSubscriber> */
     public function subscribers(string $channel = 'all'): array;

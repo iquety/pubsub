@@ -60,9 +60,11 @@ class SimpleEventPublisher extends AbstractEventPublisher
         return $this;
     }
 
-    public function subscribe(string $channel, string $subscriberSignatute): self
+    public function subscribe(string $channel, EventSubscriber|string $identifier): self
     {
-        $subscriber = new $subscriberSignatute();
+        $subscriber = (is_string($identifier) === true)
+            ? new $identifier()
+            : $identifier;
 
         if (isset($this->subscribersByChannel[$channel]) === false) {
             $this->subscribersByChannel[$channel] = [];

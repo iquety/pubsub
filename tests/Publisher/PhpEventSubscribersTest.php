@@ -22,12 +22,12 @@ class PhpEventSubscribersTest extends PhpPublisherTestCase
 
         $subscribers = [
             ['channel-one', SubscriberOne::class],
-            ['channel-one', SubscriberTwo::class],
+            ['channel-one', new SubscriberTwo()],
         ];
         $list['two subscribers in same channel'] = [ $subscribers ];
 
         $subscribers = [
-            ['channel-one', SubscriberOne::class],
+            ['channel-one', new SubscriberOne()],
             ['channel-two', SubscriberTwo::class],
         ];
         $list['two subscribers in different channels'] = [ $subscribers ];

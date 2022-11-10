@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Example\Subscribers;
 
-use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
 use Iquety\PubSub\Event\Event;
