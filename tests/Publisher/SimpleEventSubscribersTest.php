@@ -10,7 +10,7 @@ use Tests\Publisher\TestCase\SimplePublisherTestCase;
 
 class SimpleEventSubscribersTest extends SimplePublisherTestCase
 {
-    /** @return array<string,array<int,array<int,array<int,class-string|string>>>> */
+    /** @return array<string,array<int,array<mixed>>> */
     public function hasSubscribersProvider(): array
     {
         $list = [];
@@ -22,12 +22,12 @@ class SimpleEventSubscribersTest extends SimplePublisherTestCase
 
         $subscribers = [
             ['channel-one', SubscriberOne::class],
-            ['channel-one', new SubscriberTwo()],
+            ['channel-one', SubscriberTwo::class],
         ];
         $list['two subscribers in same channel'] = [ $subscribers ];
 
         $subscribers = [
-            ['channel-one', new SubscriberOne()],
+            ['channel-one', SubscriberOne::class],
             ['channel-two', SubscriberTwo::class],
         ];
         $list['two subscribers in different channels'] = [ $subscribers ];
@@ -42,9 +42,16 @@ class SimpleEventSubscribersTest extends SimplePublisherTestCase
      */
     public function hasSubscribers(array $subscribers): void
     {
-        $publisher = $this->simplePublisherFactory($subscribers);
+        // para testar a passagem de instancias
+        $publisherOne = $this->simplePublisherFactory([
+            ['channel-five', new SubscriberTwo()]
+        ]);
 
-        $this->assertTrue($publisher->hasSubscribers());
+        $this->assertTrue($publisherOne->hasSubscribers());
+
+        $publisherTwo = $this->simplePublisherFactory($subscribers);
+
+        $this->assertTrue($publisherTwo->hasSubscribers());
     }
 
     /** @return array<string,array<int,array<int,mixed>>> */

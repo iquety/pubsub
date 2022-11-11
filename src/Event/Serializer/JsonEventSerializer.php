@@ -26,6 +26,10 @@ class JsonEventSerializer implements EventSerializer
         return $this->resolveDateTime($eventData);
     }
 
+    /**
+     * @param array<string,mixed> $eventData
+     * @return array<string,mixed>
+     */
     protected function resolveDateTime(array $eventData): array
     {
         foreach ($eventData as $name => $value) {

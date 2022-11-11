@@ -57,6 +57,7 @@ class SimpleEventPublisher extends AbstractEventPublisher
 
     public function subscribe(string $channel, EventSubscriber|string $identifier): self
     {
+        /** @var EventSubscriber */
         $subscriber = (is_string($identifier) === true)
             ? new $identifier()
             : $identifier;

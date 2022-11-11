@@ -16,24 +16,25 @@ class EventTest extends TestCase
     {
         return [
             'zone null' => [ new DateTimeImmutable('2022/10/10 10:10:10') ],
-            'zone utc' => [ 
+            'zone utc' => [
                 new DateTimeImmutable('2022/10/10 10:10:10', new DateTimeZone('UTC'))
             ],
-            'zone america sao paulo' => [ 
-                new DateTimeImmutable('2022/10/10 10:10:10', new DateTimeZone('America/Sao_Paulo')) 
+            'zone america sao paulo' => [
+                new DateTimeImmutable('2022/10/10 10:10:10', new DateTimeZone('America/Sao_Paulo'))
             ],
         ];
     }
 
-    /** 
+    /**
      * @test
      * @dataProvider dateTimeProvider
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function eventFactory(DateTimeInterface $dateTime): void
     {
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         // Evento Um
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         $eventOne = new EventOccurred(
             'Meu artigo',
@@ -58,9 +59,9 @@ class EventTest extends TestCase
 
         $this->assertArrayHasKey('occurredOn', $eventOne->toArray());
 
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         // Evento Dois
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         $eventTwo = EventOccurred::factory($eventOne->toArray());
 

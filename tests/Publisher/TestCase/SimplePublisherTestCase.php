@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Publisher\TestCase;
 
-use DateTimeImmutable;
 use Iquety\PubSub\Publisher\SimpleEventPublisher;
-use Tests\Example\Events\EventOne;
-use Tests\Example\Events\EventTwo;
+use Iquety\PubSub\Subscriber\EventSubscriber;
 
 class SimplePublisherTestCase extends PublisherTestCase
 {
@@ -26,7 +24,7 @@ class SimplePublisherTestCase extends PublisherTestCase
     }
 
     /**
-     * @param array<int,array<int,class-string|string>> $subcriberList
+     * @param array<int,array<mixed>> $subcriberList
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
     protected function simplePublisherFactory(array $subcriberList): SimpleEventPublisher
@@ -34,7 +32,10 @@ class SimplePublisherTestCase extends PublisherTestCase
         SimpleEventPublisher::instance()->reset();
 
         foreach ($subcriberList as $subscriber) {
+            /** @var string */
             $channel = $subscriber[0];
+
+            /** @var string|EventSubscriber */
             $signature = $subscriber[1];
 
             SimpleEventPublisher::instance()->subscribe($channel, $signature);

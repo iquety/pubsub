@@ -63,7 +63,6 @@ abstract class AbstractEventPublisher implements EventPublisher
     {
         $this->errorCode = 0;
         $this->errorMessage = '';
-        $this->publicationTimezone = new DateTimeZone('UTC');
         $this->serializer = $this->getDefaultSerializer();
         $this->testMode = false;
         $this->verboseMode = false;

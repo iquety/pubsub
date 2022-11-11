@@ -6,9 +6,11 @@ namespace Iquety\PubSub\Event;
 
 use DateTime;
 use DateTimeImmutable;
+use Exception;
 use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionObject;
+use RuntimeException;
 
 abstract class Event
 {
@@ -19,11 +21,11 @@ abstract class Event
     {
         $className = get_called_class();
 
-        $values = self::assertImutability($values);
+        self::assertImutability($values);
 
         $arguments = self::makeConstructorArguments($className, $values);
 
-        $event = new $className(...$arguments);
+        $event = self::makeObject($className, $arguments);
 
         $occurredOn = isset($values['occurredOn']) === false
             ? new DateTimeImmutable()
@@ -61,16 +63,22 @@ abstract class Event
     {
         $reflection = new ReflectionObject($this);
 
-        $argumentList = $reflection->getConstructor()->getParameters();
+        $constructor = $reflection->getConstructor();
+
+        if ($constructor === null) {
+            throw new Exception('Every event must have a constructor that receives the state');
+        }
+
+        $argumentList = $constructor->getParameters();
 
         $propertyList = [];
 
-        foreach($argumentList as $argument) {
+        foreach ($argumentList as $argument) {
             $label = $argument->getName();
 
             $property = $reflection->getProperty($label);
             $property->setAccessible(true);
-            
+
             $value = $property->getValue($this);
 
             $propertyList[$label] = $value;
@@ -83,31 +91,50 @@ abstract class Event
         return $propertyList;
     }
 
-    private static function assertImutability(array $valueList): array
+    /** @param array<string,mixed> $valueList */
+    private static function assertImutability(array $valueList): void
     {
-        foreach ($valueList as $name => $value) {
+        foreach ($valueList as $value) {
             if ($value instanceof DateTime) {
                 throw new InvalidArgumentException('Only immutable dates are allowed');
             }
         }
-
-        return $valueList;
     }
 
-    private static function makeConstructorArguments(string $className, array $values): array
+    /**
+     * @param class-string<Event> $className
+     * @param array<string,mixed> $valueList
+     * @return array<int,mixed>
+     */
+    private static function makeConstructorArguments(string $className, array $valueList): array
     {
         $reflection = new ReflectionClass($className);
-        
-        $argumentList = $reflection->getConstructor()->getParameters();
+
+        $constructor = $reflection->getConstructor();
+
+        if ($constructor === null) {
+            throw new Exception('Every event must have a constructor that receives the state');
+        }
+
+        $argumentList = $constructor ->getParameters();
 
         $list = [];
 
-        foreach($argumentList as $argument) {
+        foreach ($argumentList as $argument) {
             $label = $argument->getName();
 
-            $list[] = $values[$label];
+            $list[] = $valueList[$label];
         }
 
         return $list;
+    }
+
+    /**
+     * @param class-string<Event> $className
+     * @param array<int,mixed> $arguments
+     */
+    private static function makeObject(string $className, array $arguments): Event
+    {
+        return new $className(...$arguments);
     }
 }
