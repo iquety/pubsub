@@ -27,12 +27,6 @@ class SimpleEventResetTest extends SimplePublisherTestCase
                 'isVerboseMode',
                 null
             ],
-            'timezone'     => [
-                new DateTimeZone('UTC'),
-                'publishInTimezone',
-                'getPublicationTimezone',
-                new DateTimeZone('America/Sao_Paulo')
-            ],
             'serializer'   => [
                 new JsonEventSerializer(),
                 'useSerializer',

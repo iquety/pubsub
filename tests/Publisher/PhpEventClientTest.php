@@ -64,7 +64,7 @@ class PhpEventClientTest extends PhpPublisherTestCase
         $this->assertEquals([
             'channel'   => 'channel-one',
             'label'     => 'event-one',
-            'eventData' => $publisher->getSerializer()->serialize($this->getPlainEventValues($event))
+            'eventData' => $publisher->getSerializer()->serialize($event->toArray())
         ], $this->readLastEventFromFile('fake-connection.txt'));
     }
 

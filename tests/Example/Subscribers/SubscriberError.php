@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Example\Subscribers;
 
-use DateTimeImmutable;
 use DateTimeZone;
 use Iquety\PubSub\Event\Event;
 use Iquety\PubSub\Subscriber\EventSubscriber;
@@ -34,10 +33,5 @@ class SubscriberError implements EventSubscriber
             'Error triggered in subscriber handle to event ' . $event::class,
             E_USER_ERROR
         );
-    }
-
-    public function receiveInTimezone(): DateTimeZone
-    {
-        return new DateTimeZone('UTC');
     }
 }

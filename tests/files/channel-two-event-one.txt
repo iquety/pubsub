@@ -2,4 +2,4 @@ channel-two
 
 event-one
 
-{"cpf":123,"name":"ricardo","ocurredOn":"2020-01-10 00:00:01"}
+{"cpf":123,"name":"ricardo","schedule":{"date":"2020-01-10 00:00:01.000000","timezone_type":3,"timezone":"UTC"}}

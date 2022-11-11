@@ -21,7 +21,7 @@ class JsonEventSerializerTest extends TestCase
     public function serializationAndReconstitution(): void
     {
         $event = $this->eventOneFactory();
-        $streamData = $this->getPlainEventValues($event);
+        $streamData = $event->toArray();
 
         $serializedEvent = $this->factory()->serialize($streamData);
         $reconstitution = $this->factory()->unserialize($serializedEvent);

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Example\Subscribers;
 
-use DateTimeImmutable;
 use DateTimeZone;
 use Iquety\PubSub\Event\Event;
 use Iquety\PubSub\Subscriber\EventSubscriber;
@@ -37,12 +36,7 @@ class SubscriberThree implements EventSubscriber
             'subscriber-three-handle.txt',
             __CLASS__ . PHP_EOL .
             'recebeu: ' . $event::class . PHP_EOL .
-            'em: ' . $event->ocurredOn()->format('Y-m-d H:i:s')
+            'em: ' . $event->occurredOn()->format('Y-m-d H:i:s')
         );
-    }
-
-    public function receiveInTimezone(): DateTimeZone
-    {
-        return new DateTimeZone('UTC');
     }
 }

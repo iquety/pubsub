@@ -32,9 +32,4 @@ class SubscriberException implements EventSubscriber
     {
         throw new Exception('Exception in subscriber handle to event ' . $event::class);
     }
-
-    public function receiveInTimezone(): DateTimeZone
-    {
-        return new DateTimeZone('UTC');
-    }
 }

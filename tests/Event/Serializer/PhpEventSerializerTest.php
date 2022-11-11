@@ -6,7 +6,6 @@ namespace Tests\Event\Serializer;
 
 use Iquety\PubSub\Event\Serializer\PhpEventSerializer;
 use RuntimeException;
-use Tests\Example\Events\EventOne;
 use Tests\TestCase;
 
 class PhpEventSerializerTest extends TestCase
@@ -20,7 +19,7 @@ class PhpEventSerializerTest extends TestCase
     public function serializationAndReconstitution(): void
     {
         $event = $this->eventOneFactory();
-        $streamData = $this->getPlainEventValues($event);
+        $streamData = $event->toArray();
 
         $serializedEvent = $this->factory()->serialize($streamData);
         $reconstitution = $this->factory()->unserialize($serializedEvent);

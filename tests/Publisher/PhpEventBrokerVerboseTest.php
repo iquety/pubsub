@@ -16,7 +16,7 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
     public function receiveEventOne(): void
     {
         $publisher = $this->phpPublisherFactory([
-            ['channel-one', SubscriberOne::class], // pode receber EventOne
+            ['channel-one', new SubscriberOne()], // pode receber EventOne
             ['channel-one', SubscriberTwo::class]  // pode receber EventOne e EventTwo
         ])->enableVerboseMode();
 
@@ -41,7 +41,7 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
     {
         $publisher = $this->phpPublisherFactory([
             ['channel-one', SubscriberOne::class], // pode receber EventOne
-            ['channel-one', SubscriberTwo::class]  // pode receber EventOne e EventTwo
+            ['channel-one', new SubscriberTwo()]  // pode receber EventOne e EventTwo
         ])->enableVerboseMode();
 
         $publisher->useTestSocket(
@@ -70,7 +70,7 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
 
         $subscribers = [
             ['channel-one', SubscriberOne::class],
-            ['channel-one', SubscriberTwo::class]
+            ['channel-one', new SubscriberTwo()]
         ];
         $list['two subscribers'] = [ $subscribers ];
 
