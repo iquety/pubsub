@@ -6,7 +6,7 @@ namespace Iquety\PubSub\Event;
 
 use DateTimeImmutable;
 
-class EventSignal implements Event
+class EventSignal extends Event
 {
     /** @param array<string,mixed> $context */
     public function __construct(
@@ -24,11 +24,6 @@ class EventSignal implements Event
     public function label(): string
     {
         return $this->signal;
-    }
-
-    public function ocurredOn(): DateTimeImmutable
-    {
-        return new DateTimeImmutable();
     }
 
     public function sameEventAs(Event $other): bool

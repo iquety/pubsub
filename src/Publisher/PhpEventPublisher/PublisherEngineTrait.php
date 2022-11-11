@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Iquety\PubSub\Publisher\PhpEventPublisher;
 
-use DateTimeZone;
-use Exception;
 use Iquety\PubSub\Event\Event;
 use Iquety\PubSub\Event\EventSignal;
-use Iquety\PubSub\Event\Signals;
-use Iquety\PubSub\Subscriber\EventSubscriber;
 use RuntimeException;
 
 /**
@@ -61,11 +57,9 @@ trait PublisherEngineTrait
     /** @param resource $socketClient */
     protected function setActivityFor($socketClient, string $channel, Event $event): void
     {
-        $eventData = $this->convertToStreamData($event, $this->getPublicationTimezone());
-
         $eventContents = ($event instanceof EventSignal)
             ? $event->label()
-            : $this->getSerializer()->serialize($eventData);
+            : $this->getSerializer()->serialize($event->toArray());
 
         $payload = $channel
             . PHP_EOL . PHP_EOL

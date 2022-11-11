@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Iquety\PubSub\Event\Serializer;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use RuntimeException;
 
 class JsonEventSerializer implements EventSerializer
@@ -18,7 +20,22 @@ class JsonEventSerializer implements EventSerializer
     public function unserialize(string $eventSerializedData): array
     {
         $eventData = json_decode($eventSerializedData, true);
+
         $this->assertDecodeError();
+
+        return $this->resolveDateTime($eventData);
+    }
+
+    protected function resolveDateTime(array $eventData): array
+    {
+        foreach ($eventData as $name => $value) {
+            if (is_array($value) && array_key_exists('timezone', $value) === true) {
+                $eventData[$name] = new DateTimeImmutable(
+                    $value['date'],
+                    new DateTimeZone($value['timezone'])
+                );
+            }
+        }
 
         return $eventData;
     }

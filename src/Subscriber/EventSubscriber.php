@@ -13,6 +13,4 @@ interface EventSubscriber
     public function eventFactory(string $eventLabel, array $eventData): ?Event;
 
     public function handleEvent(Event $event): void;
-
-    public function receiveInTimezone(): DateTimeZone;
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Iquety\PubSub\Publisher;
 
-use DateTimeZone;
 use Iquety\PubSub\Publisher\PhpEventPublisher\PublisherEngineTrait;
 use Iquety\PubSub\Publisher\PhpEventPublisher\SubscriberEngineTrait;
 
@@ -29,8 +28,6 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
     {
         $this->host = $host;
         $this->port = $port;
-
-        $this->publishInTimezone(new DateTimeZone('UTC'));
 
         parent::setupErrorHandler();
     }

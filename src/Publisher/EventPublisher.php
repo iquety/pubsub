@@ -13,15 +13,11 @@ interface EventPublisher
 {
     public function enableVerboseMode(): self;
 
-    public function getPublicationTimezone(): DateTimeZone;
-
     public function hasSubscribers(string $channel = 'all'): bool;
 
     public function isVerboseMode(): bool;
 
     public function publish(string $channel, Event $event): self;
-
-    public function publishInTimezone(DateTimeZone $timezone): self;
 
     public function reset(): self;
 

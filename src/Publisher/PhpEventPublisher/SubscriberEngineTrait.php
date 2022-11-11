@@ -154,17 +154,12 @@ trait SubscriberEngineTrait
 
         $dispatched = false;
 
-        $eventDataUtc = $this->getSerializer()->unserialize($eventSerializedData);
+        $eventData = $this->getSerializer()->unserialize($eventSerializedData);
 
         try {
             $allSubscribers = $this->subscribers($channel);
 
             foreach ($allSubscribers as $subscriber) {
-                $eventData = $this->convertFromStreamData(
-                    $eventDataUtc,
-                    $subscriber->receiveInTimezone()
-                );
-
                 $event = $subscriber->eventFactory($label, $eventData);
 
                 if ($event === null) {

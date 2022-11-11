@@ -23,11 +23,6 @@ class SimpleEventPublisher extends AbstractEventPublisher
 
     private static ?self $instance = null;
 
-    protected function __construct()
-    {
-        $this->publishInTimezone(new DateTimeZone('UTC'));
-    }
-
     public static function instance(): self
     {
         if (self::$instance === null) {
@@ -174,15 +169,8 @@ class SimpleEventPublisher extends AbstractEventPublisher
         try {
             $allSubscribers = $this->subscribers($channel);
 
-            $eventDataUtc = $this->convertToStreamData($event, $this->getPublicationTimezone());
-
             foreach ($allSubscribers as $subscriber) {
-                $eventData = $this->convertFromStreamData(
-                    $eventDataUtc,
-                    $subscriber->receiveInTimezone()
-                );
-
-                $eventResolved = $subscriber->eventFactory($event->label(), $eventData);
+                $eventResolved = $subscriber->eventFactory($event->label(), $event->toArray());
 
                 if ($eventResolved === null) {
                     continue;
