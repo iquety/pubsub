@@ -16,8 +16,8 @@ For implementations that start the observer along with the application's bootstr
 See an example below:
 
 ```php
-$ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
-$event = new UserRegistered('Ricardo', '99988877766', $ocurredOn);
+$schedule = new DateTimeImmutable('2020-01-10 00:00:01');
+$event = new UserRegistered('Ricardo', '99988877766', $schedule);
 
 SimpleEventPublisher::instance()
 ->publish('registrations', $event);
@@ -34,8 +34,8 @@ See an example below:
 ```php
 $publisher = new PhpEventPublisher('localhost', 7703);
 
-$ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
-$event = new EventOne('Ricardo', '99988877766', $ocurredOn);
+$schedule = new DateTimeImmutable('2020-01-10 00:00:01');
+$event = new EventOne('Ricardo', '99988877766', $schedule);
 
 $publisher->publish('channel-vormir', $event);
 ```

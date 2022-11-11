@@ -36,8 +36,8 @@ Para enviar eventos, em qualquer lugar do sistema, basta invocar o método `publ
 ```php
 $publisher = new PhpEventPublisher('localhost', 7703);
 
-$ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
-$event = new EventOne('Ricardo', '99988877766', $ocurredOn);
+$schedule = new DateTimeImmutable('2020-01-10 00:00:01');
+$event = new EventOne('Ricardo', '99988877766', $schedule);
 
 $publisher->publish('channel-vormir', $event);
 ```
@@ -53,7 +53,7 @@ channel-one
 
 event-one
 
-{"cpf":"123","name":"ricardo","ocurredOn":"2020-01-10 00:00:01"}
+{"cpf":123,"name":"ricardo","schedule":{"date":"2020-01-10 00:00:01.000000","timezone_type":3,"timezone":"UTC"},"occurredOn":{"date":"2020-01-10 00:00:01.000000","timezone_type":3,"timezone":"UTC"}}
 ```
 
 O formato da mensagem deve seguir o seguinte esquema:

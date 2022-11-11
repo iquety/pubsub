@@ -17,8 +17,8 @@ Veja um exemplo abaixo:
 ```php
 // arquivo qualquer, em algum lugar do sistema
 
-$ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
-$event = new UserRegistered('Ricardo', '99988877766', $ocurredOn);
+$schedule = new DateTimeImmutable('2020-01-10 00:00:01');
+$event = new UserRegistered('Ricardo', '99988877766', $schedule);
 
 SimpleEventPublisher::instance()
     ->publish('registrations', $event);
@@ -35,8 +35,8 @@ Veja um exemplo abaixo:
 ```php
 $publisher = new PhpEventPublisher('localhost', 7703);
 
-$ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
-$event = new EventOne('Ricardo', '99988877766', $ocurredOn);
+$schedule = new DateTimeImmutable('2020-01-10 00:00:01');
+$event = new EventOne('Ricardo', '99988877766', $schedule);
 
 $publisher->publish('channel-vormir', $event);
 ```
