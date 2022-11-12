@@ -8,26 +8,24 @@ use InvalidArgumentException;
 use Iquety\PubSub\Event\Event;
 use Iquety\PubSub\Event\EventException;
 use PHPUnit\Framework\Constraint\Constraint;
+use Throwable;
 
 class IsValidEventConstraint extends Constraint
 {
+    /** @param Event $other */
     public function matches($other): bool
     {
-        if (! $other instanceof Event) {
-            return false;
-        }
-
         $className = $other::class;
 
-        if ($this->notException($className, $other) === false) {
-            return false;
-        }
-
-        if ($this->sameEventFactory($className, $other) === false) {
+        if ($this->hasConstructor($other) === false) {
             return false;
         }
 
         if ($this->anyOrderInProperties($className, $other) === false) {
+            return false;
+        }
+
+        if ($this->sameEventFactory($className, $other) === false) {
             return false;
         }
 
@@ -39,19 +37,11 @@ class IsValidEventConstraint extends Constraint
         return 'is a valid Event implementation';
     }
 
-    private function notException(string $className, Event $event): bool
+    private function hasConstructor(Event $event): bool
     {
         try {
             $event->toArray();
-        } catch (EventException) {
-            // Every event must have a constructor that receives the state
-            return false;
-        }
-
-        try {
-            $className::factory($event->toArray());
-        } catch (EventException) {
-            // Only immutable dates are allowed
+        } catch (Throwable) {
             // Every event must have a constructor that receives the state
             return false;
         }
@@ -71,6 +61,8 @@ class IsValidEventConstraint extends Constraint
         try {
             $propertyList = $event->toArray();
 
+            $className::factory($propertyList);
+
             $count = count($propertyList);
 
             for ($x = 0; $x < $count; $x++) {
@@ -84,7 +76,7 @@ class IsValidEventConstraint extends Constraint
                 // tenta fabricar com a nova ordenação dos argumentos
                 $className::factory($propertyList);
             }
-        } catch (EventException) {
+        } catch (Throwable) {
             // Only immutable dates are allowed
             // Every event must have a constructor that receives the state
             return false;

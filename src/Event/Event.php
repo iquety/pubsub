@@ -52,7 +52,8 @@ abstract class Event
         $className = get_called_class();
 
         return $other instanceof $className
-            && $this->toArray() == $other->toArray();
+            && $this->toArray() === $other->toArray()
+            && $this->occurredOn() == $other->occurredOn();
     }
 
     /** @return array<string,mixed> */

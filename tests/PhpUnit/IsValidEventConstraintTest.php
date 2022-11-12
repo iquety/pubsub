@@ -8,6 +8,8 @@ use DateTime;
 use DateTimeImmutable;
 use Iquety\PubSub\PhpUnit\IsValidEventConstraint;
 use PHPUnit\Framework\TestCase;
+use Tests\Event\Support\EventArrayIncorrect;
+use Tests\Event\Support\EventFactoryIncorrect;
 use Tests\Event\Support\EventMutable;
 use Tests\Event\Support\EventNoConstructor;
 use Tests\Event\Support\EventOccurred;
@@ -22,10 +24,35 @@ class IsValidEventConstraintTest extends TestCase
     }
 
     /** @test */
+    public function toStringInvocation(): void
+    {
+        $this->assertEquals(
+            'is a valid Event implementation',
+            $this->constraint->toString()
+        );
+    }
+
+    /** @test */
     public function mutableConstructorArguments(): void
     {
         $this->assertFalse($this->constraint->matches(
             new EventMutable('Titulo', new DateTime())
+        ));
+    }
+
+    /** @test */
+    public function sameEventFactory(): void
+    {
+        $this->assertFalse($this->constraint->matches(
+            new EventArrayIncorrect('Titulo')
+        ));
+    }
+
+     /** @test */
+    public function anyOrderInProperties(): void
+    {
+        $this->assertFalse($this->constraint->matches(
+            new EventFactoryIncorrect('Titulo', new DateTimeImmutable())
         ));
     }
 
