@@ -20,4 +20,19 @@ class EventOccurred extends Event
     {
         return 'post.register.v1';
     }
+
+    public function title(): string
+    {
+        return $this->title;
+    }
+
+    public function description(): string
+    {
+        return $this->description;
+    }
+
+    public function schedule(): DateTimeImmutable
+    {
+        return $this->schedule;
+    }
 }

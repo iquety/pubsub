@@ -12,6 +12,7 @@ use Tests\TestCase;
 
 class EventTest extends TestCase
 {
+    /** @return array<string,array<DateTimeImmutable>> */
     public function dateTimeProvider(): array
     {
         return [
@@ -30,7 +31,7 @@ class EventTest extends TestCase
      * @dataProvider dateTimeProvider
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public function eventFactory(DateTimeInterface $dateTime): void
+    public function eventFactory(DateTimeImmutable $dateTime): void
     {
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         // Evento Um

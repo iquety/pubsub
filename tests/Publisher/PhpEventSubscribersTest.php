@@ -10,27 +10,14 @@ use Tests\Publisher\TestCase\PhpPublisherTestCase;
 
 class PhpEventSubscribersTest extends PhpPublisherTestCase
 {
-    /** @return array<string,array<int,array<int,array<int,class-string|string>>>>  */
+    /** @return array<string,array<int,string>> */
     public function hasSubscribersProvider(): array
     {
         $list = [];
 
-        $subscribers = [
-            ['channel-one', SubscriberOne::class],
-        ];
-        $list['one subscriber'] = [ $subscribers ];
-
-        $subscribers = [
-            ['channel-one', SubscriberOne::class],
-            ['channel-one', new SubscriberTwo()],
-        ];
-        $list['two subscribers in same channel'] = [ $subscribers ];
-
-        $subscribers = [
-            ['channel-one', new SubscriberOne()],
-            ['channel-two', SubscriberTwo::class],
-        ];
-        $list['two subscribers in different channels'] = [ $subscribers ];
+        $list['one subscriber'] = [ 'channel-one', '' ];
+        $list['two subscribers in same channel'] = [ 'channel-one', 'channel-one' ];
+        $list['two subscribers in different channels'] = [ 'channel-one', 'channel-two' ];
 
         return $list;
     }
@@ -38,33 +25,22 @@ class PhpEventSubscribersTest extends PhpPublisherTestCase
     /**
      * @test
      * @dataProvider hasSubscribersProvider
-     * @param array<int,array<int,class-string|string>> $subscribers
      */
-    public function hasSubscribers(array $subscribers): void
+    public function hasSubscribers(string $channelOne, string $channelTwo): void
     {
-        $publisher = $this->phpPublisherFactory($subscribers);
+        $publisherTwo = $this->phpPublisherFactory(
+            $this->subscriberListFactory($channelOne, $channelTwo)
+        );
 
-        $this->assertTrue($publisher->hasSubscribers());
+        $this->assertTrue($publisherTwo->hasSubscribers());
     }
 
-    /** @return array<string,array<int,array<int,array<int,class-string|string>>>> */
-    public function resetSubscribersProvider(): array
+    /** @test */
+    public function resetSubscribers(): void
     {
-        $list = $this->hasSubscribersProvider();
-
-        $list['zero subscribers'] = [ [] ];
-
-        return $list;
-    }
-
-    /**
-     * @test
-     * @dataProvider resetSubscribersProvider
-     * @param array<int,array<int,class-string|string>> $subscribers
-     */
-    public function resetSubscribers(array $subscribers): void
-    {
-        $publisher = $this->phpPublisherFactory($subscribers);
+        $publisher = $this->phpPublisherFactory(
+            $this->subscriberListFactory('', '')
+        );
         $publisher->reset();
 
         $this->assertFalse($publisher->hasSubscribers());

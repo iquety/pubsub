@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace Tests\Publisher\TestCase;
 
-use DateTimeImmutable;
 use Iquety\PubSub\Publisher\PhpEventPublisher;
-use Tests\Example\Events\EventOne;
-use Tests\Example\Events\EventTwo;
+use Iquety\PubSub\Subscriber\EventSubscriber;
 
 class PhpPublisherTestCase extends PublisherTestCase
 {
-    /** @param array<int,array<int,class-string|string>> $subcriberList */
+    /** @param array<int,array<int,string|EventSubscriber>> $subcriberList */
     protected function phpPublisherFactory(array $subcriberList): PhpEventPublisher
     {
         $instance = new PhpEventPublisher('localhost', 8080);
 
         foreach ($subcriberList as $subscriber) {
+            /** @var string */
             $channel = $subscriber[0];
+
+            /** @var class-string<EventSubscriber> */
             $signature = $subscriber[1];
 
             $instance->subscribe($channel, $signature);

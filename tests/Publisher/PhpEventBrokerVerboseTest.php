@@ -63,19 +63,13 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
         ], $output);
     }
 
-    /** @return array<string,array<int,array<int,array<int,class-string|string>>>> */
+    /** @return array<string,array<int,string>> */
     public function receiveEventSignalProvider(): array
     {
         $list = [];
 
-        $subscribers = [
-            ['channel-one', SubscriberOne::class],
-            ['channel-one', new SubscriberTwo()]
-        ];
-        $list['two subscribers'] = [ $subscribers ];
-
-        $subscribers = [];
-        $list['zero subscribers'] = [ $subscribers ];
+        $list['two subscribers'] = [ 'channel-one', 'channel-one' ];
+        $list['zero subscribers'] = [ '', '' ];
 
         return $list;
     }
@@ -83,11 +77,12 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
     /**
      * @test
      * @dataProvider receiveEventSignalProvider
-     * @param array<int,array<int,class-string|string>> $subscribers
      */
-    public function receiveEventSignal(array $subscribers): void
+    public function receiveEventSignal(string $channelOne, string $channelTwo): void
     {
-        $publisher = $this->phpPublisherFactory($subscribers)->enableVerboseMode();
+        $publisher = $this->phpPublisherFactory(
+            $this->subscriberListFactory($channelOne, $channelTwo)
+        )->enableVerboseMode();
 
         $publisher->useTestSocket(
             fopen(__DIR__ . '/../files/stream-signal.txt', 'r')

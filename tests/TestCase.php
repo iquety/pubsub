@@ -12,6 +12,8 @@ use Tests\Example\Events\EventOne;
 use Iquety\Security\Filesystem;
 use PHPUnit\Framework\TestCase as FrameworkTestCase;
 use Tests\Example\Events\EventTwo;
+use Tests\Example\Subscribers\SubscriberOne;
+use Tests\Example\Subscribers\SubscriberTwo;
 
 class TestCase extends FrameworkTestCase
 {
@@ -57,6 +59,27 @@ class TestCase extends FrameworkTestCase
             55544433322,
             $ocurredOn ?? new DateTimeImmutable('2022-05-22 17:00:00')
         );
+    }
+
+    /** @return array<array<string>> */
+    public function subscriberListFactory(string $one = '', string $two = ''): array
+    {
+        $list = [];
+
+        $possibilityList = [
+            'channel-one' => SubscriberOne::class,
+            'channel-two' => SubscriberTwo::class
+        ];
+
+        if ($one !== '') {
+            $list[] = [ $one, $possibilityList[$one] ];
+        }
+
+        if ($two !== '') {
+            $list[] = [ $two, $possibilityList[$two] ];
+        }
+
+        return $list;
     }
 
     protected function filesystemFactory(): Filesystem
