@@ -42,5 +42,33 @@ $event = new EventOne('Ricardo', '99988877766', $schedule);
 $publisher->publish('channel-vormir', $event);
 ```
 
+## 5. Testando um evento
+
+A valid event has specific behaviors in order to behave correctly within publishers. As there is the possibility of overriding abstract methods, it is important to verify that the new implementation will behave properly.
+
+This can be done using the `EventTests` trait:
+
+```php
+class UserPublicationTest extends TestCase
+{
+use EventTests;
+```
+
+To implement an event check, just use the `assertIsValidEvent` method:
+
+```php
+/** @test */
+public function eventOk(): void
+{
+$event = new EventOccurred(
+'My post',
+'Description to my post',
+new DateTimeImmutable()
+);
+
+$this->assertIsValidEvent($event);
+}
+```
+
 [◂ Implementando um Evento](08-implementando-um-evento.md) | [Sumário da Documentação](indice.md) | [Publicando um sinal de parada ▸](10-publicando-um-sinal-de-parada.md)
 -- | -- | --

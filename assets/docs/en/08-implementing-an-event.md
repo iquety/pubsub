@@ -179,4 +179,33 @@ class UserRegistered implements Event
 }
 ```
 
+## 5. Testando um evento
+
+Um evento válido possui comportamentos específicos, de forma a se comportar corretamente dentro
+dos publicadores. Como existe a possibilidade de sobrescrever métodos abstratos, é importante verificar se a nova implementação irá se comportar adequadamente.
+
+Isso pode ser feito utilizando o trait `EventTests`:
+
+```php
+class UserPublicationTest extends TestCase
+{
+    use EventTests;
+```
+
+Para implementar uma verificação de evento, basta usar o método `assertIsValidEvent`:
+
+```php
+    /** @test */
+    public function eventOk(): void
+    {
+        $event = new EventOccurred(
+            'My post',
+            'Description to my post',
+            new DateTimeImmutable()
+        );
+
+        $this->assertIsValidEvent($event);
+    }
+```
+
 --page-nav--
