@@ -35,7 +35,7 @@ class UserRegistered extends Iquety\PubSub\Event\Event
 
 ### 2.2. Método label
 
-Este método deve devolver uma identificação textual única, que nomeie o evento de forma clara e objetiva. 
+Este método deve devolver uma identificação textual única, que nomeie o evento de forma clara e objetiva.
 Deve ser um nome declarativo e facilmente reconhecível por humanos.
 
 Bons exemplos de identificação são 'user_registered' ou 'user.registered'.
@@ -87,7 +87,6 @@ Este método recebe um `array` associativo contendo os dados do evento ($values)
 
 **Mais importante ainda**: Este método pode ser sobrescrito para favorecer retrocompatibilidades de eventos. Caso a implementação dos valores de um evento existente precisem mudar, seja por uma evolução no sistema ou por uma correção necessária, este método deverá garantir o máximo possível de retrocompatibilidade com os dados implementados em versões anteriores. Isso é necessário para garantir que módulos ou subsistemas que ainda não se atualizaram, possam continuar enviando eventos, mesmo que incompletos.
 
-
 ```php
 /** @param array<string,mixed> $values */
 public static function factory(array $values): Event
@@ -126,7 +125,6 @@ Além dos argumentos passados no construtor, este método devolverá um valor ad
 ```php
 public function toArray(): array;
 ```
-
 
 ## 4. Exemplo
 

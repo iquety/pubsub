@@ -87,7 +87,6 @@ This method receives an associative `array` containing the event data ($values).
 
 **More importantly**: This method can be overridden to favor event backwards compatibility. If the implementation of the values ​​of an existing event needs to change, either due to an evolution in the system or a necessary correction, this method must guarantee the maximum possible backward compatibility with the data implemented in previous versions. This is necessary to ensure that modules or subsystems that have not yet been updated can continue to send events, even if incomplete.
 
-
 ```php
 /** @param array<string,mixed> $values */
 public static function factory(array $values): Event
@@ -126,7 +125,6 @@ In addition to the arguments passed in the constructor, this method will return 
 ```php
 public function toArray(): array;
 ```
-
 
 ## 4. Exemplo
 
