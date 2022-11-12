@@ -61,12 +61,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/iquety/security.git",
-                "reference": "62a8670b1df2f8223f0c8d4b314d8dba4fd367a1"
+                "reference": "680285daf3915d7345172644a17d6be86d28b82f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/iquety/security/zipball/62a8670b1df2f8223f0c8d4b314d8dba4fd367a1",
-                "reference": "62a8670b1df2f8223f0c8d4b314d8dba4fd367a1",
+                "url": "https://api.github.com/repos/iquety/security/zipball/680285daf3915d7345172644a17d6be86d28b82f",
+                "reference": "680285daf3915d7345172644a17d6be86d28b82f",
                 "shasum": ""
             },
             "require": {
@@ -99,9 +99,9 @@
             ],
             "support": {
                 "issues": "https://github.com/iquety/security/issues",
-                "source": "https://github.com/iquety/security/tree/main"
+                "source": "https://github.com/iquety/security/tree/v1.0.2"
             },
-            "time": "2022-10-28T17:26:49+00:00"
+            "time": "2022-11-12T21:29:20+00:00"
         }
     ],
     "packages-dev": [
@@ -444,12 +444,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/iquety/docmap.git",
-                "reference": "5538fa3a55ef6a573579cbc312c4c20d81dcae85"
+                "reference": "5ead3ccfeeb7eb2ed03d54bfba516db94095cf59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/iquety/docmap/zipball/5538fa3a55ef6a573579cbc312c4c20d81dcae85",
-                "reference": "5538fa3a55ef6a573579cbc312c4c20d81dcae85",
+                "url": "https://api.github.com/repos/iquety/docmap/zipball/5ead3ccfeeb7eb2ed03d54bfba516db94095cf59",
+                "reference": "5ead3ccfeeb7eb2ed03d54bfba516db94095cf59",
                 "shasum": ""
             },
             "require": {
@@ -459,7 +459,7 @@
             "require-dev": {
                 "codacy/coverage": "dev-master",
                 "phpmd/phpmd": "@stable",
-                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan": "^1.8",
                 "phpunit/phpunit": "^9",
                 "squizlabs/php_codesniffer": "3.*"
             },
@@ -485,9 +485,9 @@
             ],
             "support": {
                 "issues": "https://github.com/iquety/docmap/issues",
-                "source": "https://github.com/iquety/docmap/tree/main"
+                "source": "https://github.com/iquety/docmap/tree/v1.0.3"
             },
-            "time": "2022-10-28T17:32:50+00:00"
+            "time": "2022-11-12T21:42:38+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -550,16 +550,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.15.1",
+            "version": "v4.15.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "0ef6c55a3f47f89d7a374e6f835197a0b5fcf900"
+                "reference": "f59bbe44bf7d96f24f3e2b4ddc21cd52c1d2adbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/0ef6c55a3f47f89d7a374e6f835197a0b5fcf900",
-                "reference": "0ef6c55a3f47f89d7a374e6f835197a0b5fcf900",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/f59bbe44bf7d96f24f3e2b4ddc21cd52c1d2adbc",
+                "reference": "f59bbe44bf7d96f24f3e2b4ddc21cd52c1d2adbc",
                 "shasum": ""
             },
             "require": {
@@ -600,9 +600,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.1"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.2"
             },
-            "time": "2022-09-04T07:30:47+00:00"
+            "time": "2022-11-12T15:38:23+00:00"
         },
         {
             "name": "pdepend/pdepend",

@@ -23,14 +23,14 @@ Não deve ser possível alterá-los depois da instanciação, a fim de garantir 
 ```php
 class UserRegistered extends Iquety\PubSub\Event\Event
 {
-public function __construct(
-private string $name,
-private string $cpf,
-private DateTimeImmutable $schedule
-) {
-}
+    public function __construct(
+        private string $name,
+        private string $cpf,
+        private DateTimeImmutable $schedule
+    ) {
+    }
 
-// abstract public function label(): string;
+    // abstract public function label(): string;    
 }
 ```
 
@@ -46,7 +46,7 @@ Péssimos exemplos são 'registered', '12345' ou 'abst345sd'.
 ```php
 public function label(): string
 {
-return 'user.registered';
+    return 'user.registered';
 }
 ```
 
@@ -57,22 +57,22 @@ Getters podem ser implementados, desde que não alterem o estado atual do evento
 ```php
 class UserRegistered extends Iquety\PubSub\Event\Event
 {
-public function __construct(
-private string $name,
-private string $cpf,
-private DateTimeImmutable $schedule
-) {
-}
+    public function __construct(
+        private string $name,
+        private string $cpf,
+        private DateTimeImmutable $schedule
+    ) {
+    }
 
-public function cpf(): string
-{
-return $this->cpf;
-}
+    public function cpf(): string
+    {
+        return $this->cpf;
+    }
 
-public function name(): string
-{
-return $this->name;
-}
+    public function name(): string
+    {
+        return $this->name;
+    }
 }
 ```
 
@@ -92,12 +92,12 @@ Este método recebe um `array` associativo contendo os dados do evento ($values)
 /** @param array<string,mixed> $values */
 public static function factory(array $values): Event
 {
-// na versão anterior 'cpf' se chamava 'document'
-if (isset($values['document']) === true) {
-$values['cpf'] = $values['document'];
-}
+    // na versão anterior 'cpf' se chamava 'document'
+    if (isset($values['document']) === true) {
+        $values['cpf'] = $values['document'];
+    }
 
-return parent::factory($values);
+    return parent::factory($values);
 }
 ```
 
@@ -141,42 +141,42 @@ use Iquety\PubSub\Event\Event;
 
 class UserRegistered implements Event
 {
-public function __construct(
-private string $name,
-private string $cpf,
-private DateTimeImmutable $ocurredOn
-) {
-}
+    public function __construct(
+        private string $name,
+        private string $cpf,
+        private DateTimeImmutable $ocurredOn
+    ) {
+    }
 
-public function label(): string
-{
-return 'user.registered';
-}
+    public function label(): string
+    {
+        return 'user.registered';
+    }
 
-/** @param array<string,mixed> $values */
-public static function factory(array $values): Event
-{
-// na versão anterior 'cpf' se chamava 'document'
-if (isset($values['document']) === true) {
-$values['cpf'] = $values['document'];
-}
+    /** @param array<string,mixed> $values */
+    public static function factory(array $values): Event
+    {
+        // na versão anterior 'cpf' se chamava 'document'
+        if (isset($values['document']) === true) {
+            $values['cpf'] = $values['document'];
+        }
+        
+        return new self(
+            $values['name'],
+            $values['cpf'],
+            new DateTimeImmutable($values['ocurredOn'])
+        );
+    }
 
-return new self(
-$values['name'],
-$values['cpf'],
-new DateTimeImmutable($values['ocurredOn'])
-);
-}
+    public function cpf(): string
+    {
+        return $this->cpf;
+    }
 
-public function cpf(): string
-{
-return $this->cpf;
-}
-
-public function name(): string
-{
-return $this->name;
-}
+    public function name(): string
+    {
+        return $this->name;
+    }
 }
 ```
 

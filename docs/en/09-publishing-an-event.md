@@ -20,7 +20,7 @@ $schedule = new DateTimeImmutable('2020-01-10 00:00:01');
 $event = new UserRegistered('Ricardo', '99988877766', $schedule);
 
 SimpleEventPublisher::instance()
-->publish('registrations', $event);
+    ->publish('registrations', $event);
 ```
 
 In the example above, the "UserRegistered" event is published in the "registrations" channel. The subscriber "RegistrationSubscriber" will handle the event, invoking the appropriate routines for it.

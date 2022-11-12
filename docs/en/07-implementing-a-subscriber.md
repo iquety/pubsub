@@ -17,12 +17,12 @@ This method receives an identification `string` ($eventLabel) and an associative
 /** @param array<string,mixed> $eventData */
 public function eventFactory(string $eventLabel, array $eventData): ?Event
 {
-// hmmm... let's make UserRegistered
-if ($eventLabel === 'user-registered') {
-return UserRegistered::factory($eventData);
-}
+    // hmmm... let's make UserRegistered
+    if ($eventLabel === 'user-registered') { 
+        return UserRegistered::factory($eventData);
+    }
 
-return null;
+    return null;
 }
 ```
 
@@ -33,17 +33,17 @@ This method receives an event instance and must invoke the appropriate business 
 ```php
 public function handleEvent(Event $event): void
 {
-if ($event instanceof UserRegistered) {
-// ...
-// routine that creates a new user in the database
+    if ($event instanceof UserRegistered) {
+        // ...
+        // routine that creates a new user in the database
 
-return;
-}
+        return;
+    }
 
-if ($event instanceof UserEmailChanged) {
-// ...
-// routine that updates the email of an existing user in the database
-}
+    if ($event instanceof UserEmailChanged) {
+        // ...
+        // routine that updates the email of an existing user in the database
+    }
 }
 ```
 
@@ -54,8 +54,8 @@ This method must return the type of event that the Subscriber is able to handle.
 ```php
 public function subscribedToEventType(): string
 {
-// Only events of this type will be received by this subscriber
-return UserEvent::class;
+    // Only events of this type will be received by this subscriber
+    return UserEvent::class;
 }
 ```
 
@@ -75,40 +75,40 @@ use Iquety\PubSub\Subscriber\EventSubscriber;
 
 class UserEventSubscriber implements EventSubscriber
 {
-/** @param array<string,mixed> $eventData */
-public function eventFactory(string $eventLabel, array $eventData): ?Event
-{
-if ($eventLabel === 'user-registered') {
-return UserRegistered::factory($eventData);
-}
+    /** @param array<string,mixed> $eventData */
+    public function eventFactory(string $eventLabel, array $eventData): ?Event
+    {
+        if ($eventLabel === 'user-registered') {
+            return UserRegistered::factory($eventData);
+        }
 
-if ($eventLabel === 'user-email-changed') {
-return UserEmailChanged::factory($eventData);
-}
+        if ($eventLabel === 'user-email-changed') {
+            return UserEmailChanged::factory($eventData);
+        }
 
-return null;
-}
+        return null;
+    }
 
-public function handleEvent(Event $event): void
-{
-if ($event instanceof UserRegistered) {
-// ...
-// routine that creates a new user in the database
+    public function handleEvent(Event $event): void
+    {
+        if ($event instanceof UserRegistered) {
+            // ...
+            // routine that creates a new user in the database
 
-return;
-}
+            return;
+        }
 
-if ($event instanceof UserEmailChanged) {
-// ...
-// routine that updates the email of an existing user in the database
-}
-}
+        if ($event instanceof UserEmailChanged) {
+            // ...
+            // routine that updates the email of an existing user in the database
+        }
+    }
 
-public function subscribedToEventType(): string
-{
-// Only events of this type will be received by this subscriber
-return UserEvent::class;
-}
+    public function subscribedToEventType(): string
+    {
+        // Only events of this type will be received by this subscriber
+        return UserEvent::class;
+    }
 }
 ```
 

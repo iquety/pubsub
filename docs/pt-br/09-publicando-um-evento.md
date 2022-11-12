@@ -22,7 +22,7 @@ $schedule = new DateTimeImmutable('2020-01-10 00:00:01');
 $event = new UserRegistered('Ricardo', '99988877766', $schedule);
 
 SimpleEventPublisher::instance()
-->publish('registrations', $event);
+    ->publish('registrations', $event);
 ```
 
 No exemplo acima, o evento "UserRegistered" (usuário cadastrado) é publicado no canal "registrations" (cadastros). O inscrito "RegistrationSubscriber" irá lidar com o evento, invocando as rotinas apropriadas para ele.
@@ -51,23 +51,23 @@ This can be done using the `EventTests` trait:
 ```php
 class UserPublicationTest extends TestCase
 {
-use EventTests;
+    use EventTests;
 ```
 
 To implement an event check, just use the `assertIsValidEvent` method:
 
 ```php
-/** @test */
-public function eventOk(): void
-{
-$event = new EventOccurred(
-'My post',
-'Description to my post',
-new DateTimeImmutable()
-);
+    /** @test */
+    public function eventOk(): void
+    {
+        $event = new EventOccurred(
+            'My post',
+            'Description to my post',
+            new DateTimeImmutable()
+        );
 
-$this->assertIsValidEvent($event);
-}
+        $this->assertIsValidEvent($event);
+    }
 ```
 
 [◂ Implementando um Evento](08-implementando-um-evento.md) | [Sumário da Documentação](indice.md) | [Publicando um sinal de parada ▸](10-publicando-um-sinal-de-parada.md)

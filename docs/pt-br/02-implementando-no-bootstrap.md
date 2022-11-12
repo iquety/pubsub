@@ -17,8 +17,8 @@ A localização e a implementação do "Ponto de Início" de uma aplicação (ta
 // ... rotinas iniciais da aplicação ...
 
 SimpleEventPublisher::instance()
-->subscribe('registrations', RegistrationSubscriber::class)
-->subscribe('payments', PaymentSubscriber::class);
+    ->subscribe('registrations', RegistrationSubscriber::class)
+    ->subscribe('payments', PaymentSubscriber::class);
 
 // ... outras rotinas iniciais da aplicação ...
 ```
@@ -34,7 +34,7 @@ $ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
 $event = new UserRegistered('Ricardo', '99988877766', $ocurredOn);
 
 SimpleEventPublisher::instance()
-->publish('registrations', $event);
+    ->publish('registrations', $event);
 ```
 
 No exemplo acima, o evento "UserRegistered" (usuário cadastrado) é publicado no canal "registrations" (cadastros). O inscrito "RegistrationSubscriber" irá lidar com o evento, invocando as rotinas apropriadas para ele.

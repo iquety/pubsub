@@ -23,14 +23,14 @@ It should not be possible to change them after instantiation, in order to guaran
 ```php
 class UserRegistered extends Iquety\PubSub\Event\Event
 {
-public function __construct(
-private string $name,
-private string $cpf,
-private DateTimeImmutable $schedule
-) {
-}
+    public function __construct(
+        private string $name,
+        private string $cpf,
+        private DateTimeImmutable $schedule
+    ) {
+    }
 
-// abstract public function label(): string;
+    // abstract public function label(): string;    
 }
 ```
 
@@ -46,7 +46,7 @@ Bad examples are 'registered', '12345' or 'abst345sd'.
 ```php
 public function label(): string
 {
-return 'user.registered';
+    return 'user.registered';
 }
 ```
 
@@ -57,22 +57,22 @@ Getters can be implemented as long as they don't change the current state of the
 ```php
 class UserRegistered extends Iquety\PubSub\Event\Event
 {
-public function __construct(
-private string $name,
-private string $cpf,
-private DateTimeImmutable $schedule
-) {
-}
+    public function __construct(
+        private string $name,
+        private string $cpf,
+        private DateTimeImmutable $schedule
+    ) {
+    }
 
-public function cpf(): string
-{
-return $this->cpf;
-}
+    public function cpf(): string
+    {
+        return $this->cpf;
+    }
 
-public function name(): string
-{
-return $this->name;
-}
+    public function name(): string
+    {
+        return $this->name;
+    }
 }
 ```
 
@@ -92,12 +92,12 @@ This method receives an associative `array` containing the event data ($values).
 /** @param array<string,mixed> $values */
 public static function factory(array $values): Event
 {
-// in the previous version 'cpf' was called 'document'
-if (isset($values['document']) === true) {
-$values['cpf'] = $values['document'];
-}
+    // in the previous version 'cpf' was called 'document'
+    if (isset($values['document']) === true) {
+        $values['cpf'] = $values['document'];
+    }
 
-return parent::factory($values);
+    return parent::factory($values);
 }
 ```
 
@@ -141,42 +141,42 @@ use Iquety\PubSub\Event\Event;
 
 class UserRegistered implements Event
 {
-public function __construct(
-private string $name,
-private string $cpf,
-private DateTimeImmutable $ocurredOn
-) {
-}
+    public function __construct(
+        private string $name,
+        private string $cpf,
+        private DateTimeImmutable $ocurredOn
+    ) {
+    }
 
-public function label(): string
-{
-return 'user.registered';
-}
+    public function label(): string
+    {
+        return 'user.registered';
+    }
 
-/** @param array<string,mixed> $values */
-public static function factory(array $values): Event
-{
-// in the previous version 'cpf' was called 'document'
-if (isset($values['document']) === true) {
-$values['cpf'] = $values['document'];
-}
+    /** @param array<string,mixed> $values */
+    public static function factory(array $values): Event
+    {
+        // in the previous version 'cpf' was called 'document'
+        if (isset($values['document']) === true) {
+            $values['cpf'] = $values['document'];
+        }
+        
+        return new self(
+            $values['name'],
+            $values['cpf'],
+            new DateTimeImmutable($values['ocurredOn'])
+        );
+    }
 
-return new self(
-$values['name'],
-$values['cpf'],
-new DateTimeImmutable($values['ocurredOn'])
-);
-}
+    public function cpf(): string
+    {
+        return $this->cpf;
+    }
 
-public function cpf(): string
-{
-return $this->cpf;
-}
-
-public function name(): string
-{
-return $this->name;
-}
+    public function name(): string
+    {
+        return $this->name;
+    }
 }
 ```
 
@@ -190,23 +190,23 @@ Isso pode ser feito utilizando o trait `EventTests`:
 ```php
 class UserPublicationTest extends TestCase
 {
-use EventTests;
+    use EventTests;
 ```
 
 Para implementar uma verificação de evento, basta usar o método `assertIsValidEvent`:
 
 ```php
-/** @test */
-public function eventOk(): void
-{
-$event = new EventOccurred(
-'My post',
-'Description to my post',
-new DateTimeImmutable()
-);
+    /** @test */
+    public function eventOk(): void
+    {
+        $event = new EventOccurred(
+            'My post',
+            'Description to my post',
+            new DateTimeImmutable()
+        );
 
-$this->assertIsValidEvent($event);
-}
+        $this->assertIsValidEvent($event);
+    }
 ```
 
 [◂ Implementing a Subscriber](07-implementing-a-subscriber.md) | [Documentation Summary](index.md) | [Publishing an event ▸](09-publishing-an-event.md)

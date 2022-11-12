@@ -17,8 +17,8 @@ The location and implementation of an application's "Start Point" (also called "
 // ... application start-up routines ...
 
 SimpleEventPublisher::instance()
-->subscribe('registrations', RegistrationSubscriber::class)
-->subscribe('payments', PaymentSubscriber::class);
+    ->subscribe('registrations', RegistrationSubscriber::class)
+    ->subscribe('payments', PaymentSubscriber::class);
 
 // ... other application start-up routines ...
 ```
@@ -34,7 +34,7 @@ $ocurredOn = new DateTimeImmutable('2020-01-10 00:00:01');
 $event = new UserRegistered('Ricardo', '99988877766', $ocurredOn);
 
 SimpleEventPublisher::instance()
-->publish('registrations', $event);
+    ->publish('registrations', $event);
 ```
 
 In the example above, the "UserRegistered" event is published in the "registrations" channel. The subscriber "RegistrationSubscriber" will handle the event, invoking the appropriate routines for it.

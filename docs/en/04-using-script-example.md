@@ -16,10 +16,10 @@ Run the script with the '--help' option to learn how to use it:
 Something like the text below will be displayed:
 
 ```bash
-Options:
+Options: 
 -h, --help            Display help information
 
-Available commands:
+Available commands: 
 help                  Display help information
 pubsub:broker         Start the pubsub message broker
 pubsub:client-test    Send a test events to the pub/sub message broker
@@ -72,9 +72,9 @@ use Tests\Example\Subscribers\SubscriberOne;
 use Tests\Example\Subscribers\SubscriberTwo;
 
 return function (EventLoop $loop) {
-$loop->addSubscriber('channel-vormir', SubscriberOne::class); // receive EventOne
-$loop->addSubscriber('channel-vormir', SubscriberTwo::class); // receive EventOne e EventTwo
-$loop->addSubscriber('channel-mordor', SubscriberTwo::class); // receive EventOne e EventTwo
+    $loop->addSubscriber('channel-vormir', SubscriberOne::class); // receive EventOne
+    $loop->addSubscriber('channel-vormir', SubscriberTwo::class); // receive EventOne e EventTwo
+    $loop->addSubscriber('channel-mordor', SubscriberTwo::class); // receive EventOne e EventTwo
 };
 ```
 
