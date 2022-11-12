@@ -6,11 +6,8 @@ namespace Iquety\PubSub\Event;
 
 use DateTime;
 use DateTimeImmutable;
-use Exception;
-use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionObject;
-use RuntimeException;
 
 abstract class Event
 {
@@ -66,7 +63,7 @@ abstract class Event
         $constructor = $reflection->getConstructor();
 
         if ($constructor === null) {
-            throw new Exception('Every event must have a constructor that receives the state');
+            throw new EventException('Every event must have a constructor that receives the state');
         }
 
         $argumentList = $constructor->getParameters();
@@ -96,7 +93,7 @@ abstract class Event
     {
         foreach ($valueList as $value) {
             if ($value instanceof DateTime) {
-                throw new InvalidArgumentException('Only immutable dates are allowed');
+                throw new EventException('Only immutable dates are allowed');
             }
         }
     }
@@ -113,7 +110,7 @@ abstract class Event
         $constructor = $reflection->getConstructor();
 
         if ($constructor === null) {
-            throw new Exception('Every event must have a constructor that receives the state');
+            throw new EventException('Every event must have a constructor that receives the state');
         }
 
         $argumentList = $constructor ->getParameters();
