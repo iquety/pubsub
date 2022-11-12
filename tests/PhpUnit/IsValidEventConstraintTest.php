@@ -14,7 +14,7 @@ use Tests\Event\Support\EventOccurred;
 
 class IsValidEventConstraintTest extends TestCase
 {
-    private $constraint;
+    private IsValidEventConstraint $constraint;
 
     public function setUp(): void
     {
@@ -22,7 +22,7 @@ class IsValidEventConstraintTest extends TestCase
     }
 
     /** @test */
-    public function mutableConstructorArguments()
+    public function mutableConstructorArguments(): void
     {
         $this->assertFalse($this->constraint->matches(
             new EventMutable('Titulo', new DateTime())
@@ -30,7 +30,7 @@ class IsValidEventConstraintTest extends TestCase
     }
 
     /** @test */
-    public function noConstructorImplementation()
+    public function noConstructorImplementation(): void
     {
         $this->assertFalse($this->constraint->matches(
             new EventNoConstructor()
@@ -38,7 +38,7 @@ class IsValidEventConstraintTest extends TestCase
     }
 
     /** @test */
-    public function eventOk()
+    public function eventOk(): void
     {
         $this->assertTrue($this->constraint->matches(
             new EventOccurred('Título', 'Descrição', new DateTimeImmutable())
