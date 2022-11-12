@@ -9,7 +9,7 @@ PHP_CONTAINER='iquety-pubsub'
 
 docker-compose up -d
 
-if [ "$1" == "analyse --docs" ]; then
+if [ "$1" == "analyse" ] && [ "$2" == "--docs" ]; then
     docker run \
         -e RUN_LOCAL=true \
         -e VALIDATE_MARKDOWN=true \
