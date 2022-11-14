@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Tests\Publisher;
 
 use Iquety\PubSub\Event\EventSignal;
+use Iquety\PubSub\Event\Signal;
 use Iquety\PubSub\Event\Signals;
+use Iquety\PubSub\Event\StopSignal;
 use RuntimeException;
 use Tests\Publisher\TestCase\PhpPublisherTestCase;
 
@@ -77,12 +79,12 @@ class PhpEventClientTest extends PhpPublisherTestCase
             fopen(__DIR__ . '/../files/fake-connection.txt', 'w')
         );
 
-        $publisher->publish('channel-one', new EventSignal(Signals::STOP));
+        $publisher->publish('channel-one', new StopSignal());
 
         $this->assertEquals([
             'channel'   => 'channel-one',
             'label'     => 'signal.stop',
-            'eventData' => Signals::STOP
+            'eventData' => Signal::STOP
         ], $this->readLastEventFromFile('fake-connection.txt'));
     }
 }

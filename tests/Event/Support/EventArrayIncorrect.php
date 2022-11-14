@@ -13,7 +13,7 @@ class EventArrayIncorrect extends Event
     ) {
     }
 
-    public function label(): string
+    public static function label(): string
     {
         return 'post.register.v1';
     }

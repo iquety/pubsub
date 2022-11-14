@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace Iquety\PubSub\Publisher;
 
-use DateTime;
-use DateTimeImmutable;
-use DateTimeZone;
 use Iquety\Console\Message;
-use Iquety\PubSub\Event\Event;
 use Iquety\PubSub\Event\Serializer\JsonEventSerializer;
 use Iquety\PubSub\Event\Serializer\EventSerializer;
 

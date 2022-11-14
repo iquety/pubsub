@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Iquety\PubSub\Publisher;
 
-use DateTimeZone;
 use Exception;
 use Iquety\PubSub\Event\Event;
-use Iquety\PubSub\Event\EventSignal;
+use Iquety\PubSub\Event\Signal;
 use Iquety\PubSub\Subscriber\EventSubscriber;
 
 /**
@@ -143,10 +142,10 @@ class SimpleEventPublisher extends AbstractEventPublisher
             return $this;
         }
 
-        if ($event instanceof EventSignal) {
+        if ($event instanceof Signal) {
             $this->messageFactory(
                 $this->getNowTimeString() .
-                "EventSignal type messages have no effect on publisher SimpleEventPublisher"
+                "Signal type messages have no effect on publisher SimpleEventPublisher"
             )->infoLn();
 
             return $this;

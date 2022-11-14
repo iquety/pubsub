@@ -36,7 +36,7 @@ abstract class Event
         return $event;
     }
 
-    abstract public function label(): string;
+    abstract public static function label(): string;
 
     public function occurredOn(): DateTimeImmutable
     {
@@ -77,7 +77,9 @@ abstract class Event
             $property = $reflection->getProperty($label);
             $property->setAccessible(true);
 
-            $value = $property->getValue($this);
+            $value = ($property->isStatic() === true)
+                ? $this::$label()
+                : $property->getValue($this);
 
             $propertyList[$label] = $value;
         }

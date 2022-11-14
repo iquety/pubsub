@@ -13,7 +13,7 @@ Veja um exemplo de evento de sinal:
 ```php
 $publisher = new PhpEventPublisher('localhost', 7703);
 
-$event = new EventSignal(Signals::STOP);
+$event = new StopSignal();
 
 $publisher->publish('channel-vormir', $event);
 ```

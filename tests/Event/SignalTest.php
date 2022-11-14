@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace Tests\Event;
 
 use DateTimeImmutable;
-use Iquety\PubSub\Event\EventSignal;
-use Iquety\PubSub\Event\Signals;
+use Iquety\PubSub\Event\Signal;
+use Iquety\PubSub\Event\StopSignal;
 use Tests\TestCase;
 
-class EventSignalTest extends TestCase
+class SignalTest extends TestCase
 {
     /** @test */
     public function useGetters(): void
     {
-        $event = new EventSignal(Signals::STOP);
+        $event = new StopSignal();
 
-        $this->assertEquals(Signals::STOP, $event->label());
+        $this->assertEquals(Signal::STOP, $event->label());
         $this->assertInstanceOf(DateTimeImmutable::class, $event->occurredOn());
-        $this->assertTrue($event->sameEventAs(new EventSignal(Signals::STOP)));
+        $this->assertTrue($event->sameEventAs(new StopSignal()));
         $this->assertFalse($event->sameEventAs($this->eventOneFactory()));
 
         $this->assertEquals([], $event->toArray());
@@ -30,14 +30,13 @@ class EventSignalTest extends TestCase
      */
     public function useFactory(): void
     {
-        $event = EventSignal::factory([
-            'signal' => Signals::STOP,
+        $event = StopSignal::factory([
             'context' => []
         ]);
 
-        $this->assertEquals(Signals::STOP, $event->label());
+        $this->assertEquals(Signal::STOP, $event->label());
         $this->assertInstanceOf(DateTimeImmutable::class, $event->occurredOn());
-        $this->assertTrue($event->sameEventAs(new EventSignal(Signals::STOP)));
+        $this->assertTrue($event->sameEventAs(new StopSignal()));
         $this->assertFalse($event->sameEventAs($this->eventOneFactory()));
 
         $this->assertEquals([], $event->toArray());

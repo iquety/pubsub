@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Iquety\PubSub\Publisher\PhpEventPublisher;
 
 use Iquety\PubSub\Event\Event;
-use Iquety\PubSub\Event\EventSignal;
+use Iquety\PubSub\Event\Signal;
 use RuntimeException;
 
 /**
@@ -57,7 +57,7 @@ trait PublisherEngineTrait
     /** @param resource $socketClient */
     protected function setActivityFor($socketClient, string $channel, Event $event): void
     {
-        $eventContents = ($event instanceof EventSignal)
+        $eventContents = ($event instanceof Signal)
             ? $event->label()
             : $this->getSerializer()->serialize($event->toArray());
 

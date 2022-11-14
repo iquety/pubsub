@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Publisher;
 
-use Iquety\PubSub\Event\EventSignal;
-use Iquety\PubSub\Event\Signals;
-use RuntimeException;
+use Iquety\PubSub\Event\StopSignal;
 use Tests\Publisher\TestCase\PhpPublisherTestCase;
 
 class PhpEventClientVerboseTest extends PhpPublisherTestCase
@@ -53,7 +51,7 @@ class PhpEventClientVerboseTest extends PhpPublisherTestCase
         );
 
         $output = $this->gotcha(
-            fn() => $publisher->publish('channel-one', new EventSignal(Signals::STOP))
+            fn() => $publisher->publish('channel-one', new StopSignal())
         );
 
         $this->assertStringHasMessages([

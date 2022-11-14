@@ -16,7 +16,7 @@ class EventOne extends Event
     ) {
     }
 
-    public function label(): string
+    public static function label(): string
     {
         return 'event-one';
     }

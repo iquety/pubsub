@@ -95,7 +95,7 @@ class PubSubClientCommand extends Command
             $publisher->publish('channel-greenville', $eventTwo);
 
             // parar o servidor de publish/subscribe
-            // $publisher->publish('vormir', new EventSignal(Signals::STOP));
+            // $publisher->publish('vormir', new StopSignal());
         } catch (RuntimeException $exception) { // @codeCoverageIgnore
             $this->error($exception->getMessage()); // @codeCoverageIgnore
         }

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Publisher;
 
-use Iquety\PubSub\Event\EventSignal;
-use Iquety\PubSub\Event\Signals;
+use Iquety\PubSub\Event\StopSignal;
 use Tests\Example\Subscribers\SubscriberError;
 use Tests\Example\Subscribers\SubscriberException;
 use Tests\Example\Subscribers\SubscriberOne;
@@ -81,11 +80,11 @@ class SimpleEventVerboseTest extends SimplePublisherTestCase
         ])->enableVerboseMode();
 
         $output = $this->gotcha(
-            fn() => $publisher->publish('channel-one', new EventSignal(Signals::STOP))
+            fn() => $publisher->publish('channel-one', new StopSignal())
         );
 
         $this->assertStringHasMessages([
-            "EventSignal type messages have no effect on publisher SimpleEventPublisher"
+            "Signal type messages have no effect on publisher SimpleEventPublisher"
         ], $output);
     }
 
@@ -102,20 +101,20 @@ class SimpleEventVerboseTest extends SimplePublisherTestCase
         ])->enableVerboseMode();
 
         $output = $this->gotcha(
-            fn() => $publisher->publish('channel-one', new EventSignal(Signals::STOP))
+            fn() => $publisher->publish('channel-one', new StopSignal())
         );
 
         $this->assertStringHasMessages([
-            "EventSignal type messages have no effect on publisher SimpleEventPublisher"
+            "Signal type messages have no effect on publisher SimpleEventPublisher"
         ], $output);
 
         // executa novamente para passar pelo setupErrorHandler duas vezes
         $output = $this->gotcha(
-            fn() => $publisher->publish('channel-one', new EventSignal(Signals::STOP))
+            fn() => $publisher->publish('channel-one', new StopSignal())
         );
 
         $this->assertStringHasMessages([
-            "EventSignal type messages have no effect on publisher SimpleEventPublisher"
+            "Signal type messages have no effect on publisher SimpleEventPublisher"
         ], $output);
     }
 

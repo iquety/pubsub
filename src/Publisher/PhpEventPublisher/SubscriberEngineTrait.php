@@ -6,6 +6,7 @@ namespace Iquety\PubSub\Publisher\PhpEventPublisher;
 
 use Exception;
 use Iquety\PubSub\Event\Event;
+use Iquety\PubSub\Event\Signal;
 use Iquety\PubSub\Event\Signals;
 use Iquety\PubSub\Subscriber\EventSubscriber;
 use RuntimeException;
@@ -97,7 +98,7 @@ trait SubscriberEngineTrait
             $this->getNowTimeString() . "Message labeled as '$label' received on channel '$channel'"
         )->infoLn();
 
-        if ($label === Signals::STOP) {
+        if ($label === Signal::STOP) {
             $this->running = false;
 
             $this->messageFactory(
