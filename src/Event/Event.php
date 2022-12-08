@@ -8,6 +8,7 @@ use DateTime;
 use DateTimeImmutable;
 use ReflectionClass;
 use ReflectionObject;
+use RuntimeException;
 
 abstract class Event
 {
@@ -123,6 +124,12 @@ abstract class Event
         foreach ($argumentList as $argument) {
             $label = $argument->getName();
 
+            if (isset($valueList[$label]) === false) {
+                throw new StateException(
+                    sprintf('State value "%s" does not exist in event', $label)
+                );
+            }
+            
             $list[] = $valueList[$label];
         }
 

@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
 use Iquety\PubSub\Event\EventException;
+use Iquety\PubSub\Event\StateException;
 use Tests\Event\Support\EventNoConstructor;
 use Tests\Event\Support\EventOccurred;
 use Tests\TestCase;
@@ -90,6 +91,39 @@ class EventFactoryTest extends TestCase
 
         // são dois eventos distintos
         $this->assertFalse($eventTwo->sameEventAs($eventOne));
+    }
+
+    /**
+     * @test
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function factoryOk(): void
+    {
+        $eventOne = EventOccurred::factory([
+            'title' => 'Meu artigo',
+            'description' => 'Um artigo muito legal',
+            'schedule' => new DateTimeImmutable()
+        ]);
+
+        $this->assertInstanceOf(EventOccurred::class, $eventOne);
+    }
+
+    /**
+     * @test
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function factoryWithInvalidState(): void
+    {
+        $this->expectException(StateException::class);
+        $this->expectExceptionMessage(
+            'State value "description" does not exist in event'
+        );
+
+        EventOccurred::factory([
+            'title' => 'Meu artigo',
+            'invalid' => 'Um artigo muito legal', // chave não é um argumento do construtor
+            'schedule' => new DateTimeImmutable()
+        ]);
     }
 
     /**
