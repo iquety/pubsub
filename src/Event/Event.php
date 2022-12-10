@@ -48,13 +48,16 @@ abstract class Event
         return $this->occurredOn;
     }
 
-    public function sameEventAs(Event $other): bool
+    public function equalTo(Event $other): bool
     {
         $className = get_called_class();
 
+        $sameOccurrece = $this->occurredOn()->format('Y-m-d H:i:s.u')
+            === $other->occurredOn()->format('Y-m-d H:i:s.u');
+
         return $other instanceof $className
             && $this->toArray() === $other->toArray()
-            && $this->occurredOn() == $other->occurredOn();
+            && $sameOccurrece === true;
     }
 
     /** @return array<string,mixed> */

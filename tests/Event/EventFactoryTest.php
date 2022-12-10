@@ -69,7 +69,7 @@ class EventFactoryTest extends TestCase
         $this->assertEquals($eventOne->occurredOn(), $eventTwo->occurredOn());
 
         // ambos objetos representam o mesmo evento
-        $this->assertTrue($eventTwo->sameEventAs($eventOne));
+        $this->assertTrue($eventTwo->equalTo($eventOne));
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         // Evento Três
@@ -90,7 +90,7 @@ class EventFactoryTest extends TestCase
         $this->assertNotEquals($eventOne->occurredOn(), $eventTwo->occurredOn());
 
         // são dois eventos distintos
-        $this->assertFalse($eventTwo->sameEventAs($eventOne));
+        $this->assertFalse($eventTwo->equalTo($eventOne));
     }
 
     /**

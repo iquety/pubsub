@@ -53,7 +53,7 @@ class IsValidEventConstraint extends Constraint
     {
         $newEvent = $className::factory($event->toArray());
 
-        return $newEvent->sameEventAs($event);
+        return $newEvent->equalTo($event);
     }
 
     private function anyOrderInProperties(string $className, Event $event): bool
