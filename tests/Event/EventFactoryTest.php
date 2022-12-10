@@ -99,13 +99,20 @@ class EventFactoryTest extends TestCase
      */
     public function factoryOk(): void
     {
+        $date = new DateTimeImmutable('2022-10-10 10:10:10.777777');
+
+        /** @var EventOccurred $eventOne */
         $eventOne = EventOccurred::factory([
             'title' => 'Meu artigo',
             'description' => 'Um artigo muito legal',
-            'schedule' => new DateTimeImmutable()
+            'schedule' => $date
         ]);
 
         $this->assertInstanceOf(EventOccurred::class, $eventOne);
+        $this->assertEquals('Meu artigo', $eventOne->title());
+        $this->assertEquals('Um artigo muito legal', $eventOne->description());
+        $this->assertEquals($date->format('Y-m-d H:i:s.u'), $eventOne->schedule()->format('Y-m-d H:i:s.u'));
+        $this->assertEquals('2022-10-10 10:10:10.777777', $eventOne->schedule()->format('Y-m-d H:i:s.u'));
     }
 
     /**
