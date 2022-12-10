@@ -42,7 +42,7 @@ class JsonEventSerializerTest extends TestCase
             'class' => Name::class,
             'state' => [
                 'name' => 'ricardo',
-                'lastName' => [ 
+                'lastName' => [
                     'class' => Family::class,
                     'state' => ['name' => 'Gates']
                 ]

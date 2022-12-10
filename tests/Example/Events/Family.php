@@ -16,6 +16,7 @@ class Family
         return $this->name;
     }
 
+    /** @return array<string,mixed> */
     public function toArray(): array
     {
         return [

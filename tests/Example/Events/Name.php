@@ -22,6 +22,7 @@ class Name
         return $this->lastName;
     }
 
+    /** @return array<string,mixed> */
     public function toArray(): array
     {
         return [

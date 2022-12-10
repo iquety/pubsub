@@ -132,7 +132,7 @@ abstract class Event
                     sprintf('State value "%s" does not exist in event', $label)
                 );
             }
-            
+
             $list[] = $valueList[$label];
         }
 

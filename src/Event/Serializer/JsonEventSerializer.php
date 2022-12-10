@@ -29,6 +29,10 @@ class JsonEventSerializer implements EventSerializer
         return $this->unserializeOutput($eventData);
     }
 
+    /**
+     * @param array<string,mixed> $state
+     * @return array<string,mixed>
+     */
     private function serializeInput(array $state): array
     {
         foreach ($state as $name => $value) {
@@ -52,6 +56,10 @@ class JsonEventSerializer implements EventSerializer
         return $state;
     }
 
+    /**
+     * @param array<string,mixed> $state
+     * @return array<string,mixed>
+     */
     private function unserializeOutput(array $state): array
     {
         foreach ($state as $name => $value) {
@@ -81,6 +89,7 @@ class JsonEventSerializer implements EventSerializer
         return $state;
     }
 
+    /** @param array<string,mixed> $state */
     private function objectFactory(string $className, array $state): object
     {
         $state = $this->unserializeOutput($state);
@@ -88,11 +97,8 @@ class JsonEventSerializer implements EventSerializer
         return new $className(...$state);
     }
 
-    /**
-     * @param mixed $eventData
-     * @return array<string,mixed>
-     */
-    protected function dateTimeFactory(array $state): mixed
+    /** @param array<string,mixed> $state */
+    protected function dateTimeFactory(array $state): DateTimeImmutable
     {
         return new DateTimeImmutable(
             $state['date'],

@@ -13,7 +13,7 @@ abstract class Signal extends Event
     {
     }
 
-    public function sameEventAs(Event $other): bool
+    public function equalTo(Event $other): bool
     {
         return $other instanceof Signal
             && $this::label() === $other::label();

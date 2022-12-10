@@ -18,8 +18,8 @@ class SignalTest extends TestCase
 
         $this->assertEquals(Signal::STOP, $event->label());
         $this->assertInstanceOf(DateTimeImmutable::class, $event->occurredOn());
-        $this->assertTrue($event->sameEventAs(new StopSignal()));
-        $this->assertFalse($event->sameEventAs($this->eventOneFactory()));
+        $this->assertTrue($event->equalTo(new StopSignal()));
+        $this->assertFalse($event->equalTo($this->eventOneFactory()));
 
         $this->assertEquals([], $event->toArray());
     }
@@ -36,8 +36,8 @@ class SignalTest extends TestCase
 
         $this->assertEquals(Signal::STOP, $event->label());
         $this->assertInstanceOf(DateTimeImmutable::class, $event->occurredOn());
-        $this->assertTrue($event->sameEventAs(new StopSignal()));
-        $this->assertFalse($event->sameEventAs($this->eventOneFactory()));
+        $this->assertTrue($event->equalTo(new StopSignal()));
+        $this->assertFalse($event->equalTo($this->eventOneFactory()));
 
         $this->assertEquals([], $event->toArray());
     }
