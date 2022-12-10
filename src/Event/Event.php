@@ -8,7 +8,6 @@ use DateTime;
 use DateTimeImmutable;
 use ReflectionClass;
 use ReflectionObject;
-use RuntimeException;
 
 abstract class Event
 {
@@ -56,7 +55,7 @@ abstract class Event
             === $other->occurredOn()->format('Y-m-d H:i:s.u');
 
         return $other instanceof $className
-            && $this->toArray() === $other->toArray()
+            && $this->toArray() == $other->toArray()
             && $sameOccurrece === true;
     }
 
