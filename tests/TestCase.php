@@ -11,7 +11,11 @@ use Iquety\PubSub\Event\Event;
 use Tests\Example\Events\EventOne;
 use Iquety\Security\Filesystem;
 use PHPUnit\Framework\TestCase as FrameworkTestCase;
+use Tests\Example\Events\EventThr;
 use Tests\Example\Events\EventTwo;
+use Tests\Example\Events\Family;
+use Tests\Example\Events\Name;
+use Tests\Example\Events\Serial;
 use Tests\Example\Subscribers\SubscriberOne;
 use Tests\Example\Subscribers\SubscriberTwo;
 
@@ -58,6 +62,17 @@ class TestCase extends FrameworkTestCase
             $name,
             55544433322,
             $ocurredOn ?? new DateTimeImmutable('2022-05-22 17:00:00')
+        );
+    }
+
+    protected function eventThrFactory(
+        ?DateTimeImmutable $schedule = null,
+        string $name = 'ricardo'
+    ): EventThr {
+        return new EventThr(
+            new Name($name, new Family('Gates')),
+            new Serial(55544433322),
+            $schedule ?? new DateTimeImmutable('2022-05-22 17:00:00.777777')
         );
     }
 

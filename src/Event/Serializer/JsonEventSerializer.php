@@ -6,6 +6,7 @@ namespace Iquety\PubSub\Event\Serializer;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use JsonSerializable;
 use RuntimeException;
 
 class JsonEventSerializer implements EventSerializer
@@ -13,6 +14,8 @@ class JsonEventSerializer implements EventSerializer
     /** @param array<string,mixed> $eventData */
     public function serialize(array $eventData): string
     {
+        $eventData = $this->serializeInput($eventData);
+
         return (string)json_encode($eventData, JSON_FORCE_OBJECT);
     }
 
@@ -23,25 +26,78 @@ class JsonEventSerializer implements EventSerializer
 
         $this->assertDecodeError();
 
-        return $this->resolveDateTime($eventData);
+        return $this->unserializeOutput($eventData);
     }
 
-    /**
-     * @param array<string,mixed> $eventData
-     * @return array<string,mixed>
-     */
-    protected function resolveDateTime(array $eventData): array
+    private function serializeInput(array $state): array
     {
-        foreach ($eventData as $name => $value) {
-            if (is_array($value) && array_key_exists('timezone', $value) === true) {
-                $eventData[$name] = new DateTimeImmutable(
-                    $value['date'],
-                    new DateTimeZone($value['timezone'])
-                );
+        foreach ($state as $name => $value) {
+            if (is_array($value) === true) {
+                $state[$name] = $this->serializeInput($value);
+                continue;
+            }
+
+            if (is_object($value) === false) {
+                continue;
+            }
+
+            if (method_exists($value, 'toArray')) {
+                $state[$name] = [
+                    'class' => $value::class,
+                    'state' => $this->serializeInput($value->toArray())
+                ];
             }
         }
 
-        return $eventData;
+        return $state;
+    }
+
+    private function unserializeOutput(array $state): array
+    {
+        foreach ($state as $name => $value) {
+            if (is_array($value) === false) {
+                continue;
+            }
+
+            if (
+                array_key_exists('class', $value) === true
+                && array_key_exists('state', $value) === true
+            ) {
+                $state[$name] = $this->objectFactory($value['class'], $value['state']);
+                continue;
+            }
+
+            if (
+                array_key_exists('date', $value) === true
+                && array_key_exists('timezone', $value) === true
+            ) {
+                $state[$name] = $this->dateTimeFactory($value);
+                continue;
+            }
+
+            $state[$name] = $this->unserializeOutput($value);
+        }
+
+        return $state;
+    }
+
+    private function objectFactory(string $className, array $state): object
+    {
+        $state = $this->unserializeOutput($state);
+
+        return new $className(...$state);
+    }
+
+    /**
+     * @param mixed $eventData
+     * @return array<string,mixed>
+     */
+    protected function dateTimeFactory(array $state): mixed
+    {
+        return new DateTimeImmutable(
+            $state['date'],
+            new DateTimeZone($state['timezone'])
+        );
     }
 
     protected function assertDecodeError(): void

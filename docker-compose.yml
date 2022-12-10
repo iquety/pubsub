@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   php:
-    image: ricardopedias/docker-project:php80
+    image: ricardopedias/docker-project:php82
     container_name: iquety-pubsub
     volumes:
       - .:/application
