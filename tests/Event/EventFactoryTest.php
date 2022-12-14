@@ -137,6 +137,25 @@ class EventFactoryTest extends TestCase
      * @test
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
+    public function factoryWithInvalidOccurredOn(): void
+    {
+        $this->expectException(StateException::class);
+        $this->expectExceptionMessage(
+            'Special state value "occurredOn" must be of type DateTimeImmutable'
+        );
+
+        EventOccurred::factory([
+            'title' => 'Meu artigo',
+            'description' => 'Um artigo muito legal',
+            'schedule' => new DateTimeImmutable(),
+            'occurredOn' => '2022-10-10 10:10:10.111111' // tipo inválido: string
+        ]);
+    }
+
+    /**
+     * @test
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public function factoryWithoutConstructor(): void
     {
         $this->expectException(EventException::class);

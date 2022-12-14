@@ -28,6 +28,13 @@ abstract class Event
             ? new DateTimeImmutable()
             : $values['occurredOn'];
 
+        if (! $occurredOn instanceof DateTimeImmutable) {
+            throw new StateException(sprintf(
+                'Special state value "occurredOn" must be of type %s',
+                DateTimeImmutable::class
+            ));
+        }
+
         $reflection = new ReflectionObject($event);
         $property = $reflection->getProperty('occurredOn');
         $property->setAccessible(true);
