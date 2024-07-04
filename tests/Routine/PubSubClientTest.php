@@ -2,73 +2,73 @@
 
 declare(strict_types=1);
 
-namespace Tests\Command;
+namespace Tests\Routine;
 
-use Iquety\Console\Command;
+use Iquety\Console\Routine;
 use Iquety\Console\PhpUnit\ConsoleTestCase;
 use Iquety\Console\Terminal;
-use Iquety\PubSub\Command\PubSubClientCommand;
+use Iquety\PubSub\Routine\PubSubClientRoutine;
 
 class PubSubClientTest extends ConsoleTestCase
 {
-    private function factory(): Command
+    private function factory(): Routine
     {
         $terminal = new Terminal(__DIR__);
 
-        $command =  new PubSubClientCommand($terminal);
+        $routine =  new PubSubClientRoutine($terminal);
 
-        $command->enabletestMode();
+        $routine->enabletestMode();
 
-        return $command;
+        return $routine;
     }
 
     /** @test */
     public function commandInfo(): void
     {
-        $command = $this->factory();
+        $routine = $this->factory();
 
-        $this->assertCommandHasName('pubsub:client-test', $command);
+        $this->assertRoutineHasName('pubsub:client-test', $routine);
 
-        $this->assertCommandHasDescription(
+        $this->assertRoutineHasDescription(
             'Send a test events to the pub/sub message broker',
-            $command
+            $routine
         );
 
-        $this->assertCommandHasHowToUse(
+        $this->assertRoutineHasHowToUse(
             './example pubsub:client-test [options]',
-            $command
+            $routine
         );
     }
 
     /** @test */
     public function commandOptions(): void
     {
-        $command = $this->factory();
-        $options = $command->getOptions();
+        $routine = $this->factory();
+        $options = $routine->getOptions();
 
-        $this->assertCountCommandOptions(4, $command);
+        $this->assertCountRoutineOptions(4, $routine);
 
-        $this->assertCommandHasOption('-h', $command);
-        $this->assertCommandHasOption('--help', $command);
+        $this->assertRoutineHasOption('-h', $routine);
+        $this->assertRoutineHasOption('--help', $routine);
         $this->assertOptionIsBoolean($options[0]);
         $this->assertOptionHasDefaultValue('', $options[0]);
 
-        $this->assertCommandHasOption('-v', $command);
-        $this->assertCommandHasOption('--verbose', $command);
+        $this->assertRoutineHasOption('-v', $routine);
+        $this->assertRoutineHasOption('--verbose', $routine);
         $this->assertOptionHasShortNotation('-v', $options[1]);
         $this->assertOptionIsNotRequired($options[1]);
         $this->assertOptionIsBoolean($options[1]);
         $this->assertOptionHasDefaultValue('', $options[1]);
 
-        $this->assertCommandHasOption('-d', $command);
-        $this->assertCommandHasOption('--domain', $command);
+        $this->assertRoutineHasOption('-d', $routine);
+        $this->assertRoutineHasOption('--domain', $routine);
         $this->assertOptionHasShortNotation('-d', $options[2]);
         $this->assertOptionIsNotRequired($options[2]);
         $this->assertOptionIsValued($options[2]);
         $this->assertOptionHasDefaultValue('localhost', $options[2]);
 
-        $this->assertCommandHasOption('-p', $command);
-        $this->assertCommandHasOption('--port', $command);
+        $this->assertRoutineHasOption('-p', $routine);
+        $this->assertRoutineHasOption('--port', $routine);
         $this->assertOptionHasShortNotation('-p', $options[3]);
         $this->assertOptionIsNotRequired($options[3]);
         $this->assertOptionIsValued($options[3]);
@@ -80,7 +80,7 @@ class PubSubClientTest extends ConsoleTestCase
     {
         $this->expectOutputRegex("/Verbose mode enabled/");
 
-        $command = $this->factory();
-        $command->run(['-v']);
+        $routine = $this->factory();
+        $routine->run(['-v']);
     }
 }

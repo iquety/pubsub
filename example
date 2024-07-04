@@ -16,7 +16,7 @@ array_shift($argv);
 
 $terminal = new Terminal(__DIR__ . "/src");
 
-$terminal->loadCommandsFrom(EventLoop::commandPath());
+$terminal->loadRoutinesFrom(EventLoop::routinePath());
 
 // Usa a variável $argv para interpretar os argumentos do usuário
 $terminal->run($argv);

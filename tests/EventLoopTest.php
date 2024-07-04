@@ -14,13 +14,13 @@ class EventLoopTest extends TestCase
      * @test
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public function commandPath(): void
+    public function routinePath(): void
     {
         $path = dirname(__DIR__)
             . DIRECTORY_SEPARATOR . 'src'
-            . DIRECTORY_SEPARATOR . 'Command';
+            . DIRECTORY_SEPARATOR . 'Routine';
 
-        $this->assertEquals($path, EventLoop::commandPath());
+        $this->assertEquals($path, EventLoop::routinePath());
     }
 
     /** @test */

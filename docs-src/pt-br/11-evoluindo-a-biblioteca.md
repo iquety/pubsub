@@ -1,7 +1,6 @@
 # Evoluindo a biblioteca
 
-[◂ Publicando um sinal de parada](10-publicando-um-sinal-de-parada.md) | [Sumário da Documentação ▸](indice.md)
--- | --
+--page-nav--
 
 ## 1. Infraestrutura
 
@@ -80,5 +79,4 @@ gerar a documentação navegável no diretório `docs`:
 composer docmap
 ```
 
-[◂ Publicando um sinal de parada](10-publicando-um-sinal-de-parada.md) | [Sumário da Documentação ▸](indice.md)
--- | --
+--page-nav--

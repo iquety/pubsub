@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Iquety\PubSub\Command;
+namespace Iquety\PubSub\Routine;
 
 use DateTimeImmutable;
 use Iquety\Console\Arguments;
-use Iquety\Console\Command;
 use Iquety\Console\Option;
+use Iquety\Console\Routine;
 use Iquety\PubSub\Publisher\EventPublisher;
 use Iquety\PubSub\Publisher\PhpEventPublisher;
 use Iquety\PubSub\Publisher\SimpleEventPublisher;
@@ -15,7 +15,7 @@ use RuntimeException;
 use Tests\Example\Events\EventOne;
 use Tests\Example\Events\EventTwo;
 
-class PubSubClientCommand extends Command
+class PubSubClientRoutine extends Routine
 {
     private bool $testMode = false;
 

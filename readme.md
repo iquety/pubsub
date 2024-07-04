@@ -1,6 +1,6 @@
 # Iquety Pub/Sub
 
-![PHP Version](https://img.shields.io/badge/php-%5E8.0-blue)
+![PHP Version](https://img.shields.io/badge/php-%5E8.3-blue)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 [![Codacy Grade](https://app.codacy.com/project/badge/Grade/8b2a8762c63a4c1b9495b066fd00e82d)](https://www.codacy.com/gh/iquety/pubsub/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iquety/pubsub&amp;utm_campaign=Badge_Grade)
 [![Codacy Coverage](https://app.codacy.com/project/badge/Coverage/8b2a8762c63a4c1b9495b066fd00e82d)](https://www.codacy.com/gh/iquety/pubsub/dashboard?utm_source=github.com&utm_medium=referral&utm_content=iquety/pubsub&utm_campaign=Badge_Coverage)
@@ -88,7 +88,7 @@ Message dispatched to SubscriberTwo
 
 ## Características
 
-- Made for PHP 8.0 or higher;
+- Made for PHP 8.3 or higher;
 - Coded with best practices and maximum quality;
 - Well documented and IDE friendly;
 - Made with TDD (Test Driven Development);

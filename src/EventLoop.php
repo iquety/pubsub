@@ -12,9 +12,9 @@ class EventLoop
     {
     }
 
-    public static function commandPath(): string
+    public static function routinePath(): string
     {
-        return __DIR__ . DIRECTORY_SEPARATOR . 'Command';
+        return __DIR__ . DIRECTORY_SEPARATOR . 'Routine';
     }
 
     public function addSubscriber(string $channel, string $subscriberSignatute): void

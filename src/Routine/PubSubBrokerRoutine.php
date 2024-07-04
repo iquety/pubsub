@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Iquety\PubSub\Command;
+namespace Iquety\PubSub\Routine;
 
 use Iquety\Console\Arguments;
-use Iquety\Console\Command;
+use Iquety\Console\Routine;
 use Iquety\Console\Option;
 use Iquety\PubSub\Event\Serializer\PhpEventSerializer;
 use Iquety\PubSub\EventLoop;
 use Iquety\PubSub\Publisher\PhpEventPublisher;
 
-class PubSubBrokerCommand extends Command
+class PubSubBrokerRoutine extends Routine
 {
     private bool $testMode = false;
 

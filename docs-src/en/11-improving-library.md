@@ -1,7 +1,6 @@
 # Improving the library
 
-[◂ Publishing a stop sign](10-publishing-a-stop-sign.md) | [Documentation Summary ▸](index.md)
--- | --
+--page-nav--
 
 ## 1. Infrastructure
 
@@ -80,5 +79,4 @@ browsable documentation in the `docs` directory:
 composer docmap
 ```
 
-[◂ Publishing a stop sign](10-publishing-a-stop-sign.md) | [Documentation Summary ▸](index.md)
--- | --
+--page-nav--

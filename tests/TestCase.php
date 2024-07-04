@@ -6,8 +6,6 @@ namespace Tests;
 
 use Closure;
 use DateTimeImmutable;
-use Iquety\Console\Option;
-use Iquety\PubSub\Event\Event;
 use Tests\Example\Events\EventOne;
 use Iquety\Security\Filesystem;
 use PHPUnit\Framework\TestCase as FrameworkTestCase;
