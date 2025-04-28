@@ -62,10 +62,10 @@
             "@stan"
         ],
         "pubsub-server": [
-            "php example pubsub:broker -c 'tests/Example/config-file.php' -v"
+            "./broker pubsub:broker -c 'tests/Example/config-file.php' -v"
         ],
         "pubsub-client": [
-            "php example pubsub:client-test -p 7703 -d localhost -v"
+            "./broker pubsub:client-test -p 7703 -d localhost -v"
         ]
     }
 }

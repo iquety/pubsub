@@ -34,7 +34,7 @@ class PubSubBrokerTest extends ConsoleTestCase
         );
 
         $this->assertRoutineHasHowToUse(
-            './example pubsub:broker [options]',
+            './broker pubsub:broker [options]',
             $routine
         );
     }

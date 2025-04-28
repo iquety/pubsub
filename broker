@@ -1,8 +1,18 @@
 #!/bin/php
 <?php
 
-// Carrega o autoloader do Composer
-include __DIR__ . "/vendor/autoload.php";
+$possibilities = [
+    __DIR__ . "/vendor/autoload.php", // chamada na biblioteca
+    __DIR__ . "/../../../vendor/autoload.php", // chamado no projeto
+];
+
+foreach ($possibilities as $autoloadPath) {
+    if (file_exists($autoloadPath) === true) {
+        require $autoloadPath;
+        
+        break;
+    }
+}
 
 use Iquety\Console\Terminal;
 use Iquety\PubSub\EventLoop;

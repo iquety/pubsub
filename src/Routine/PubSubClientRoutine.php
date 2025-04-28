@@ -29,7 +29,7 @@ class PubSubClientRoutine extends Routine
     {
         $this->setName("pubsub:client-test");
         $this->setDescription("Send a test events to the pub/sub message broker");
-        $this->setHowToUse("./example pubsub:client-test [options]");
+        $this->setHowToUse("./broker pubsub:client-test [options]");
 
         $this->addOption(
             new Option(

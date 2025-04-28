@@ -25,7 +25,7 @@ class PubSubBrokerRoutine extends Routine
     {
         $this->setName("pubsub:broker");
         $this->setDescription("Start the pubsub message broker");
-        $this->setHowToUse("./example pubsub:broker [options]");
+        $this->setHowToUse("./broker pubsub:broker [options]");
 
         $this->addOption(
             new Option(
