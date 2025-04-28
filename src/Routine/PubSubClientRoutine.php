@@ -11,9 +11,9 @@ use Iquety\Console\Routine;
 use Iquety\PubSub\Publisher\EventPublisher;
 use Iquety\PubSub\Publisher\PhpEventPublisher;
 use Iquety\PubSub\Publisher\SimpleEventPublisher;
+use Iquety\PubSub\Routine\Events\EventOne;
+use Iquety\PubSub\Routine\Events\EventTwo;
 use RuntimeException;
-use Tests\Example\Events\EventOne;
-use Tests\Example\Events\EventTwo;
 
 class PubSubClientRoutine extends Routine
 {
