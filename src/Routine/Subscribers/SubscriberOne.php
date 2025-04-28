@@ -24,7 +24,7 @@ class SubscriberOne implements EventSubscriber
 
     public function handleEvent(Event $event): void
     {
-        $file = new Filesystem(getcwd());
+        $file = new Filesystem((string)getcwd());
 
         $file->setFileContents(
             'subscriber-one-receive.txt',
