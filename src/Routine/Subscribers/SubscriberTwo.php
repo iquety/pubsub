@@ -35,7 +35,7 @@ class SubscriberTwo implements EventSubscriber
             'subscriber-two-receive.txt',
             __CLASS__ . PHP_EOL .
             'recebeu: ' . $event::class . PHP_EOL .
-            'em: ' . $event->occurredOn()->format('Y-m-d H:i:s') . PHP_EOL
+            'em: ' . $event->occurredOn()->format('Y-m-d H:i:s') . PHP_EOL . PHP_EOL
         );
     }
 }
