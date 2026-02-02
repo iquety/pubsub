@@ -5,7 +5,7 @@
     "keywords": ["framework", "pubsub", "publish", "subscribe", "events"],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "iquety/console": "*"
     },
     "require-dev": {
