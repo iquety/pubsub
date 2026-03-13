@@ -1,6 +1,6 @@
 # Publicando um sinal de parada
 
-[◂ Publicando um evento](09-publicando-um-evento.md) | [Sumário da Documentação](indice.md) | [Evoluindo a biblioteca ▸](11-evoluindo-a-biblioteca.md)
+[◂ Publicando um evento](09-publicando-um-evento.md) | [Sumário da Documentação](indice.md) | [Evoluindo a biblioteca ▸](99-evoluindo.md)
 -- | -- | --
 
 Quando o "Intermediador de Mensagens" está sendo usado em um ambiente de produção, ele precisa ser mantido em execução de forma ininterrupta. Já foi explicado como conseguir isso em [Mantendo o "Intermediador de Mensagens" sempre em execução](06-mantendo-a-execucao.md).
@@ -19,5 +19,5 @@ $event = new StopSignal();
 $publisher->publish('channel-vormir', $event);
 ```
 
-[◂ Publicando um evento](09-publicando-um-evento.md) | [Sumário da Documentação](indice.md) | [Evoluindo a biblioteca ▸](11-evoluindo-a-biblioteca.md)
+[◂ Publicando um evento](09-publicando-um-evento.md) | [Sumário da Documentação](indice.md) | [Evoluindo a biblioteca ▸](99-evoluindo.md)
 -- | -- | --

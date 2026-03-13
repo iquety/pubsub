@@ -1,6 +1,6 @@
 # Publishing a stop sign
 
-[◂ Publishing an event](09-publishing-an-event.md) | [Documentation Summary](index.md) | [Improving the library ▸](11-improving-library.md)
+[◂ Publishing an event](09-publishing-an-event.md) | [Documentation Summary](index.md) | [Evolving the library ▸](99-evolution.md)
 -- | -- | --
 
 When "Message Broker" is being used in a production environment, it needs to be kept running uninterrupted. How to achieve this has already been explained in [Keeping the "Message Broker" always running](06-keeping-running.md).
@@ -19,5 +19,5 @@ $event = new StopSignal();
 $publisher->publish('channel-vormir', $event);
 ```
 
-[◂ Publishing an event](09-publishing-an-event.md) | [Documentation Summary](index.md) | [Improving the library ▸](11-improving-library.md)
+[◂ Publishing an event](09-publishing-an-event.md) | [Documentation Summary](index.md) | [Evolving the library ▸](99-evolution.md)
 -- | -- | --
