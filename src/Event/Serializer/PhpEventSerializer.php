@@ -21,7 +21,7 @@ class PhpEventSerializer implements EventSerializer
         try {
             $eventData = unserialize($eventSerializedData);
         } catch (Throwable $exception) {
-            throw new RuntimeException("The serialized PHP object is corrupted: " . $exception->getMessage());
+            throw new RuntimeException('The serialized PHP object is corrupted: ' . $exception->getMessage());
         }
 
         return $eventData;

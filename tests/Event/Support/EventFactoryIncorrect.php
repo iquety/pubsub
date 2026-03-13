@@ -12,8 +12,7 @@ class EventFactoryIncorrect extends Event
     public function __construct(
         private string $title,
         private DateTimeImmutable $date
-    ) {
-    }
+    ) {}
 
     public static function label(): string
     {

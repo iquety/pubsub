@@ -13,8 +13,7 @@ class EventThr extends Event
         private Name $name,
         private Serial $serial,
         private DateTimeImmutable $schedule
-    ) {
-    }
+    ) {}
 
     public static function label(): string
     {

@@ -6,6 +6,4 @@ namespace Iquety\PubSub\Event;
 
 use Exception;
 
-class EventException extends Exception
-{
-}
+class EventException extends Exception {}

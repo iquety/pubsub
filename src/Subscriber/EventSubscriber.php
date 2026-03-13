@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Iquety\PubSub\Subscriber;
 
-use DateTimeZone;
 use Iquety\PubSub\Event\Event;
 
 interface EventSubscriber

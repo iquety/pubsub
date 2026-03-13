@@ -13,8 +13,7 @@ class EventOccurred extends Event
         private string $title,
         private string $description,
         private DateTimeImmutable $schedule
-    ) {
-    }
+    ) {}
 
     public static function label(): string
     {

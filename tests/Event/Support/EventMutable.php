@@ -12,8 +12,7 @@ class EventMutable extends Event
     public function __construct(
         private string $title,
         private DateTime $schedule // mutavel
-    ) {
-    }
+    ) {}
 
     public static function label(): string
     {

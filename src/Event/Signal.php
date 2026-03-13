@@ -9,9 +9,7 @@ abstract class Signal extends Event
     public const STOP = 'signal.stop';
 
     /** @param array<string,mixed> $context */
-    public function __construct(private array $context = [])
-    {
-    }
+    public function __construct(private array $context = []) {}
 
     public function equalTo(Event $other): bool
     {

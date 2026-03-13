@@ -19,6 +19,32 @@ use Tests\Example\Subscribers\SubscriberTwo;
 
 class TestCase extends FrameworkTestCase
 {
+    public static function clearFile(string $file): void
+    {
+        (new Filesystem(__DIR__ . '/files'))
+            ->setFileContents($file, '');
+    }
+
+    /** @return array<array<string>> */
+    public function subscriberListFactory(string $one = '', string $two = ''): array
+    {
+        $list = [];
+
+        $possibilityList = [
+            'channel-one' => SubscriberOne::class,
+            'channel-two' => SubscriberTwo::class
+        ];
+
+        if ($one !== '') {
+            $list[] = [ $one, $possibilityList[$one] ];
+        }
+
+        if ($two !== '') {
+            $list[] = [ $two, $possibilityList[$two] ];
+        }
+
+        return $list;
+    }
     /** @param array<int,string> $messageList */
     protected function assertStringHasMessages(array $messageList, string $output): void
     {
@@ -33,12 +59,6 @@ class TestCase extends FrameworkTestCase
         foreach ($messageList as $message) {
             $this->assertStringNotContainsString($message, $output);
         }
-    }
-
-    public static function clearFile(string $file): void
-    {
-        (new Filesystem(__DIR__ . '/files'))
-            ->setFileContents($file, '');
     }
 
     protected function eventOneFactory(
@@ -74,27 +94,6 @@ class TestCase extends FrameworkTestCase
         );
     }
 
-    /** @return array<array<string>> */
-    public function subscriberListFactory(string $one = '', string $two = ''): array
-    {
-        $list = [];
-
-        $possibilityList = [
-            'channel-one' => SubscriberOne::class,
-            'channel-two' => SubscriberTwo::class
-        ];
-
-        if ($one !== '') {
-            $list[] = [ $one, $possibilityList[$one] ];
-        }
-
-        if ($two !== '') {
-            $list[] = [ $two, $possibilityList[$two] ];
-        }
-
-        return $list;
-    }
-
     protected function filesystemFactory(): Filesystem
     {
         return new Filesystem(__DIR__ . '/files');
@@ -104,6 +103,6 @@ class TestCase extends FrameworkTestCase
     {
         ob_start();
         $callback();
-        return (string)ob_get_clean();
+        return (string) ob_get_clean();
     }
 }

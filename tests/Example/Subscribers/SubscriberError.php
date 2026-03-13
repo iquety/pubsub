@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Example\Subscribers;
 
-use DateTimeZone;
 use Iquety\PubSub\Event\Event;
 use Iquety\PubSub\Subscriber\EventSubscriber;
 use Tests\Example\Events\EventOne;

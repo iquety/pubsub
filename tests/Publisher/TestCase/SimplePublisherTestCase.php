@@ -9,16 +9,15 @@ use Iquety\PubSub\Subscriber\EventSubscriber;
 
 class SimplePublisherTestCase extends PublisherTestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        SimpleEventPublisher::instance()->reset();
-    }
-
     public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
+
+        SimpleEventPublisher::instance()->reset();
+    }
+    public function setUp(): void
+    {
+        parent::setUp();
 
         SimpleEventPublisher::instance()->reset();
     }
@@ -35,7 +34,7 @@ class SimplePublisherTestCase extends PublisherTestCase
             /** @var string */
             $channel = $subscriber[0];
 
-            /** @var string|EventSubscriber */
+            /** @var EventSubscriber|string */
             $signature = $subscriber[1];
 
             SimpleEventPublisher::instance()->subscribe($channel, $signature);

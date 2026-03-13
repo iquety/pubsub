@@ -29,13 +29,13 @@ class SubscriberTwo implements EventSubscriber
 
     public function handleEvent(Event $event): void
     {
-        $file = new Filesystem((string)getcwd());
+        $file = new Filesystem((string) getcwd());
 
         $file->appendFileContents(
             'subscriber-two-receive.txt',
-            __CLASS__ . PHP_EOL .
-            'recebeu: ' . $event::class . PHP_EOL .
-            'em: ' . $event->occurredOn()->format('Y-m-d H:i:s') . PHP_EOL . PHP_EOL
+            __CLASS__ . PHP_EOL
+            . 'recebeu: ' . $event::class . PHP_EOL
+            . 'em: ' . $event->occurredOn()->format('Y-m-d H:i:s') . PHP_EOL . PHP_EOL
         );
     }
 }

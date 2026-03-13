@@ -27,9 +27,9 @@ class PubSubClientRoutine extends Routine
 
     protected function initialize(): void
     {
-        $this->setName("pubsub:client-test");
-        $this->setDescription("Send a test events to the pub/sub message broker");
-        $this->setHowToUse("./broker pubsub:client-test [options]");
+        $this->setName('pubsub:client-test');
+        $this->setDescription('Send a test events to the pub/sub message broker');
+        $this->setHowToUse('./broker pubsub:client-test [options]');
 
         $this->addOption(
             new Option(
@@ -113,7 +113,7 @@ class PubSubClientRoutine extends Routine
         // @codeCoverageIgnoreStart
         return new PhpEventPublisher(
             $arguments->getOption('-d'),
-            (int)$arguments->getOption('-p')
+            (int) $arguments->getOption('-p')
         );
         // @codeCoverageIgnoreEnd
     }

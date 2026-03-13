@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Publisher;
 
-use DateTimeZone;
 use Iquety\PubSub\Event\Serializer\JsonEventSerializer;
 use Iquety\PubSub\Event\Serializer\PhpEventSerializer;
 use Tests\Publisher\TestCase\SimplePublisherTestCase;
@@ -14,7 +13,7 @@ class SimpleEventResetTest extends SimplePublisherTestCase
     /** @return array<string,array<int,mixed>> */
     public function resetableMethodsProvider(): array
     {
-        $list = [
+        return [
             'test mode'    => [
                 false,
                 'enableTestMode',
@@ -34,8 +33,6 @@ class SimpleEventResetTest extends SimplePublisherTestCase
                 new PhpEventSerializer()
             ],
         ];
-
-        return $list;
     }
 
     /**

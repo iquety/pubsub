@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Iquety\PubSub\PhpUnit;
 
-use InvalidArgumentException;
 use Iquety\PubSub\Event\Event;
-use Iquety\PubSub\Event\EventException;
 use PHPUnit\Framework\Constraint\Constraint;
 use Throwable;
 

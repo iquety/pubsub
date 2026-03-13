@@ -7,7 +7,6 @@ namespace Iquety\PubSub\Publisher\PhpEventPublisher;
 use Exception;
 use Iquety\PubSub\Event\Event;
 use Iquety\PubSub\Event\Signal;
-use Iquety\PubSub\Event\Signals;
 use Iquety\PubSub\Subscriber\EventSubscriber;
 use RuntimeException;
 
@@ -38,7 +37,7 @@ trait SubscriberEngineTrait
         fclose($socketServer);
 
         $this->messageFactory(
-            "The publish/subscriber server has been stopped" . PHP_EOL
+            'The publish/subscriber server has been stopped' . PHP_EOL
         )->successLn();
     }
 
@@ -59,8 +58,8 @@ trait SubscriberEngineTrait
         }
 
         $this->messageFactory(
-            "The publish/subscriber server has been started in " .
-            $address . PHP_EOL
+            'The publish/subscriber server has been started in '
+            . $address . PHP_EOL
         )->successLn();
 
         return $socketServer;
@@ -86,7 +85,7 @@ trait SubscriberEngineTrait
         $parts = explode(PHP_EOL . PHP_EOL, $contents); // @phpstan-ignore-line
 
         if (count($parts) !== 3) {
-            $this->messageFactory("The stream received is corrupt")->warningLn();
+            $this->messageFactory('The stream received is corrupt')->warningLn();
             return;
         }
 
@@ -102,7 +101,7 @@ trait SubscriberEngineTrait
             $this->running = false;
 
             $this->messageFactory(
-                $this->getNowTimeString() . "Message to stop the server received"
+                $this->getNowTimeString() . 'Message to stop the server received'
             )->infoLn();
 
             return;
@@ -111,6 +110,16 @@ trait SubscriberEngineTrait
         $this->publishToSubscribers($channel, $label, $eventSerializedData);
 
         $this->messageFactory('')->outputLn();
+    }
+
+    /** @override */
+    protected function dispatchTo(EventSubscriber $subscriber, Event $event): void
+    {
+        $this->messageFactory(
+            'Message dispatched to ' . $this->getShortClassName($subscriber::class)
+        )->outputLn();
+
+        $subscriber->handleEvent($event);
     }
 
     /**
@@ -122,7 +131,7 @@ trait SubscriberEngineTrait
     {
         $exceptions = [];
 
-        $streamCount = (int)stream_select($readStream, $writeStream, $exceptions, PHP_INT_MAX);
+        $streamCount = (int) stream_select($readStream, $writeStream, $exceptions, PHP_INT_MAX);
 
         usleep(200000);
 
@@ -133,7 +142,7 @@ trait SubscriberEngineTrait
     private function getActivityContents($socketServer): string
     {
         if ($this->isTestMode() === true) {
-            return (string)fread($socketServer, 1024);
+            return (string) fread($socketServer, 1024);
         }
 
         // @codeCoverageIgnoreStart
@@ -142,7 +151,7 @@ trait SubscriberEngineTrait
             throw new RuntimeException('');
         }
 
-        return (string)stream_get_contents($connection);
+        return (string) stream_get_contents($connection);
         // @codeCoverageIgnoreEnd
     }
 
@@ -182,17 +191,7 @@ trait SubscriberEngineTrait
         }
 
         if ($dispatched === false) {
-            $this->messageFactory("There are no subscribers who accept this type of event")->outputLn();
+            $this->messageFactory('There are no subscribers who accept this type of event')->outputLn();
         }
-    }
-
-    /** @override */
-    protected function dispatchTo(EventSubscriber $subscriber, Event $event): void
-    {
-        $this->messageFactory(
-            "Message dispatched to " . $this->getShortClassName($subscriber::class)
-        )->outputLn();
-
-        $subscriber->handleEvent($event);
     }
 }

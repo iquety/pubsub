@@ -10,8 +10,7 @@ class Serial implements JsonSerializable
 {
     public function __construct(
         private int $serial
-    ) {
-    }
+    ) {}
 
     public function serial(): int
     {

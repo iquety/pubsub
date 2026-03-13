@@ -15,6 +15,22 @@ use RuntimeException;
  */
 trait PublisherEngineTrait
 {
+    /** @override */
+    public function publish(string $channel, Event $event): self
+    {
+        $socketClient = $this->createClient();
+
+        $this->setActivityFor($socketClient, $channel, $event);
+
+        if ($this->isConsole() === true) {
+            $this->messageFactory(
+                "Publish event labeled as '" . $event->label() . "'"
+                . " to channel '$channel' in " . $this->getAddressString()
+            )->successLn();
+        }
+
+        return $this;
+    }
     /**
      * @return resource
      * @throws RuntimeException
@@ -34,24 +50,6 @@ trait PublisherEngineTrait
         stream_set_blocking($socketClient, false);
 
         return $socketClient;
-    }
-
-
-    /** @override */
-    public function publish(string $channel, Event $event): self
-    {
-        $socketClient = $this->createClient();
-
-        $this->setActivityFor($socketClient, $channel, $event);
-
-        if ($this->isConsole() === true) {
-            $this->messageFactory(
-                "Publish event labeled as '" . $event->label() . "'" .
-                " to channel '$channel' in " . $this->getAddressString()
-            )->successLn();
-        }
-
-        return $this;
     }
 
     /** @param resource $socketClient */

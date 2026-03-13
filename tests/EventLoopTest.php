@@ -47,10 +47,10 @@ class EventLoopTest extends TestCase
         $output = $this->gotcha(fn() => $loop->run());
 
         $this->assertStringHasMessages([
-            "The publish/subscriber server has been started",
+            'The publish/subscriber server has been started',
             "Message labeled as 'signal.stop' received on channel 'channel-one'",
-            "Message to stop the server received",
-            "The publish/subscriber server has been stopped",
+            'Message to stop the server received',
+            'The publish/subscriber server has been stopped',
         ], $output);
     }
 
@@ -65,6 +65,6 @@ class EventLoopTest extends TestCase
 
         $output = $this->gotcha(fn() => $loop->run());
 
-        $this->assertEquals("", $output);
+        $this->assertEquals('', $output);
     }
 }

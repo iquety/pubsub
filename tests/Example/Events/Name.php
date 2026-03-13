@@ -9,8 +9,7 @@ class Name
     public function __construct(
         private string $name,
         private Family $lastName,
-    ) {
-    }
+    ) {}
 
     public function name(): string
     {

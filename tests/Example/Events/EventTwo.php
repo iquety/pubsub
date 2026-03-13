@@ -13,8 +13,7 @@ class EventTwo extends Event
         private string $name,
         private int $cpf,
         private DateTimeImmutable $schedule
-    ) {
-    }
+    ) {}
 
     public static function label(): string
     {

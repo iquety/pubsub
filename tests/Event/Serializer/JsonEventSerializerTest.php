@@ -14,11 +14,6 @@ use Tests\TestCase;
 
 class JsonEventSerializerTest extends TestCase
 {
-    private function factory(): JsonEventSerializer
-    {
-        return new JsonEventSerializer();
-    }
-
     /** @test */
     public function serializationAndReconstitution(): void
     {
@@ -74,11 +69,15 @@ class JsonEventSerializerTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(
-            "The json data is corrupted: Syntax error, malformed JSON"
+            'The json data is corrupted: Syntax error, malformed JSON'
         );
 
         (new JsonEventSerializer())->unserialize(
             '{-json-errado'
         );
+    }
+    private function factory(): JsonEventSerializer
+    {
+        return new JsonEventSerializer();
     }
 }

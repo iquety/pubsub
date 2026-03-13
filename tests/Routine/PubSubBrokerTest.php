@@ -10,17 +10,6 @@ use Iquety\PubSub\Routine\PubSubBrokerRoutine;
 
 class PubSubBrokerTest extends ConsoleTestCase
 {
-    private function factory(): PubSubBrokerRoutine
-    {
-        $terminal = new Terminal(__DIR__);
-
-        $routine =  new PubSubBrokerRoutine($terminal);
-
-        $routine->enabletestMode();
-
-        return $routine;
-    }
-
     /** @test */
     public function commandInfo(): void
     {
@@ -99,7 +88,7 @@ class PubSubBrokerTest extends ConsoleTestCase
     /** @test */
     public function configFileNotExists(): void
     {
-        $this->expectOutputRegex("/Configuration file .* not found/");
+        $this->expectOutputRegex('/Configuration file .* not found/');
 
         $routine = $this->factory();
         $routine->run(['-c', 'blabla.php']);
@@ -108,7 +97,7 @@ class PubSubBrokerTest extends ConsoleTestCase
     /** @test */
     public function changeSerializer(): void
     {
-        $this->expectOutputRegex("/Using PhpEventSerializer serializer/");
+        $this->expectOutputRegex('/Using PhpEventSerializer serializer/');
 
         $routine = $this->factory();
         $routine->run(['-s', 'php']);
@@ -117,9 +106,19 @@ class PubSubBrokerTest extends ConsoleTestCase
     /** @test */
     public function enableVerboseMode(): void
     {
-        $this->expectOutputRegex("/Verbose mode enabled/");
+        $this->expectOutputRegex('/Verbose mode enabled/');
 
         $routine = $this->factory();
         $routine->run(['-v']);
+    }
+    private function factory(): PubSubBrokerRoutine
+    {
+        $terminal = new Terminal(__DIR__);
+
+        $routine =  new PubSubBrokerRoutine($terminal);
+
+        $routine->enabletestMode();
+
+        return $routine;
     }
 }

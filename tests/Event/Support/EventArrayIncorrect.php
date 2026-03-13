@@ -10,8 +10,7 @@ class EventArrayIncorrect extends Event
 {
     public function __construct(
         private string $title
-    ) {
-    }
+    ) {}
 
     public static function label(): string
     {

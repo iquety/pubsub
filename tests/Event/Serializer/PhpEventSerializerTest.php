@@ -10,11 +10,6 @@ use Tests\TestCase;
 
 class PhpEventSerializerTest extends TestCase
 {
-    private function factory(): PhpEventSerializer
-    {
-        return new PhpEventSerializer();
-    }
-
     /** @test */
     public function serializationAndReconstitution(): void
     {
@@ -32,11 +27,15 @@ class PhpEventSerializerTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(
-            "The serialized PHP object is corrupted: unserialize(): Error at offset 0 of 12 bytes"
+            'The serialized PHP object is corrupted: unserialize(): Error at offset 0 of 12 bytes'
         );
 
         (new PhpEventSerializer())->unserialize(
             '{-php-errado'
         );
+    }
+    private function factory(): PhpEventSerializer
+    {
+        return new PhpEventSerializer();
     }
 }

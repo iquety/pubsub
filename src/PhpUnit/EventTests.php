@@ -8,12 +8,12 @@ use Iquety\PubSub\Event\Event;
 
 trait EventTests
 {
-    public static function assertIsValidEvent(Event $event, $message = '')
+    public static function assertIsValidEvent(Event $event, $message = ''): void
     {
         self::assertThat($event, self::isValidEvent(), $message);
     }
 
-    public static function assertIsNotValidEvent(Event $event, $message = '')
+    public static function assertIsNotValidEvent(Event $event, $message = ''): void
     {
         self::assertThat($event, self::logicalNot(self::isValidEvent()), $message);
     }

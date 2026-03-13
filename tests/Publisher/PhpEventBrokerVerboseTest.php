@@ -28,11 +28,11 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
 
         // SubscriberOne e SubscriberTwo podem receber EventOne
         $this->assertStringHasMessages([
-            "The publish/subscriber server has been started",
+            'The publish/subscriber server has been started',
             "Message labeled as 'event-one' received on channel 'channel-one'",
-            "Message dispatched to SubscriberOne",
-            "Message dispatched to SubscriberTwo",
-            "The publish/subscriber server has been stopped"
+            'Message dispatched to SubscriberOne',
+            'Message dispatched to SubscriberTwo',
+            'The publish/subscriber server has been stopped'
         ], $output);
     }
 
@@ -52,14 +52,14 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
 
         // Somente SubscriberTwo pode receber EventTwo
         $this->assertStringHasMessages([
-            "The publish/subscriber server has been started",
+            'The publish/subscriber server has been started',
             "Message labeled as 'event-two' received on channel 'channel-one'",
-            "Message dispatched to SubscriberTwo",
-            "The publish/subscriber server has been stopped"
+            'Message dispatched to SubscriberTwo',
+            'The publish/subscriber server has been stopped'
         ], $output);
 
         $this->assertStringNotHasMessages([
-            "Message dispatched to SubscriberOne",
+            'Message dispatched to SubscriberOne',
         ], $output);
     }
 
@@ -91,10 +91,10 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
         $output = $this->gotcha(fn() => $publisher->consumerLoop());
 
         $this->assertStringHasMessages([
-            "The publish/subscriber server has been started",
+            'The publish/subscriber server has been started',
             "Message labeled as 'signal.stop' received on channel 'channel-one'",
-            "Message to stop the server received",
-            "The publish/subscriber server has been stopped",
+            'Message to stop the server received',
+            'The publish/subscriber server has been stopped',
         ], $output);
     }
 
@@ -112,10 +112,10 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
         $output = $this->gotcha(fn() => $publisher->consumerLoop());
 
         $this->assertStringHasMessages([
-            "The publish/subscriber server has been started",
+            'The publish/subscriber server has been started',
             "Message labeled as 'event-two' received on channel 'channel-one'",
             "There are no subscribers on channel 'channel-one'",
-            "The publish/subscriber server has been stopped",
+            'The publish/subscriber server has been stopped',
         ], $output);
     }
 
@@ -133,10 +133,10 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
         $output = $this->gotcha(fn() => $publisher->consumerLoop());
 
         $this->assertStringHasMessages([
-            "The publish/subscriber server has been started",
+            'The publish/subscriber server has been started',
             "Message labeled as 'event-two' received on channel 'channel-two'",
-            "There are no subscribers who accept this type of event",
-            "The publish/subscriber server has been stopped",
+            'There are no subscribers who accept this type of event',
+            'The publish/subscriber server has been stopped',
         ], $output);
     }
 
@@ -152,9 +152,9 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
         $output = $this->gotcha(fn() => $publisher->consumerLoop());
 
         $this->assertStringHasMessages([
-            "The publish/subscriber server has been started",
-            "The stream received is corrupt",
-            "The publish/subscriber server has been stopped",
+            'The publish/subscriber server has been started',
+            'The stream received is corrupt',
+            'The publish/subscriber server has been stopped',
         ], $output);
     }
 
@@ -172,9 +172,9 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
         $output = $this->gotcha(fn() => $publisher->consumerLoop());
 
         $this->assertStringHasMessages([
-            "The publish/subscriber server has been started",
-            "Exception in subscriber handle",
-            "The publish/subscriber server has been stopped",
+            'The publish/subscriber server has been started',
+            'Exception in subscriber handle',
+            'The publish/subscriber server has been stopped',
         ], $output);
     }
 
@@ -192,9 +192,9 @@ class PhpEventBrokerVerboseTest extends PhpPublisherTestCase
         $output = $this->gotcha(fn() => $publisher->consumerLoop());
 
         $this->assertStringHasMessages([
-            "The publish/subscriber server has been started",
-            "Error triggered in subscriber handle",
-            "The publish/subscriber server has been stopped",
+            'The publish/subscriber server has been started',
+            'Error triggered in subscriber handle',
+            'The publish/subscriber server has been stopped',
         ], $output);
     }
 }

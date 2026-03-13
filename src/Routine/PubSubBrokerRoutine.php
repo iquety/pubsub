@@ -23,9 +23,9 @@ class PubSubBrokerRoutine extends Routine
 
     protected function initialize(): void
     {
-        $this->setName("pubsub:broker");
-        $this->setDescription("Start the pubsub message broker");
-        $this->setHowToUse("./broker pubsub:broker [options]");
+        $this->setName('pubsub:broker');
+        $this->setDescription('Start the pubsub message broker');
+        $this->setHowToUse('./broker pubsub:broker [options]');
 
         $this->addOption(
             new Option(
@@ -81,7 +81,7 @@ class PubSubBrokerRoutine extends Routine
     {
         $publisher = new PhpEventPublisher(
             $arguments->getOption('-d'),
-            (int)$arguments->getOption('-p')
+            (int) $arguments->getOption('-p')
         );
 
         $serializerMessage = 'Using JsonEventSerializer serializer';

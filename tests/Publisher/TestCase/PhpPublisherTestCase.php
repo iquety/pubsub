@@ -9,7 +9,7 @@ use Iquety\PubSub\Subscriber\EventSubscriber;
 
 class PhpPublisherTestCase extends PublisherTestCase
 {
-    /** @param array<int,array<int,string|EventSubscriber>> $subcriberList */
+    /** @param array<int,array<int,EventSubscriber|string>> $subcriberList */
     protected function phpPublisherFactory(array $subcriberList): PhpEventPublisher
     {
         $instance = new PhpEventPublisher('localhost', 8080);

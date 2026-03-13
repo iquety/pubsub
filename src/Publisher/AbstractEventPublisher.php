@@ -49,12 +49,6 @@ abstract class AbstractEventPublisher implements EventPublisher
         return $this->verboseMode;
     }
 
-    protected function getShortClassName(string $classSignature): string
-    {
-        $typeNodes = explode("\\", $classSignature);
-        return array_pop($typeNodes);
-    }
-
     public function reset(): self
     {
         $this->errorCode = 0;
@@ -72,14 +66,9 @@ abstract class AbstractEventPublisher implements EventPublisher
         return $this;
     }
 
-    protected function getDefaultSerializer(): EventSerializer
-    {
-        return new JsonEventSerializer();
-    }
-
     public function getNowTimeString(): string
     {
-        return "[" . date('Y-m-d H:i:s.u') . "]: ";
+        return '[' . date('Y-m-d H:i:s.u') . ']: ';
     }
 
     public function getSerializer(): EventSerializer
@@ -108,6 +97,17 @@ abstract class AbstractEventPublisher implements EventPublisher
         return $this->errorMessage !== '';
     }
 
+    protected function getShortClassName(string $classSignature): string
+    {
+        $typeNodes = explode('\\', $classSignature);
+        return array_pop($typeNodes);
+    }
+
+    protected function getDefaultSerializer(): EventSerializer
+    {
+        return new JsonEventSerializer();
+    }
+
     protected function setupErrorHandler(): void
     {
         if ($this->errorHandlerInit === true) {
@@ -117,7 +117,7 @@ abstract class AbstractEventPublisher implements EventPublisher
         restore_error_handler();
 
         set_error_handler(function ($errorCode, $errorMessage) {
-            $this->errorCode = (int)$errorCode;
+            $this->errorCode = (int) $errorCode;
             $this->errorMessage = $errorMessage;
             return true;
         });

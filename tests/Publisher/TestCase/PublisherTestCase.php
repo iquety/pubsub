@@ -4,26 +4,21 @@ declare(strict_types=1);
 
 namespace Tests\Publisher\TestCase;
 
-use DateTimeImmutable;
-use Iquety\PubSub\Publisher\SimpleEventPublisher;
-use Tests\Example\Events\EventOne;
-use Tests\Example\Events\EventTwo;
 use Tests\TestCase;
 
 class PublisherTestCase extends TestCase
 {
-    public function setUp(): void
-    {
-        $this->clearLastHandleFile('subscriber-one-handle.txt');
-        $this->clearLastHandleFile('subscriber-two-handle.txt');
-        $this->clearLastHandleFile('subscriber-three-handle.txt');
-    }
-
     public static function tearDownAfterClass(): void
     {
         self::clearFile('subscriber-one-handle.txt');
         self::clearFile('subscriber-two-handle.txt');
         self::clearFile('subscriber-three-handle.txt');
+    }
+    public function setUp(): void
+    {
+        $this->clearLastHandleFile('subscriber-one-handle.txt');
+        $this->clearLastHandleFile('subscriber-two-handle.txt');
+        $this->clearLastHandleFile('subscriber-three-handle.txt');
     }
 
     /** @return array<string,mixed> */

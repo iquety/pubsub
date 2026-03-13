@@ -34,8 +34,8 @@ class SimpleEventVerboseTest extends SimplePublisherTestCase
         // Mensagens do observador
         $this->assertStringHasMessages([
             "Message labeled as 'event-one' received on channel 'channel-one'",
-            "Message dispatched to SubscriberOne",
-            "Message dispatched to SubscriberTwo",
+            'Message dispatched to SubscriberOne',
+            'Message dispatched to SubscriberTwo',
         ], $output);
     }
 
@@ -59,11 +59,11 @@ class SimpleEventVerboseTest extends SimplePublisherTestCase
         // Mensagens do observador
         $this->assertStringHasMessages([
             "Message labeled as 'event-two' received on channel 'channel-one'",
-            "Message dispatched to SubscriberTwo",
+            'Message dispatched to SubscriberTwo',
         ], $output);
 
         $this->assertStringNotHasMessages([
-            "Message dispatched to SubscriberOne",
+            'Message dispatched to SubscriberOne',
         ], $output);
     }
 
@@ -84,7 +84,7 @@ class SimpleEventVerboseTest extends SimplePublisherTestCase
         );
 
         $this->assertStringHasMessages([
-            "Signal type messages have no effect on publisher SimpleEventPublisher"
+            'Signal type messages have no effect on publisher SimpleEventPublisher'
         ], $output);
     }
 
@@ -105,7 +105,7 @@ class SimpleEventVerboseTest extends SimplePublisherTestCase
         );
 
         $this->assertStringHasMessages([
-            "Signal type messages have no effect on publisher SimpleEventPublisher"
+            'Signal type messages have no effect on publisher SimpleEventPublisher'
         ], $output);
 
         // executa novamente para passar pelo setupErrorHandler duas vezes
@@ -114,7 +114,7 @@ class SimpleEventVerboseTest extends SimplePublisherTestCase
         );
 
         $this->assertStringHasMessages([
-            "Signal type messages have no effect on publisher SimpleEventPublisher"
+            'Signal type messages have no effect on publisher SimpleEventPublisher'
         ], $output);
     }
 
@@ -148,7 +148,7 @@ class SimpleEventVerboseTest extends SimplePublisherTestCase
 
         $this->assertStringHasMessages([
             "Message labeled as 'event-two' received on channel 'channel-two'",
-            "There are no subscribers who accept this type of event"
+            'There are no subscribers who accept this type of event'
         ], $output);
     }
 
@@ -164,7 +164,7 @@ class SimpleEventVerboseTest extends SimplePublisherTestCase
         );
 
         $this->assertStringHasMessages([
-            "Exception in subscriber handle",
+            'Exception in subscriber handle',
         ], $output);
     }
 
@@ -180,7 +180,7 @@ class SimpleEventVerboseTest extends SimplePublisherTestCase
         );
 
         $this->assertStringHasMessages([
-            "Error triggered in subscriber handle"
+            'Error triggered in subscriber handle'
         ], $output);
     }
 }

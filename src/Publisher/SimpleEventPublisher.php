@@ -108,21 +108,6 @@ class SimpleEventPublisher extends AbstractEventPublisher
         return $this;
     }
 
-    protected function isSingleChannelSubscribe(string $subscriberSignature): bool
-    {
-        $incidences = 0;
-
-        foreach ($this->subscribersByChannel as $subscriberList) {
-            if (isset($subscriberList[$subscriberSignature]) === false) {
-                continue;
-            }
-
-            $incidences++;
-        }
-
-        return $incidences === 1;
-    }
-
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // PUBLICAÇÃO
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -144,8 +129,8 @@ class SimpleEventPublisher extends AbstractEventPublisher
 
         if ($event instanceof Signal) {
             $this->messageFactory(
-                $this->getNowTimeString() .
-                "Signal type messages have no effect on publisher SimpleEventPublisher"
+                $this->getNowTimeString()
+                . 'Signal type messages have no effect on publisher SimpleEventPublisher'
             )->infoLn();
 
             return $this;
@@ -160,6 +145,21 @@ class SimpleEventPublisher extends AbstractEventPublisher
         }
 
         return $this;
+    }
+
+    protected function isSingleChannelSubscribe(string $subscriberSignature): bool
+    {
+        $incidences = 0;
+
+        foreach ($this->subscribersByChannel as $subscriberList) {
+            if (isset($subscriberList[$subscriberSignature]) === false) {
+                continue;
+            }
+
+            $incidences++;
+        }
+
+        return $incidences === 1;
     }
 
     private function publishToSubscribers(string $channel, Event $event): void
@@ -193,7 +193,7 @@ class SimpleEventPublisher extends AbstractEventPublisher
         }
 
         if ($dispatched === false) {
-            $this->messageFactory("There are no subscribers who accept this type of event")->outputLn();
+            $this->messageFactory('There are no subscribers who accept this type of event')->outputLn();
         }
     }
 
@@ -201,7 +201,7 @@ class SimpleEventPublisher extends AbstractEventPublisher
     {
         // var_dump($event->ocurredOn()); exit;
         $this->messageFactory(
-            "Message dispatched to " . $this->getShortClassName($subscriber::class)
+            'Message dispatched to ' . $this->getShortClassName($subscriber::class)
         )->outputLn();
 
         $subscriber->handleEvent($event);

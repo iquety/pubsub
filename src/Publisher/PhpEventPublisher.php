@@ -17,7 +17,7 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
     use PublisherEngineTrait;
     use SubscriberEngineTrait;
 
-    /** @var resource|false|null */
+    /** @var null|false|resource */
     private $customSocket = null;
 
     private string $host = 'localhost';
@@ -32,17 +32,6 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
         parent::setupErrorHandler();
     }
 
-    protected function getAddressString(): string
-    {
-        return 'tcp://' . $this->host . ':' . $this->port;
-    }
-
-    /** @return resource|false|null */
-    protected function getCustomSocket()
-    {
-        return $this->customSocket;
-    }
-
     public function getHost(): string
     {
         return $this->host;
@@ -53,7 +42,7 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
         return $this->port;
     }
 
-    /** @param resource|false|null $socket */
+    /** @param null|false|resource $socket */
     public function useTestSocket($socket): self
     {
         $this->customSocket = $socket;
@@ -61,5 +50,16 @@ class PhpEventPublisher extends SimpleEventPublisher implements EventPublisherLo
         $this->enableTestMode();
 
         return $this;
+    }
+
+    protected function getAddressString(): string
+    {
+        return 'tcp://' . $this->host . ':' . $this->port;
+    }
+
+    /** @return null|false|resource */
+    protected function getCustomSocket()
+    {
+        return $this->customSocket;
     }
 }

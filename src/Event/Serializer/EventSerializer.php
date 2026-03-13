@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Iquety\PubSub\Event\Serializer;
 
-use Iquety\PubSub\Event\Event;
-
 interface EventSerializer
 {
     /** @param array<string,mixed> $eventData */

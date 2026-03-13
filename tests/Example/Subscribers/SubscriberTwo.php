@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Example\Subscribers;
 
-use DateTimeZone;
 use Iquety\PubSub\Event\Event;
 use Iquety\PubSub\Subscriber\EventSubscriber;
 use Iquety\Security\Filesystem;
@@ -34,9 +33,9 @@ class SubscriberTwo implements EventSubscriber
 
         $file->setFileContents(
             'subscriber-two-handle.txt',
-            __CLASS__ . PHP_EOL .
-            'recebeu: ' . $event::class . PHP_EOL .
-            'em: ' . $event->occurredOn()->format('Y-m-d H:i:s')
+            __CLASS__ . PHP_EOL
+            . 'recebeu: ' . $event::class . PHP_EOL
+            . 'em: ' . $event->occurredOn()->format('Y-m-d H:i:s')
         );
     }
 }

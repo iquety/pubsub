@@ -48,7 +48,7 @@ class IsValidEventConstraintTest extends TestCase
         ));
     }
 
-     /** @test */
+    /** @test */
     public function anyOrderInProperties(): void
     {
         $this->assertFalse($this->constraint->matches(

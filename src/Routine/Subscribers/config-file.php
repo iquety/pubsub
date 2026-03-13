@@ -6,7 +6,7 @@ use Iquety\PubSub\EventLoop;
 use Iquety\PubSub\Routine\Subscribers\SubscriberOne;
 use Iquety\PubSub\Routine\Subscribers\SubscriberTwo;
 
-return function (EventLoop $loop) {
+return function (EventLoop $loop): void {
 
     $loop->addSubscriber('channel-vormir', SubscriberOne::class); // recebe EventOne
     $loop->addSubscriber('channel-vormir', SubscriberTwo::class); // recebe EventOne e EventTwo

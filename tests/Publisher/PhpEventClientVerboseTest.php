@@ -9,18 +9,17 @@ use Tests\Publisher\TestCase\PhpPublisherTestCase;
 
 class PhpEventClientVerboseTest extends PhpPublisherTestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->clearLastEventFile('fake-connection.txt');
-    }
-
     public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
 
         self::clearFile('fake-connection.txt');
+    }
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->clearLastEventFile('fake-connection.txt');
     }
 
     /** @test */

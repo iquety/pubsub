@@ -11,17 +11,6 @@ use Iquety\PubSub\Routine\PubSubClientRoutine;
 
 class PubSubClientTest extends ConsoleTestCase
 {
-    private function factory(): Routine
-    {
-        $terminal = new Terminal(__DIR__);
-
-        $routine =  new PubSubClientRoutine($terminal);
-
-        $routine->enabletestMode();
-
-        return $routine;
-    }
-
     /** @test */
     public function commandInfo(): void
     {
@@ -78,9 +67,19 @@ class PubSubClientTest extends ConsoleTestCase
     /** @test */
     public function enableVerboseMode(): void
     {
-        $this->expectOutputRegex("/Verbose mode enabled/");
+        $this->expectOutputRegex('/Verbose mode enabled/');
 
         $routine = $this->factory();
         $routine->run(['-v']);
+    }
+    private function factory(): Routine
+    {
+        $terminal = new Terminal(__DIR__);
+
+        $routine =  new PubSubClientRoutine($terminal);
+
+        $routine->enabletestMode();
+
+        return $routine;
     }
 }

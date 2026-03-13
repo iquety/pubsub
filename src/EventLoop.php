@@ -8,9 +8,7 @@ use Iquety\PubSub\Publisher\EventPublisherLoop;
 
 class EventLoop
 {
-    public function __construct(private EventPublisherLoop $publisher)
-    {
-    }
+    public function __construct(private EventPublisherLoop $publisher) {}
 
     public static function routinePath(): string
     {

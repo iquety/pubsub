@@ -34,7 +34,7 @@ class EventCheckTest extends TestCase
         $this->assertIsNotValidEvent(new EventNoConstructor());
     }
 
-     /** @test */
+    /** @test */
     public function eventMutable(): void
     {
         $event = new EventMutable(
