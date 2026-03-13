@@ -27,7 +27,7 @@ At the root of this repository, there is a terminal command to exemplify the pro
 
 ```bash
 # running in local PHP
-./example pubsub:broker -c 'tests/Example/config-file.php' -v
+./broker pubsub:broker -c 'tests/Example/config-file.php' -v
 
 ou
 
@@ -53,7 +53,7 @@ With the server running, just open another terminal and use the command below to
 
 ```bash
 # running in local PHP
-./example pubsub:client-test -d localhost -p 7703 -v
+./broker pubsub:client-test -d localhost -p 7703 -v
 
 ou
 

@@ -1,6 +1,6 @@
 # Implementando no "Intermediador de Mensagens" (Message Broker)
 
-[◂ Implementando no "Ponto de início" da aplicação (Bootstrap)](02-implementando-no-bootstrap.md) | [Sumário da Documentação](indice.md) | [Usando o script "example" ▸](04-usando-script-example.md)
+[◂ Implementando no "Ponto de início" da aplicação (Bootstrap)](02-implementando-no-bootstrap.md) | [Sumário da Documentação](indice.md) | [Usando o script "bloker" ▸](04-usando-script-example.md)
 -- | -- | --
 
 ## 1. Introdução
@@ -67,5 +67,5 @@ duas quebras de linha | "\n" + "\n"
 conteúdo json serializado | **Importante**: o "Intermediador de Mensagens" deve estar configurado para usar serializações do tipo Json (o padrão da biblioteca). Mais informações em [Usando o script example](04-usando-script-example.md)
 uma quebra de linha | "\n"
 
-[◂ Implementando no "Ponto de início" da aplicação (Bootstrap)](02-implementando-no-bootstrap.md) | [Sumário da Documentação](indice.md) | [Usando o script "example" ▸](04-usando-script-example.md)
+[◂ Implementando no "Ponto de início" da aplicação (Bootstrap)](02-implementando-no-bootstrap.md) | [Sumário da Documentação](indice.md) | [Usando o script "bloker" ▸](04-usando-script-example.md)
 -- | -- | --

@@ -1,16 +1,16 @@
-# Usando o script "example"
+# Usando o script "bloker"
 
 [◂ Implementando no "Intermediador de Mensagens" (Message Broker)](03-implementando-no-broker.md) | [Sumário da Documentação](indice.md) | [Criando um script personalizado ▸](05-criando-script-personalizado.md)
 -- | -- | --
 
 ## 1. O script "example"
 
-Este repositório vem acompanhado com dois comandos de terminal, implementados com a biblioteca [Iquety\Console](https://github.com/iquety/console). Os comandos podem ser encontrados no diretório 'src/Command' e são invicados pelo script "example" localizado na raiz do repositório.
+Este repositório vem acompanhado com dois comandos de terminal, implementados com a biblioteca [Iquety\Console](https://github.com/iquety/console). Os comandos podem ser encontrados no diretório 'src/Command' e são invicados pelo script "broker" localizado na raiz do repositório.
 
 Execute o script com a opção '--help' para aprender como usar:
 
 ```bash
-./example --help
+./broker --help
 ```
 
 Algo como o texto abaixo será exibido:
@@ -32,7 +32,7 @@ Em ["Implementando no 'Intermediador de Mensagens' (Message Broker)"](03-impleme
 Para subir o "Intermediador de Mensagens", abra um terminal e use o seguinte comando:
 
 ```bash
-./example pubsub:broker -d localhost -p 8080 -c 'tests/Example/config-file.php' -s json -v
+./broker pubsub:broker -d localhost -p 8080 -c 'tests/Example/config-file.php' -s json -v
 ```
 
 Isso irá executar o servidor de eventos em "localhost" na porta "8080". A saída deverá se parecer como a seguir:
@@ -44,7 +44,7 @@ Isso irá executar o servidor de eventos em "localhost" na porta "8080". A saíd
 Para mais informações de ajuda, use a opção '--help' com o nome do comando:
 
 ```bash
-./example pubsub:broker --help
+./broker pubsub:broker --help
 ```
 
 A seguir, uma explicação breve sobre as opções usadas no comando:
@@ -107,7 +107,7 @@ No mesmo script usado para executar o "Intermediador de Mensagens", existe um co
 Com o "Intermediador de Mensagens" em execução, basta abrir outro terminal e usar o comando abaixo para enviar alguns eventos de teste.
 
 ```bash
-./example pubsub:client-test -d localhost -p 8080 -v
+./broker pubsub:client-test -d localhost -p 8080 -v
 ```
 
 Os eventos de teste são enviados para três canais de comunicação diferentes: 'channel-vormir', 'channel-mordor' e 'channel-greenville'. Dois destes canais possuem "assinantes" (Subscribers) configurados propositalmente a partir do arquivo `tests/Example/config-file.php`.
@@ -115,7 +115,7 @@ Os eventos de teste são enviados para três canais de comunicação diferentes:
 Para mais informações de ajuda, use a opção '--help' com o nome do comando:
 
 ```bash
-./example pubsub:client-test --help
+./broker pubsub:client-test --help
 ```
 
 A seguir, uma explicação breve sobre as opções usadas no comando:

@@ -1,6 +1,6 @@
 # Implementing in "Message Broker"
 
-[◂ Implementing in the application's "Start point" (Bootstrap)](02-implementing-in-bootstrap.md) | [Documentation Summary](index.md) | [Using the example script ▸](04-using-script-example.md)
+[◂ Implementing in the application's "Start point" (Bootstrap)](02-implementing-in-bootstrap.md) | [Documentation Summary](index.md) | [Using the broker script ▸](04-using-script-example.md)
 -- | -- | --
 
 ## 1. Introduction
@@ -67,5 +67,5 @@ two line breaks | "\n" + "\n"
 serialized json content | **Important**: the "Message Broker" must be configured to use Json type serializations (the library's default). More info in [Using the example script](04-using-script-example.md)
 a line break | "\n"
 
-[◂ Implementing in the application's "Start point" (Bootstrap)](02-implementing-in-bootstrap.md) | [Documentation Summary](index.md) | [Using the example script ▸](04-using-script-example.md)
+[◂ Implementing in the application's "Start point" (Bootstrap)](02-implementing-in-bootstrap.md) | [Documentation Summary](index.md) | [Using the broker script ▸](04-using-script-example.md)
 -- | -- | --

@@ -12,7 +12,7 @@ Welcome to the Iquety Publish/Subscribe library documentation. Here you will fin
 - [The Publish/Subscribe pattern](01-pubsub-pattern.md)
 - [Implementing in the application's "Start point" (Bootstrap)](02-implementing-in-bootstrap.md)
 - [Implementing in "Message Broker"](03-implementing-in-broker.md)
-- [Using the example script](04-using-script-example.md)
+- [Using the broker script](04-using-script-example.md)
 - [Creating a custom script](05-creating-custom-script.md)
 - [Keeping "Message Broker" always running](06-keeping-running.md)
 - [Implementing a Subscriber](07-implementing-a-subscriber.md)

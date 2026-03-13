@@ -1,15 +1,15 @@
-# Using the example script
+# Using the broker script
 
 --page-nav--
 
 ## 1. The "example" script
 
-This repository comes with two terminal commands, implemented with the library [Iquety\Console](https://github.com/iquety/console). The commands can be found in the 'src/Command' directory and are invoked by the "example" script located at the root of the repository.
+This repository comes with two terminal commands, implemented with the library [Iquety\Console](https://github.com/iquety/console). The commands can be found in the 'src/Command' directory and are invoked by the "broker" script located at the root of the repository.
 
 Run the script with the '--help' option to learn how to use it:
 
 ```bash
-./example --help
+./broker --help
 ```
 
 Something like the text below will be displayed:
@@ -31,7 +31,7 @@ In ["Implementing in 'Message Broker'"](03-implementing-in-broker.md) it was exp
 To bring up the "Message Broker", open a terminal and use the following command:
 
 ```bash
-./example pubsub:broker -d localhost -p 8080 -c 'tests/Example/config-file.php' -s json -v
+./broker pubsub:broker -d localhost -p 8080 -c 'tests/Example/config-file.php' -s json -v
 ```
 
 This will run the event server on "localhost" on port "8080". The output should look like the following:
@@ -43,7 +43,7 @@ This will run the event server on "localhost" on port "8080". The output should 
 For more help information, use the '--help' option with the command name:
 
 ```bash
-./example pubsub:broker --help
+./broker pubsub:broker --help
 ```
 
 The following is a brief explanation of the options used in the command:
@@ -106,7 +106,7 @@ In the same script used to run the "Message Broker", there is a special command 
 With the "Message Broker" running, just open another terminal and use the command below to send some test events.
 
 ```bash
-./example pubsub:client-test -d localhost -p 8080 -v
+./broker pubsub:client-test -d localhost -p 8080 -v
 ```
 
 Test events are sent to three different communication channels: 'channel-vormir', 'channel-mordor' and 'channel-greenville'. Two of these channels have "subscribers" purposely configured from the `tests/Example/config-file.php` file.
@@ -114,7 +114,7 @@ Test events are sent to three different communication channels: 'channel-vormir'
 For more help information, use the '--help' option with the command name:
 
 ```bash
-./example pubsub:client-test --help
+./broker pubsub:client-test --help
 ```
 
 The following is a brief explanation of the options used in the command:

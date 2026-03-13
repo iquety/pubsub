@@ -12,7 +12,7 @@ Bem vindo(a) à documentação da biblioteca Iquety Publish/Subscribe. Aqui voc�
 - [O padrão Publish/Subscribe](01-padrao-pubsub.md)
 - [Implementando no "Ponto de início" da aplicação (Bootstrap)](02-implementando-no-bootstrap.md)
 - [Implementando no "Intermediador de Mensagens" (Message Broker)](03-implementando-no-broker.md)
-- [Usando o script "example"](04-usando-script-example.md)
+- [Usando o script "bloker"](04-usando-script-example.md)
 - [Criando um script personalizado](05-criando-script-personalizado.md)
 - [Mantendo o "Intermediador de Mensagens" sempre em execução](06-mantendo-a-execucao.md)
 - [Implementando um Subscriber](07-implementando-um-subscriber.md)

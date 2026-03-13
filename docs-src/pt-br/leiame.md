@@ -27,7 +27,7 @@ Na raiz deste projeto, existe um comando de terminal para exemplificar o process
 
 ```bash
 # executando no PHP local
-./example pubsub:broker -c 'tests/Example/config-file.php' -v
+./broker pubsub:broker -c 'tests/Example/config-file.php' -v
 
 ou
 
@@ -53,7 +53,7 @@ Com o servidor em execução, basta abrir outro terminal e usar o comando abaixo
 
 ```bash
 # executando no PHP local
-./example pubsub:client-test -d localhost -p 7703 -v
+./broker pubsub:client-test -d localhost -p 7703 -v
 
 ou
 

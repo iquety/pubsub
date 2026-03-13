@@ -1,6 +1,6 @@
 # Criando um script personalizado
 
-[◂ Usando o script "example"](04-usando-script-example.md) | [Sumário da Documentação](indice.md) | [Mantendo o "Intermediador de Mensagens" sempre em execução ▸](06-mantendo-a-execucao.md)
+[◂ Usando o script "bloker"](04-usando-script-example.md) | [Sumário da Documentação](indice.md) | [Mantendo o "Intermediador de Mensagens" sempre em execução ▸](06-mantendo-a-execucao.md)
 -- | -- | --
 
 Como já foi dito anteriormente, a biblioteca vem acompanhada de [dois comandos de terminal](04-usando-script-example.md) que são usados no script chamado "example", localizado na raiz do repositório.
@@ -64,5 +64,5 @@ Perceba que o script acima inicia com `#!/bin/php`. Essa notação diz para o te
 
 > **Nota**: em sistemas unix ou derivados, para poder invocar diretamente um script (ex: ./meuapp), é preciso que ele tenha permissão para executar. Isso é conseguido pelo comando `chmod a+x meuapp`.
 
-[◂ Usando o script "example"](04-usando-script-example.md) | [Sumário da Documentação](indice.md) | [Mantendo o "Intermediador de Mensagens" sempre em execução ▸](06-mantendo-a-execucao.md)
+[◂ Usando o script "bloker"](04-usando-script-example.md) | [Sumário da Documentação](indice.md) | [Mantendo o "Intermediador de Mensagens" sempre em execução ▸](06-mantendo-a-execucao.md)
 -- | -- | --

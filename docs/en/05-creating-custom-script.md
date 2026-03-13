@@ -1,6 +1,6 @@
 # Creating a custom script
 
-[◂ Using the example script](04-using-script-example.md) | [Documentation Summary](index.md) | [Keeping "Message Broker" always running ▸](06-keeping-running.md)
+[◂ Using the broker script](04-using-script-example.md) | [Documentation Summary](index.md) | [Keeping "Message Broker" always running ▸](06-keeping-running.md)
 -- | -- | --
 
 As mentioned before, the library comes with [two terminal commands](04-using-script-example.md) that are used in the script called "example", located in the repository root.
@@ -64,5 +64,5 @@ Note that the above script starts with `#!/bin/php`. This notation tells the ope
 
 > **Note**: on unix or derivative systems, to be able to directly invoke a script (eg ./myapp), it must have the permission to execute. This is achieved by the command `chmod a+x myapp`.
 
-[◂ Using the example script](04-using-script-example.md) | [Documentation Summary](index.md) | [Keeping "Message Broker" always running ▸](06-keeping-running.md)
+[◂ Using the broker script](04-using-script-example.md) | [Documentation Summary](index.md) | [Keeping "Message Broker" always running ▸](06-keeping-running.md)
 -- | -- | --
