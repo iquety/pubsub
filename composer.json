@@ -8,6 +8,7 @@
         "php": "^8.4",
         "iquety/console": "@stable"
     },
+    "minimum-stability": "stable",
     "require-dev": {
         "codacy/coverage": "dev-master",
         "iquety/docmap": "*",
@@ -31,7 +32,6 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts" : {
         "test": [
