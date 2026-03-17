@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
-        "iquety/console": "*"
+        "iquety/console": "@stable"
     },
     "require-dev": {
         "codacy/coverage": "dev-master",
